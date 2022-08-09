@@ -1,0 +1,597 @@
+/* CSS: Plugin Overide Styles
+
+@package	Yardstick
+@author		Digital Rockpool
+@link		https://yardstick.co.uk
+@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@license	GPL-2.0+ */
+
+
+/* # Table of Contents
+- Gravity Forms
+- MemberPress
+- Delete Me
+
+
+
+
+/* # Gravity Forms
+---------------------------------------------------------------------------------------------------- */
+
+.gform_wrapper {
+    margin: 0!important;
+}
+
+/* .gform_wrapper .gform_footer {
+	padding: 0!important;
+	margin: 0!important;
+} */
+
+.gform_wrapper .gform_heading h3.gform_title {
+	font-size: 36px;
+	font-size: 2.25rem;
+	font-weight: 300;
+}
+
+.gform_wrapper .gform_heading span.gform_description {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.gform_wrapper .top_label .gfield_label {
+	margin-bottom: 0!important;
+}
+
+.gform_wrapper .left_label .gfield_label {
+	width: 49%!important;
+}
+
+.gform_wrapper select {
+	height: 30px;
+}
+
+.gform_wrapper input,
+.gform_wrapper input:focus,
+.gform_wrapper textarea,
+.gform_wrapper textarea:focus,
+.gform_wrapper select {
+	border: 1px solid #ced4da!important;
+	/* height: calc(2.25rem + 2px); */
+}
+
+.gform_wrapper .left_label .report_filter .gfield_label,
+.one-third .gform_wrapper .left_label .gfield_label {
+	width: 33%!important;
+}
+
+.gform_wrapper .gfield_list td.gfield_list_cell select {
+	width: 100%;
+}
+
+.gform_wrapper .left_label .gfield_description {
+	margin-left: 51%!important; 
+}
+
+.gform_wrapper .report_filter label.gfield_label,
+.gform_wrapper label.gfield_label {
+	font-weight: 400!important;
+	padding-top: 5px;
+}
+
+.gform_wrapper table.gfield_list thead th {
+	font-weight: 400!important;
+}
+
+.gform_wrapper .gsection_description {
+	font-size: 14px!important;
+}
+
+.gform_wrapper ul.gform_fields li {
+	padding-left: 0;
+}
+
+.gfield_description a,
+.gfield_description a:hover,
+.gfield_description a:focus {
+	color: #ff5421!important;
+	outline:none;
+	text-decoration: none;
+}
+
+.gfield_description, .date_fix .ginput_container_date label {
+	font-size: 12px!important;
+	font-weight: 400;
+	letter-spacing: 0.5pt!important;
+	margin: 1px 0 0 0!important;
+	padding: 0!important;
+}
+
+#gform_wrapper_141 .gfield_description {
+	font-size: 14px!important;
+	font-weight: 400;
+}
+
+.gform_wrapper .gfield_date_day, .gform_wrapper .gfield_date_month, .gform_wrapper .gfield_date_year {
+	margin-top: 0px!important;
+}
+
+.ginput_complex.ginput_container label {
+	font-size: 12px!important;
+}
+
+.left_label select.medium,
+.gform_wrapper .left_label input.medium {
+	width: 46%!important;
+}
+
+.left_label select.medium,
+.gform_wrapper .left_label .report_filter input.medium {
+	width: 66%!important;
+}
+
+/* .gform_wrapper .top_label li.gfield.gf_right_half,
+.gform_wrapper .top_label li.gfield.gf_right_third,
+.gform_wrapper .top_label li.gfield.gf_middle_third {
+	vertical-align: bottom!important;
+}
+
+.gform_wrapper .top_label li.gfield.align_top {
+	vertical-align: top!important;
+} */
+
+.gf_two_thirds {
+	width: 66%;
+	display: inline-block;
+}
+
+.gf_two_thirds select {
+	width: 100%!important;
+}
+
+.gform_wrapper .date_fix .gfield_date_day input[type=number], .gform_wrapper .date_fix .gfield_date_month input[type=number], .gform_wrapper .date_fix .gfield_date_year input[type=number], .gform_wrapper .date_fix .gfield_time_hour input[type=number], .gform_wrapper .date_fix .gfield_time_minute input[type=number] {
+	width: 130%!important;
+}
+
+#field_141_51 {
+	margin-top: 0; /* removes magin on coupon field */
+}
+
+/*.header-form_wrapper .top_label select.medium {
+	width: 30%!important;
+	float: left;
+	position: relative;
+	z-index: 99;
+}
+
+.header-form_wrapper ul li.gfield, .header-form_wrapper .top_label div.ginput_container {
+	margin-top: 0!important;
+} */
+
+.h3_label .gfield_label, .gform_wrapper .gf_step {
+	font-size: 16px!important;
+}
+
+li.no-label .gfield_label {
+	display: none!important;
+}
+
+.button.gform_previous_button {
+	background-color: #888787;
+}
+
+.button:hover.gform_previous_button {
+	background-color: #595858;
+}
+
+.gfield_required {
+	color: #ce211b!important;
+}
+
+.gf_readonly input, .gf_readonly select, #input_5_51_2, #input_5_52_2, #input_5_52_1, #input_24_46_2, #input_24_46_1, #input_24_45_2, #input_17_81_2, #input_17_82_2, #input_17_82_1, #input_15_49_2, #input_15_49_1, #input_15_48_2, #input_8_92_2, #input_8_52_2, #input_8_52_1, #input_134_110, #input_134_111, #input_134_112, #input_134_113, #input_134_114 {
+	background-color: #e1e1e1;
+}
+
+.thirdinput input {
+	width: 31%!important;
+}
+
+.checkbox input {
+	height: auto;
+}
+
+.gform_wrapper.gf_browser_chrome .gfield_checkbox li input[type=checkbox], .gform_wrapper.gf_browser_chrome .gfield_radio li input[type=radio], body .gform_wrapper ul li.field_description_below div.ginput_container_radio {
+	margin-top: 0!important;
+	margin-right: 3px;
+}
+
+.gform_wrapper h2.gsection_title {
+	font-size: 16px!important;
+	font-weight: 500!important;
+}
+
+.gform_wrapper .gsection {
+	border-bottom: 1px solid #e1e1e1!important;
+}
+
+.gform_wrapper .top_label .gsection_description {
+	margin-bottom: 0!important;
+}
+
+.gf_list_inline .gf_right_half {
+	padding-bottom: 0!important;
+}
+
+.gform_wrapper .gfield_checkbox li label, .gform_wrapper .gfield_radio li label {
+	font-size: inherit!important;
+}
+
+.gform_wrapper ul.gfield_checkbox li input[type=checkbox]:checked+label, .gform_wrapper ul.gfield_radio li input[type=radio]:checked+label {
+	font-weight: 400!important;
+}
+
+.ginput_container ginput_container_text {
+	display:inline-table;
+	width:50%;
+}
+
+.gfield .ginput_container .gfgeo-locator-button-wrapper img {
+	margin: 5px!important;
+}
+
+form.inline-flex {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+form.inline-flex .gform_footer {
+	padding: 0 0 4px;
+	width: 100px;
+}
+
+.gform_wrapper form.subscription .gform_footer {
+	position: relative;
+	top: -16px;
+}
+
+/* ### Multi Select Box */
+
+body .ginput_container_list table.gfield_list tbody tr td.gfield_list_icons {
+    display: inline;
+}
+
+.gform_wrapper .chosen-container-multi .chosen-choices {
+    background-color: #fcfcfc!important;
+	background-image: none!important;
+	border: 1px solid #e1e1e1!important;
+    border-radius: 0.25rem!important;
+    color: #3a3a3a!important;
+	font-size: 14px!important;
+    font-size: 0.875rem!important;
+    font-weight: 300!important;
+    height: 45px!important;
+	letter-spacing: 1px!important;
+}
+
+.gform_wrapper .chosen-container .chosen-drop {
+	border: 1px solid #e1e1e1!important;
+    border-radius: 0.25rem!important;
+    color: #3a3a3a!important;
+	font-size: 14px!important;
+    font-size: 0.875rem!important;
+    font-weight: 300!important;
+	letter-spacing: 1px!important;
+}
+
+.gform_wrapper .chosen-container .chosen-results li {
+	margin: 6px!important;
+}
+
+.gform_wrapper .chosen-container-multi .chosen-choices li.search-choice {
+    background-color: #e9ecef!important;
+	background-image: none!important;
+	border: 1px solid #e9ecef!important;
+    border-radius: 0.25rem!important;
+	box-shadow: none!important;
+    color: #3a3a3a!important;
+	font-size: 14px!important;
+    font-size: 0.875rem!important;
+	padding: 8px 20px 8px 5px!important;
+}
+
+.gform_wrapper .chosen-container-single .chosen-single {
+	background: #fff!important;
+	border: 1px solid #ced4da!important;
+	border-radius: 0.25rem!important;
+	color: #3a3a3a!important;
+	font-size: 14px!important;
+	font-size: 0.875rem;
+	font-weight: 300!important;
+	height: calc(2.25rem + 2px)!important;
+	letter-spacing: 1px!important;
+	padding: .375rem .75rem!important;
+	text-transform: none;
+}
+
+.gform_wrapper .chosen-container-active .chosen-single {
+	box-shadow: none!important;
+}
+
+#gf_coupon_button {
+	float: none;
+}
+
+.gform_wrapper .ginput_container_singleproduct {
+	font-size: 22px;
+	font-weight: 700;
+	margin-top: 38px!important;
+}
+
+.gform_wrapper .gform_fileupload_multifile .gform_drop_area {
+	border: none!important;
+	background: rgba(0,0,0,0.2)!important;
+	color: #3a3a3a!important;
+}
+
+#label_119_27_1,
+#label_142_27_1 {
+	font-weight: 400!important;
+}
+
+@media only screen and (min-width: 641px) {
+	.gform_wrapper .gform_footer:not(.top_label) {
+		width:100%!important;
+	}
+}
+
+/* ### Password Strenth Indicator */
+
+.gfield_password_strength {
+	background-color: #eeeeee!important;
+	border: 1px solid #dddddd!important;
+	border-radius: 3px;
+	color: #3a3a3a;
+	font-size: 14px!important;
+	height: 30px;
+	padding: 1px!important;
+	width: 100%;
+}
+
+.gform_wrapper .gfield_password_strength.short,
+.gform_wrapper .gfield_password_strength.bad {
+	background-color: #ce211b!important; 
+	border: 1px solid #ce211b!important; 
+	color: #ffc2c0;
+	}
+
+.gform_wrapper .gfield_password_strength.good {
+	background-color: #ff9a21!important;
+	border: 1px solid #ff9a21!important;
+	color: #ffe4c4;
+}
+
+.gform_wrapper .gfield_password_strength.strong {
+	background-color: #00a74d!important;
+	border: 1px solid #00a74d!important;
+	color: #9eeac1;
+}
+
+/* ### Contact Support - Attachment Box */
+
+.gform_wrapper span.gform_drop_instructions {
+	display: inline-block!important;
+}
+
+.gform_wrapper.gf_browser_chrome input.button.gform_button_select_files {
+	display: inline-block;
+	float: none;
+	margin: 0 10px;
+}
+
+.gform_wrapper .gform_fileupload_multifile .gform_drop_area {
+	padding: 10px!important;
+}
+
+/* ### Upload Data */
+
+.upload-data input.medium {
+	width: 100%!important;
+}
+
+.upload-data .gform_footer {
+	margin: 0!important;
+	padding: 0!important;
+	position: relative;
+	top: -20px;
+}
+
+/* # MemberPress
+---------------------------------------------------------------------------------------------------- */
+
+table.mp-table {
+	background: #fff;
+}
+
+.mp_wrapper .mp-form-row label {
+	font-weight: 400;
+}
+
+/* ### Manage Subscription */
+
+/* #mepr-account-nav .mepr-home {
+	display: none;
+} */
+
+#mepr-account-nav #mepr-account-logout {
+	display: none;
+}
+
+#mepr-account-nav .mepr-nav-item a:active,
+#mepr-account-nav .mepr-nav-item a:focus,
+#mepr-account-nav .mepr-nav-item a:hover {
+	border-bottom: 3px solid #ce211b;
+}
+
+.mepr-payment-methods-wrapper h3 {
+	font-size: 18px;
+	font-size: 1.25rem;
+}
+
+.mepr-account-actions .mepr-account-update,
+.mepr-account-actions .mepr-account-upgrade {
+	border-right: 1px solid #ff5421;
+	padding: 0 8px;
+}
+
+.mepr-account-actions a,
+a.have-coupon-link,
+input.mepr-submit {
+	background-color: #ff5421;
+	border-color: #ff5421;
+	border-radius: 0.25rem;
+	-moz-border-radius: 0.25rem;
+	-ms-border-radius: 0.25rem;
+	-webkit-border-radius: 0.25rem;
+	color: #ffffff!important;
+	cursor: pointer;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: 400;
+	height: calc(2.25rem + 2px);
+	letter-spacing: 1px;
+	padding: 0.3125rem 1rem!important;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: auto;
+	word-spacing: 2px;
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition:    all 0.4s ease-in-out;
+	-ms-transition:     all 0.4s ease-in-out;
+	-o-transition:      all 0.4s ease-in-out;
+	transition:         all 0.4s ease-in-out;
+}
+
+.mepr-account-actions a:hover,
+a:hover.have-coupon-link,
+input:hover.mepr-submit {
+	background-color: #d83201;
+    border-color: #d83201!important;
+}
+
+a.have-coupon-link,
+a:hover.have-coupon-link {
+	padding: 0.5rem 1rem!important;
+}
+
+.mp_wrapper textarea { 
+	height: 150px; }
+
+.mepr-account-actions {
+	white-space: nowrap;
+}
+
+.mepr-account-actions a.mepr-account-update {
+	background-color: #18a64d;
+	border-color: #18a64d;
+	color: #fff;
+}
+
+.mepr-account-actions a:hover.mepr-account-update,
+.mepr-account-actions a:active.mepr-account-update  {
+    background-color: #006927;
+    border-color: #006927;
+	color: #fff;
+}
+
+.mepr-account-actions a.mepr-account-upgrade {
+	background-color: #ff9a21;
+	border-color: #ff9a21;
+	color: #fff;
+}
+
+.mepr-account-actions a:hover.mepr-account-upgrade,
+.mepr-account-actions a:active.mepr-account-upgrade  {
+    background-color: #d87601;
+    border-color: #d87601;
+	color: #fff;
+}
+
+.mepr-account-actions a.mepr-account-cancel {
+	background-color: #ce211b;
+	border-color: #ce211b;
+	color: #fff;
+}
+
+.mepr-account-actions a:hover.mepr-account-cancel,
+.mepr-account-actions a:active.mepr-account-cancel  {
+    background-color: #a70e0a;
+    border-color: #a70e0a;
+	color: #fff;
+}
+
+.mepr-account-terms, .mepr-account-subscr-id, .mepr-account-rebill {
+	color: #3a3a3a;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+}
+
+.mfp-content .mepr-white-popup {
+	max-width: 800px!important;
+}
+
+.mepr-white-popup button.mepr-confirm-yes,
+.mepr-white-popup button.mepr-confirm-no {
+	background: #ce211b!important;
+	float: none;
+}
+
+.mepr-white-popup button.mepr-confirm-yes:hover,
+.mepr-white-popup button.mepr-confirm-no:hover {
+	 background: #a70e0a;
+}
+
+.mepr-white-popup button.mepr-upgrade-buy-now,
+.mepr-white-popup button.mepr-upgrade-cancel {
+	background: #ff9a21!important;
+	float: none;
+}
+
+.mepr-white-popup button.mepr-upgrade-buy-now:hover,
+.mepr-white-popup button.mepr-upgrade-cancel:hover {
+	 background: #d87601;
+}
+
+.mepr-active {
+	color: #18a64d;
+}
+
+/* # Delete Me
+---------------------------------------------------------------------------------------------------- */
+
+a.delete-account {
+	background-color: #ce211b;
+	border-radius: 0.25rem;
+	-moz-border-radius: 0.25rem;
+	-ms-border-radius: 0.25rem;
+	-webkit-border-radius: 0.25rem;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	font-size: 14px!important;
+	font-size: 0.875rem!important;
+	font-weight: 400;
+	letter-spacing: 1px;
+	padding: 0.3125rem 1rem;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: auto;
+	word-spacing: 2px;
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition:    all 0.4s ease-in-out;
+	-ms-transition:     all 0.4s ease-in-out;
+	-o-transition:      all 0.4s ease-in-out;
+	transition:         all 0.4s ease-in-out;
+	
+}
