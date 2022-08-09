@@ -15,7 +15,7 @@ get_header();
 global $wpdb;
 global $post;
 
-$site_url = get_site_url();
+$site_url = get_site_url().'/yardstick';
 $slug = $post->post_name;
 	
 $master_loc = $_SESSION['master_loc'];
