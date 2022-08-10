@@ -2,17 +2,17 @@
 
 /* Footer
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://logstock.co.uk
-@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 ?>
 
 </main><!-- #sticky-footer --> <?php
 
-if( is_page_template( 'template-fullscreen.php' ) ) : ?>
+if( is_page_template( 'templates/fullscreen.php' ) ) : ?>
 		
 	</div><!-- #background-fullscreen --> <?php
 
@@ -34,7 +34,7 @@ else : ?>
 	
 endif;
 	
-if( is_page_template( 'template-charts.php' ) || is_page_template( 'template-dashboard.php' ) || is_page_template( 'template-data.php' ) || is_page_template( 'template-settings.php' ) || is_page_template( 'template-standard.php' ) || is_page_template( 'template-yardstick.php' ) ) : ?>
+if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/yardstick.php' ) ) : ?>
 
 	</div><!-- .col-10 -->
 	</div><!-- .row --> <?php 

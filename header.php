@@ -2,10 +2,10 @@
 
 /* Header
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://yardstick.co.uk
-@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 ?>
@@ -110,16 +110,17 @@
 </style> 
 </head> <?php
 	
-$hero = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' ); ?>
+$hero = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
+if( $hero ) : $hero_image = $hero['0']; else : $hero_image = ''; endif; ?>
 
-<body <?php body_class(); ?> style="background-image: url('<?php echo $hero['0'] ?>');">
+<body <?php body_class(); ?> style="background-image: url('<?php echo $hero_image ?>');">
 	
 <div class="row no-gutters">
-<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'yardstick' ); ?></a> <?php 
+<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'sustainable-tools' ); ?></a> <?php 
 	
 $site_url = get_site_url();
 	
-if( is_page_template( 'template-charts.php' ) || is_page_template( 'template-dashboard.php' ) || is_page_template( 'template-data.php' ) || is_page_template( 'template-settings.php' ) || is_page_template( 'template-standard.php' ) || is_page_template( 'template-yardstick.php' ) ) :
+if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/yardstick.php' ) ) :
 	
 	$registration_date = $_SESSION['registration_date'];
 
@@ -131,9 +132,9 @@ if( is_page_template( 'template-charts.php' ) || is_page_template( 'template-das
 	<header id="masthead" class="col-xl-2 site-header">
 		<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p> <?php
 
-		$yardstick_description = get_bloginfo( 'description', 'display' );
-		if ( $yardstick_description || is_customize_preview() ) : ?>
-			<p class="site-description"><?php echo $yardstick_description; /* WPCS: xss ok. */ ?></p> <?php
+		$site_description = get_bloginfo( 'description', 'display' );
+		if ( $site_description || is_customize_preview() ) : ?>
+			<p class="site-description"><?php echo $site_description; /* WPCS: xss ok. */ ?></p> <?php
 		endif; ?>
 
 		<nav id="site-navigation" class="main-navigation"> <?php
@@ -151,7 +152,7 @@ if( is_page_template( 'template-charts.php' ) || is_page_template( 'template-das
 			<a href="<?php echo wp_logout_url('sign-in') ?>">Logout <i class="far fa-sign-out"></i></a>
 		</header> <?php
 		
-elseif( is_page_template( 'template-fullscreen.php' ) ) : ?>
+elseif( is_page_template( 'templates/fullscreen.php' ) ) : ?>
 		
 	<div id="background-fullscreen" class="col-12"> <?php
 		
@@ -161,9 +162,9 @@ else : ?>
 
 			<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p> <?php
 
-			$yardstick_description = get_bloginfo( 'description', 'display' );
-			if ( $yardstick_description || is_customize_preview() ) : ?>
-				<p class="site-description"><?php echo $yardstick_description; /* WPCS: xss ok. */ ?></p> <?php
+			$site_description = get_bloginfo( 'description', 'display' );
+			if ( $site_description || is_customize_preview() ) : ?>
+				<p class="site-description"><?php echo $site_description; /* WPCS: xss ok. */ ?></p> <?php
 			endif; ?>
 
 			<nav id="site-navigation" class="main-navigation<?php if( empty( $hero ) ) : echo ' remove-nav-transparency '; endif; ?>"> <?php

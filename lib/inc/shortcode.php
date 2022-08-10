@@ -2,10 +2,10 @@
 
 /* Includes: SHORTCODE
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://yardstick.co.uk
-@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 function shortcode_dates ( $measure, $start, $end ) {
@@ -82,7 +82,8 @@ function shortcode_chart_menu( $atts ) {
 		$cat_id = $cat_id_lookup->id;
 	
 		$filter_row = $wpdb->get_row( "SELECT master_tag.tag as tag FROM master_tag INNER JOIN custom_tag ON master_tag.id=custom_tag.tag_id INNER JOIN data_operations ON custom_tag.parent_id=data_operations.utility_id WHERE custom_tag.cat_id=$cat_id AND custom_tag.loc_id=$master_loc AND custom_tag.active=1 ORDER BY master_tag.tag ASC" );
-		$filter = '&filter='.str_replace( ' ', '-', strtolower( $filter_row->tag ) );
+		$filter_tag = $filter_row->tag;
+		$filter = '&filter='.str_replace( ' ', '-', strtolower( $filter_tag ) );
 	
 	endif;
 	

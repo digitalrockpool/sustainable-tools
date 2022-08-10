@@ -1,13 +1,13 @@
 <?php
 /**
- * Yardstick functions and definitions
+ * Sustainable Tools functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Yardstick
+ * @package Sustainable Tools
  */
 
-if ( ! function_exists( 'yardstick_setup' ) ) :
+if ( ! function_exists( 'sustainable_tools_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -15,43 +15,21 @@ if ( ! function_exists( 'yardstick_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function yardstick_setup() {
-		/*
-		 * Make theme available for translation.
-		 * Translations can be filed in the /languages/ directory.
-		 * If you're building a theme based on Yardstick, use a find and replace
-		 * to change 'yardstick' to the name of your theme in all the template files.
-		 */
-		load_theme_textdomain( 'yardstick', get_template_directory() . '/languages' );
+	function sustainable_tools_setup() {
+		load_theme_textdomain( 'sustainable-tools', get_template_directory() . '/languages' );
 
-		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
-
-		/*
-		 * Let WordPress manage the document title.
-		 * By adding theme support, we declare that this theme does not use a
-		 * hard-coded <title> tag in the document head, and expect WordPress to
-		 * provide it for us.
-		 */
 		add_theme_support( 'title-tag' );
-
-		/*
-		 * Enable support for Post Thumbnails on posts and pages.
-		 *
-		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		 */
 		add_theme_support( 'post-thumbnails' );
 
-		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'yardstick' ),
-			'menu-2' => esc_html__( 'Secondary', 'yardstick' ),
-			'menu-3' => esc_html__( 'Footer', 'yardstick' ),
+			'menu-1' => esc_html__( 'Primary', 'sustainable-tools' ),
+			'menu-2' => esc_html__( 'Secondary', 'sustainable-tools' ),
+			'menu-3' => esc_html__( 'Footer', 'sustainable-tools' ),
 		) );
 
-		// Register chart filter widget
 		register_sidebar( array(
-        	'name' => __( 'Chart Sidebar', 'yardstick' ),
+        	'name' => __( 'Chart Sidebar', 'sustainable-tools' ),
 			'id' => 'chart-sidebar',
 		) );
 
@@ -91,32 +69,32 @@ if ( ! function_exists( 'yardstick_setup' ) ) :
 		// Add theme support for gutenberg color palette
 		add_theme_support( 'editor-color-palette', array(
 			array(
-				'name'  => esc_html__( 'Orange', 'yardstick' ),
+				'name'  => esc_html__( 'Orange', 'sustainable-tools' ),
 				'slug' => 'orange',
 				'color' => '#ff5421',
 			),
 			array(
-				'name'  => esc_html__( 'Red', 'yardstick' ),
+				'name'  => esc_html__( 'Red', 'sustainable-tools' ),
 				'slug' => 'red',
 				'color' => '#ce211b',
 			),
 			array(
-				'name'  => esc_html__( 'Yellow', 'yardstick' ),
+				'name'  => esc_html__( 'Yellow', 'sustainable-tools' ),
 				'slug' => 'yellow',
 				'color' => '#ff9a21',
 			),
 			array(
-				'name'  => esc_html__( 'Dark Grey', 'yardstick' ),
+				'name'  => esc_html__( 'Dark Grey', 'sustainable-tools' ),
 				'slug' => 'dark-grey',
 				'color' => '#263238',
 			),
 			array(
-				'name'  => esc_html__( 'Light Grey', 'yardstick' ),
+				'name'  => esc_html__( 'Light Grey', 'sustainable-tools' ),
 				'slug' => 'light-grey',
 				'color' => '#e9ecef',
 			),
 			array(
-				'name'  => esc_html__( 'White', 'yardstick' ),
+				'name'  => esc_html__( 'White', 'sustainable-tools' ),
 				'slug' => 'white',
 				'color' => '#ffffff',
 			),
@@ -124,7 +102,7 @@ if ( ! function_exists( 'yardstick_setup' ) ) :
 		add_theme_support( 'disable-custom-colors' );
 	}
 endif;
-add_action( 'after_setup_theme', 'yardstick_setup' );
+add_action( 'after_setup_theme', 'sustainable_tools_setup' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -133,13 +111,13 @@ add_action( 'after_setup_theme', 'yardstick_setup' );
  *
  * @global int $content_width
  */
-function yardstick_content_width() {
+function sustainable_tools_content_width() {
 	// This variable is intended to be overruled from themes.
 	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
-	$GLOBALS['content_width'] = apply_filters( 'yardstick_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( 'sustainable_tools_content_width', 640 );
 }
-add_action( 'after_setup_theme', 'yardstick_content_width', 0 );
+add_action( 'after_setup_theme', 'sustainable_tools_content_width', 0 );
 
 /*** Enqueue custom jquery */
 function custom_jquery() {
@@ -152,11 +130,11 @@ add_action('wp_enqueue_scripts', 'custom_jquery');
 
 
 /*** Enqueue scripts and styles */
-function yardstick_scripts() {
+function sustainable_tools_scripts() {
 	wp_enqueue_style( 'base-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800' );
 	wp_enqueue_style( 'font-awesome', '//pro.fontawesome.com/releases/v5.10.1/css/all.css">' );
-    wp_enqueue_style( 'datatables-style', '//cdn.datatables.net/1.10.21/css/jquery.dataTables.css' );
+  wp_enqueue_style( 'datatables-style', '//cdn.datatables.net/1.10.21/css/jquery.dataTables.css' );
 	wp_enqueue_style( 'bootstrap-styles', '//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' );
 	wp_enqueue_style( 'datepicker-styles', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.standalone.min.css' );
 	wp_enqueue_style( 'select-styles', '//cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css' );
@@ -176,16 +154,11 @@ function yardstick_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'yardstick_scripts' );
+add_action( 'wp_enqueue_scripts', 'sustainable_tools_scripts' );
 
 
 /*** Add library includes */
-require get_template_directory().'/lib/inc/custom-header.php'; /* implement the custom header feature */
-require get_template_directory().'/lib/inc/template-functions.php'; /* functions which enhance theme by hooking into WordPress. */
-require get_template_directory().'/lib/inc/template-tags.php';/* custom template tags for this theme */
-require get_template_directory().'/lib/inc/customizer.php'; /* customizer additions */
 require get_template_directory().'/lib/inc/csv_uploads.php';
-require get_template_directory().'/lib/inc/custom-posts.php';
 require get_template_directory().'/lib/inc/form-dropdown.php';
 require get_template_directory().'/lib/inc/form-dynamic.php';
 require get_template_directory().'/lib/inc/form-extras.php';
@@ -243,8 +216,8 @@ add_action( 'wp_logout', 'logout_redirect');
 /*** Logged out user redirect */
 add_action('template_redirect', 'logged_out_redirect');
 function logged_out_redirect() {
-	if ( !is_user_logged_in() && ( is_page_template( 'template-charts.php' ) || is_page_template( 'template-dashboard.php' ) || is_page_template( 'template-data.php' ) || is_page_template( 'template-settings.php' ) || is_page_template( 'template-standard.php' ) || is_page_template( 'template-yardstick.php' ) || is_singular( 'help' ) ) ) :
-		wp_redirect( home_url('/login/') );
+	if ( !is_user_logged_in() && ( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/yardstick.php' ) || is_singular( 'help' ) ) ) :
+		wp_redirect( home_url('/sign-in/') );
 		exit();
 	endif;
 }
@@ -270,6 +243,7 @@ function custom_register_url( $register_url ) {
     return $register_url;
 }
 add_filter( 'register_url', 'custom_register_url' );
+add_filter( 'login_display_language_dropdown' , '__return_false' ); 
 
 
 // SESSIONS

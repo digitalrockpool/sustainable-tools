@@ -4,28 +4,15 @@
 
 Template Post Type: Page
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://yardstick.co.uk
-@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 get_header();
 
-global $wpdb;
-global $post;
 
-$site_url = get_site_url().'/yardstick';
-$slug = $post->post_name;
-	
-$master_loc = $_SESSION['master_loc'];
-	
-$user_id = get_current_user_id();
-$user_role = $_SESSION['user_role'];
-$user_role_tag = $_SESSION['user_role_tag'];
-$wp_user_role = $_SESSION['wp_user_role'];
-
-$plan_id = $_SESSION['plan_id'];
 
 $calendar_id = $_SESSION['calendar_id'];
 $measure_toggle = $_SESSION['measure_toggle'];

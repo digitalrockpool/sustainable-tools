@@ -4,10 +4,10 @@
 
 Template Post Type: Page
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://yardstick.co.uk
-@copyright	Copyright (c) 2018, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 get_header();
@@ -15,7 +15,7 @@ get_header();
 global $wpdb;
 global $post;
 
-$site_url = get_site_url().'/yardstick';
+$site_url = get_site_url();
 $slug = $post->post_name;
 	
 $master_loc = $_SESSION['master_loc'];
