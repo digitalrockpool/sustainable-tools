@@ -4,10 +4,10 @@
 
 Template Post Type: Page
 
-@package	Yardstick
+@package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.yardstick.co.uk
-@copyright	Copyright (c) 2021, Digital Rockpool LTD
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 get_header();
@@ -104,8 +104,8 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 
 			elseif( $mod_id == 2 ) : // operations
 
-				$utility_id = $tag_id;
-				operations_form( $cat_id, $latest_start, $latest_end, $edit_operations, $edit_id, $employee_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_utility_id, $edit_amount, $edit_cost, $edit_disposal, $edit_disposal_id, $edit_note, $edit_parent_id );
+				$utility_id = $tag_id; echo 'helo';
+				// operations_form( $cat_id, $latest_start, $latest_end, $edit_operations, $edit_id, $employee_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_utility_id, $edit_amount, $edit_cost, $edit_disposal, $edit_disposal_id, $edit_note, $edit_parent_id );
 
 			elseif( $mod_id == 3 ) : // labour
 
@@ -141,6 +141,15 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 			if( $mod_id == 2 ) : /* snippet-operations */ $extra_value = $cat_id; elseif( $mod_id == 3 ) : /* snippet-labour */ $extra_value = $tag_id; endif;
 
 			$latest_entry_function( $add, $title, $extra_value ); ?>
+
+			TRIALING TEMPLATE PART OPTION <?php
+
+			$args = array(
+				'extra_value' => $cat_id,
+				'title'		=> $title
+			);
+
+			get_template_part('/parts/latest-entries/latest-entry', 'operations', $args ); ?>
 
 			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $title ?></a>
 

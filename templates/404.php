@@ -1,11 +1,12 @@
 <?php
-/**
- * The template for displaying 404 pages (not found)
- *
- * @link https://codex.wordpress.org/Creating_an_Error_404_Page
- *
- * @package Yardstick
- */
+
+/* 404 - NEWS UPDATING
+
+@package	Sustainable Tools
+@author		Digital Rockpool
+@link		https://www.sustainable.tools/yardstick
+@copyright	Copyright (c) 2022, Digital Rockpool LTD
+@license	GPL-2.0+ */
 
 get_header();
 ?>
