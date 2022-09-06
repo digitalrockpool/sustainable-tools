@@ -389,7 +389,6 @@ else : ?>
                     </div>
 
                     <div class="modal-body">
-
                       <p class="small">Fields marked with an asterisk<span class="text-danger">*</span> are required</p> <?php
 
                       $args = array(

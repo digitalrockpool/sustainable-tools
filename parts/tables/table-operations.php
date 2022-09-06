@@ -239,7 +239,8 @@ else : ?>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
                     </div>
 
-                    <div class="modal-body"><?php
+                    <div class="modal-body">
+                      <p class="small">Fields marked with an asterisk<span class="text-danger">*</span> are required</p><?php
 
                       $args = array(
                         'edit_operations' => $edit_operations,
