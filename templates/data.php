@@ -145,14 +145,22 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 		<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 			<h2 class="h4-style">Latest Entries</h2> <?php
 
-			$latest_entry_function = $module_strip.'_latest_entries';
+			// $latest_entry_function = $module_strip.'_latest_entries';
 
-			// if( $mod_id == 2 ) : /* snippet-operations */ $extra_value = $cat_id; elseif( $mod_id == 3 ) : /* snippet-labour */ $extra_value = $tag_id; endif;
+			if( $mod_id == 2 ) : /* snippet-operations */ 
+				
+				$extra_value = $cat_id;
+			
+			elseif( $mod_id == 3 ) : /* snippet-labour */
+				
+				$extra_value = $tag_id;
+			
+			endif;
 
 			// $latest_entry_function( $add, $title, $extra_value ); 
 
 			$args = array(
-				'extra_value' => $cat_id,
+				'extra_value' => $extra_value,
 				'title'		=> $title
 			);
 
