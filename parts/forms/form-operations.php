@@ -1,14 +1,16 @@
 <?php 
 
-/* Template Part: OPERATIONS 
+/* ***
 
-@package	Sustainable Tools
-@author		Digital Rockpool
-@link		https://yardstick.co.uk
-@copyright	Copyright (c) 2021, Digital Rockpool LTD
-@license	GPL-2.0+ */
+Template Part:  Forms - Operations
 
-// function operations_form( $cat_id, $latest_start, $latest_end, $edit_operations, $edit_id, $employee_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_utility_id, $edit_amount, $edit_cost, $edit_disposal, $edit_disposal_id, $edit_note, $edit_parent_id ) {
+@package	      Sustainable Tools
+@author		      Digital Rockpool
+@link		        https://www.sustainable.tools/yardstick
+@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@license	      GPL-2.0+ 
+
+*** */
 
 global $wpdb;
 global $post;
@@ -27,6 +29,20 @@ $measure_toggle = $_SESSION['measure_toggle'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
 $entry_date = date( 'Y-m-d H:i:s' );
+
+$cat_id = $args['cat_id'];
+$edit_operations = $args['edit_operations'];
+$edit_id = $args['edit_id'];
+$edit_measure = $args['edit_measure'];
+$edit_measure_name = $args['edit_measure_name'];
+$edit_measure_date_formatted = $args['edit_measure_date_formatted'];
+$edit_utility_id = $args['edit_utility_id'];
+$edit_amount = $args['edit_amount'];
+$edit_cost = $args['edit_cost'];
+$edit_disposal = $args['edit_disposal'];
+$edit_disposal_id = $args['edit_disposal_id'];
+$edit_note = $args['edit_note'];
+$edit_parent_id = $args['edit_parent_id'];
 
 if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else : $update_operations = $edit_operations; endif; ?>
 
