@@ -12,11 +12,10 @@ Template Part:  Latest Entries - Charity
 *** */
 
 $user_id = get_current_user_id();
+$tag_id = $args['tag_id'];
 $title = $args['title'];
-$donation_type = $wpdb->get_row( "SELECT id FROM master_tag WHERE tag='$title'" );
-$donation_id = $donation_type->id;
 
-$add_rows = $wpdb->get_results( "SELECT measure_date, measure_start, custom_location.location, amount FROM data_charity LEFT JOIN data_measure ON (data_charity.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) INNER JOIN custom_location ON (data_charity.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE donation_type=$donation_id AND relation_user.user_id=$user_id AND data_charity.active=1 AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) ORDER BY data_charity.id DESC LIMIT 5" );
+$add_rows = $wpdb->get_results( "SELECT measure_date, measure_start, custom_location.location, amount FROM data_charity LEFT JOIN data_measure ON (data_charity.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) INNER JOIN custom_location ON (data_charity.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE donation_type=$tag_id AND relation_user.user_id=$user_id AND data_charity.active=1 AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) ORDER BY data_charity.id DESC LIMIT 5" );
 
 if( empty( $add_rows) ) :
 
