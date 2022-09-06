@@ -16,10 +16,11 @@ $slug = $post->post_name;
 
 $add_url = $_GET['add'];
 $edit_url = $_GET['edit'];
+$start = $_GET['start'];
+$end = $_GET['end'];
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
-$calendar = $_SESSION['calendar'];
 $measure_toggle = $_SESSION['measure_toggle'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
@@ -84,7 +85,7 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
           <?php if( empty( $edit_url ) ) : ?><option value="">Select Donee Location</option><?php endif; ?>
           <option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
-          foreach ($donee_dropdowns as $donee_dropdown ) :
+          foreach( $donee_dropdowns as $donee_dropdown ) :
 
             $donee_location_parent_id = $donee_dropdown->parent_id;
             $donee_location = $donee_dropdown->location;
@@ -180,7 +181,7 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
   </div>
 </form> <?php
 
-if ( isset( $_POST[$update_charity] ) ) :
+if( isset( $_POST[$update_charity] ) ) :
 
   $update_donee_location_array = $_POST['edit-donee-location'];
   $update_value_type_array = $_POST['edit-value-type'];
@@ -259,7 +260,7 @@ if ( isset( $_POST[$update_charity] ) ) :
 
   endforeach;
 
-  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$latest_start.'&end='.$latest_end; else : $query_string = 'add='.$add_url; endif;
+  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
 
   header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
   ob_end_flush();

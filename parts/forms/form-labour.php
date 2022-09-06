@@ -16,6 +16,8 @@ $slug = $post->post_name;
 
 $add_url = $_GET['add'];
 $edit_url = $_GET['edit'];
+$start = $_GET['start'];
+$end = $_GET['end'];
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
@@ -27,7 +29,6 @@ $entry_date = date( 'Y-m-d H:i:s' );
 $tag_id = $args['tag_id'];
 $edit_labour = $args['edit_labour'];
 $edit_id = $args['edit_id'];
-$employee_id = $args['employee_id'];
 $edit_measure = $args['edit_measure'];
 $edit_measure_date_formatted = $args['edit_measure_date_formatted'];
 $edit_hometown_id = $args['edit_hometown_id'];
@@ -442,7 +443,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
         <select class="selectpicker form-control" name="edit-tag[]" multiple title="Select Tags" multiple data-live-search="true"> <?php
           $tag_dropdowns = $wpdb->get_results( "SELECT parent_id, tag FROM custom_tag WHERE loc_id=$master_loc AND cat_id=22 AND tag IS NOT NULL AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag ASC" );
 
-          foreach ($tag_dropdowns as $tag_dropdown ) :
+          foreach( $tag_dropdowns as $tag_dropdown ) :
 
             $dropdown_parent_id = $tag_dropdown->parent_id;
             $dropdown_tag = $tag_dropdown->tag;
@@ -606,7 +607,7 @@ if ( isset( $_POST[$update_labour] ) ) :
 
   endif;
 
-  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$latest_start.'&end='.$latest_end; else : $query_string = 'add='.$add_url; endif;
+  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
 
   header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
   ob_end_flush();

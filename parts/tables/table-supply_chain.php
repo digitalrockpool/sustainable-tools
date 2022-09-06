@@ -16,28 +16,17 @@ $slug = $post->post_name;
 	
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
-	
 $measure_toggle = $_SESSION['measure_toggle'];
 $tag_toggle = $_SESSION['tag_toggle'];
-	
-$fy_day = $_SESSION['fy_day'];
-$fy_month  = $_SESSION['fy_month'];
+
+$module_strip = $args['module_strip'];
+$title = $args['title'];
 
 $edit_url = $_GET['edit'];
 $start = $_GET['start'];
 $end = $_GET['end'];
 
-$dateObj   = DateTime::createFromFormat('!m', $fy_month);
-$month_name = $dateObj->format('F');
 $entry_date = date( 'Y-m-d H:i:s' );
-
-$module_strip = $args['module_strip'];
-$title = $args['title'];
-
-$latest_measure_date = $wpdb->get_row( "SELECT measure_date FROM data_supply INNER JOIN relation_user ON data_supply.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_supply.id IN (SELECT MAX(id) FROM data_supply GROUP BY parent_id) ORDER BY measure_date DESC" );
-
-$latest_end = $latest_measure_date->measure_date;
-$latest_start = date( 'Y-m-d', strtotime( "$end -364 days" ) );
 
 $edit_rows = $wpdb->get_results( "SELECT data_supply.id, measure, tag AS measure_name, measure_date, measure_start, measure_end, amount, tax, data_supply.location AS location_id, custom_location.location, data_supply.note, data_supply.parent_id, data_supply.active, loc_name FROM data_supply LEFT JOIN data_measure ON (data_supply.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN custom_location ON (data_supply.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN profile_location ON (data_supply.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) RIGHT JOIN relation_user ON data_supply.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_supply.id IN (SELECT MAX(id) FROM data_supply GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -67,7 +56,7 @@ else : ?>
   
     <tbody><?php
   
-      foreach ( $edit_rows as $edit_row ) :
+      foreach( $edit_rows as $edit_row ) :
                 
         $edit_id = $edit_row->id;
         $edit_measure = $edit_row->measure;
@@ -172,7 +161,7 @@ else : ?>
               <button type="submit" class="btn <?php echo $btn_style ?> d-inline-block" name="<?php echo $archive_supply ?>"><?php echo $edit_value ?></button>
             </form><?php
   
-            if ( isset( $_POST[$archive_supply] ) ) :
+            if( isset( $_POST[$archive_supply] ) ) :
   
               $wpdb->insert( 'data_supply',
                 array(
@@ -211,7 +200,7 @@ else : ?>
 
               endif;
 
-              header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$latest_start.'&end='.$latest_end );
+              header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
               ob_end_flush();	
 
             endif;
@@ -234,8 +223,6 @@ else : ?>
                   <div class="modal-body"><?php
 
                     $args = array(
-                      'latest_start' => $latest_start,
-                      'latest_end' => $latest_end,
                       'edit_supply' => $edit_supply,
                       'edit_id' => $edit_id,
                       'edit_measure' => $edit_measure,

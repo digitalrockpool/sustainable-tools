@@ -16,8 +16,6 @@ $slug = $post->post_name;
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
-$plan_id = $_SESSION['plan_id'];
-
 $measure_toggle = $_SESSION['measure_toggle'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
@@ -25,22 +23,11 @@ $tag_id = $args['tag_id'];
 $module_strip = $args['module_strip'];
 $title = $args['title'];
 
-$fy_day = $_SESSION['fy_day'];
-$fy_month  = $_SESSION['fy_month'];
-
 $edit_url = $_GET['edit'];
 $start = $_GET['start'];
 $end = $_GET['end'];
 
-$dateObj   = DateTime::createFromFormat('!m', $fy_month);
-$month_name = $dateObj->format('F');
-
 $entry_date = date( 'Y-m-d H:i:s' );
-
-$latest_measure_date = $wpdb->get_row( "SELECT measure_date FROM data_charity INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND donation_type=$tag_id AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) ORDER BY measure_date DESC" );
-
-$latest_end = $latest_measure_date->measure_date;
-$latest_start = date( 'Y-m-d', strtotime( "$end -364 days" ) );
 
 $edit_rows = $wpdb->get_results( "SELECT data_charity.id, measure, custom_tag.tag AS measure_name, measure_date, measure_start, measure_end, master_tag.tag as value_type, value_type as value_type_id, amount, duration, data_charity.location AS location_id, custom_location.location, data_charity.note, data_charity.parent_id, data_charity.active, loc_name FROM data_charity LEFT JOIN data_measure ON (data_charity.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN master_tag ON data_charity.value_type=master_tag.id INNER JOIN profile_location ON (data_charity.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN custom_location ON (data_charity.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE donation_type=$tag_id AND relation_user.user_id=$user_id AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -71,7 +58,7 @@ else : ?>
 
       <tbody> <?php
 
-        foreach ( $edit_rows as $edit_row ) :
+        foreach( $edit_rows as $edit_row ) :
 
           $edit_id = $edit_row->id;
           $edit_measure = $edit_row->measure;
@@ -191,7 +178,7 @@ else : ?>
                 <button type="submit" class="btn <?php echo $btn_style ?> d-inline-block" name="<?php echo $archive_charity ?>"><?php echo $edit_value ?></button>
               </form> <?php
 
-              if ( isset( $_POST[$archive_charity] ) ) :
+              if( isset( $_POST[$archive_charity] ) ) :
 
                 $wpdb->insert( 'data_charity',
                   array(
@@ -232,7 +219,7 @@ else : ?>
 
                 endif;
 
-                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$latest_start.'&end='.$latest_end );
+                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
                 ob_end_flush();
 
               endif;
@@ -252,7 +239,7 @@ else : ?>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
                     </div>
 
-                    <div class="modal-body"> <?php
+                    <div class="modal-body"><?php
 
                       $args = array(
                         'edit_charity' => $edit_charity,

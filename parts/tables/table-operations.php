@@ -19,26 +19,15 @@ $master_loc = $_SESSION['master_loc'];
 $measure_toggle = $_SESSION['measure_toggle'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
-
 $cat_id = $args['cat_id'];
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$fy_day = $_SESSION['fy_day'];
-$fy_month = $_SESSION['fy_month'];
 
 $edit_url = $_GET['edit'];
 $start = $_GET['start'];
 $end = $_GET['end'];
 
-$dateObj   = DateTime::createFromFormat('!m', $fy_month);
-$month_name = $dateObj->format('F');
-
 $entry_date = date( 'Y-m-d H:i:s' );
-
-$latest_measure_date = $wpdb->get_row( "SELECT measure_date FROM data_operations INNER JOIN relation_user ON data_operations.loc_id=relation_user.loc_id INNER JOIN custom_tag ON data_operations.utility_id=custom_tag.id WHERE relation_user.user_id=$user_id AND cat_id=$cat_id AND data_operations.id IN (SELECT MAX(id) FROM data_operations GROUP BY parent_id) ORDER BY measure_date DESC" );
-$latest_end = $latest_measure_date->measure_date;
-$latest_start = date( 'Y-m-d', strtotime( "$end -364 days" ) );
 
 $edit_rows = $wpdb->get_results( "SELECT data_operations.id, measure, measure_name.tag as measure_name, measure_date, measure_start, measure_end, utility_id, disposal_id, utility_tag.tag AS utility, custom_tag.tag AS plastic, disposal_tag.tag AS disposal, custom_tag.size, unit_tag.tag AS unit, amount, cost, data_operations.note, data_operations.parent_id, data_operations.active FROM data_operations LEFT JOIN data_measure ON (data_operations.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) INNER JOIN custom_tag ON (data_operations.utility_id=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) LEFT JOIN custom_tag measure_name ON (data_measure.measure_name=measure_name.parent_id AND measure_name.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN master_tag utility_tag ON utility_tag.id=custom_tag.tag_id LEFT JOIN master_tag disposal_tag ON data_operations.disposal_id=disposal_tag.id INNER JOIN master_tag unit_tag ON unit_tag.id=custom_tag.unit_id RIGHT JOIN relation_user ON data_operations.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND custom_tag.cat_id=$cat_id AND data_operations.id IN (SELECT MAX(id) FROM data_operations GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -71,7 +60,7 @@ else : ?>
 
       <tbody> <?php
 
-        foreach ( $edit_rows as $edit_row ) :
+        foreach( $edit_rows as $edit_row ) :
 
           $edit_id = $edit_row->id;
           $edit_measure = $edit_row->measure;
@@ -190,7 +179,7 @@ else : ?>
                 <button type="submit" class="btn <?php echo $btn_style ?> d-inline-block" name="<?php echo $archive_operations ?>"><?php echo $edit_value ?></button>
               </form> <?php
 
-              if ( isset( $_POST[$archive_operations] ) ) :
+              if( isset( $_POST[$archive_operations] ) ) :
 
                 $wpdb->insert( 'data_operations',
                   array(

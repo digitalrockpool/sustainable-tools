@@ -250,7 +250,9 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 				'cat_id' => $cat_id,
 				'tag_id' => $tag_id,
 				'module_strip' => $module_strip,
-				'title'		=> $title
+				'title'		=> $title,
+				'latest_start' => $latest_start,
+				'latest_end' => $latest_end
 			);
 	
 			get_template_part('/parts/tables/table', $module_strip, $args ); ?>

@@ -16,7 +16,9 @@ $slug = $post->post_name;
 	
 $add_url = $_GET['add'];
 $edit_url = $_GET['edit'];
-	
+$start = $_GET['start'];
+$end = $_GET['end'];
+
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
 $measure_toggle = $_SESSION['measure_toggle'];
@@ -24,8 +26,6 @@ $tag_toggle = $_SESSION['tag_toggle'];
 	
 $entry_date = date( 'Y-m-d H:i:s' ); 
 
-// $latest_start = $args['latest_start'];
-// $latest_end = $args['latest_end'];
 $edit_supply = $args['edit_supply'];
 $edit_id = $args['edit_id'];
 $edit_measure = $args['edit_measure'];
@@ -79,7 +79,7 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
           if( empty( $edit_url ) ) : ?><option value="">Select Source *</option><?php endif; ?>
 					<option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
-					foreach ($source_dropdowns as $source_dropdown ) :
+					foreach( $source_dropdowns as $source_dropdown ) :
 
 						$source_parent_id = $source_dropdown->parent_id;
 						$source = $source_dropdown->location;
@@ -229,7 +229,7 @@ if( isset( $_POST[$update_supply] ) ) :
 	
 	endforeach;
 
-	if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$latest_start.'&end='.$latest_end; else : $query_string = 'add='.$add_url; endif;
+	if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
 
 	header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
 	ob_end_flush();
