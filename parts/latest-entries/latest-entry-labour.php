@@ -13,6 +13,7 @@ Template Part:  Latest Entries - Labour
 
 $user_id = get_current_user_id();
 $employee_id = $args['extra_value'];
+$title = $args['title'];
 
 $add_rows = $wpdb->get_results( "SELECT custom_location.location, tag, salary FROM data_labour INNER JOIN custom_location ON (data_labour.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN master_tag ON data_labour.gender=master_tag.id INNER JOIN relation_user ON data_labour.loc_id=relation_user.loc_id WHERE employee_type=$employee_id AND relation_user.user_id=$user_id AND data_labour.active=1 ORDER BY data_labour.id DESC LIMIT 5" );
 
