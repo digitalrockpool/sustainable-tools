@@ -11,9 +11,6 @@ Template Part:  Forms - Operations
 
 *** */
 
-global $wpdb;
-global $post;
-
 $site_url = get_site_url();
 $slug = $post->post_name;
 
@@ -33,7 +30,6 @@ $cat_id = $args['cat_id'];
 $edit_operations = $args['edit_operations'];
 $edit_id = $args['edit_id'];
 $edit_measure = $args['edit_measure'];
-$edit_measure_name = $args['edit_measure_name'];
 $edit_measure_date_formatted = $args['edit_measure_date_formatted'];
 $edit_utility_id = $args['edit_utility_id'];
 $edit_amount = $args['edit_amount'];

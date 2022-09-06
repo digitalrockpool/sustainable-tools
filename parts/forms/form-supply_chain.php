@@ -24,8 +24,8 @@ $tag_toggle = $_SESSION['tag_toggle'];
 	
 $entry_date = date( 'Y-m-d H:i:s' ); 
 
-$latest_start = $args['latest_start'];
-$latest_end = $args['latest_end'];
+// $latest_start = $args['latest_start'];
+// $latest_end = $args['latest_end'];
 $edit_supply = $args['edit_supply'];
 $edit_id = $args['edit_id'];
 $edit_measure = $args['edit_measure'];
@@ -41,10 +41,10 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 <form method="post" name="edit" id="<?php echo $update_supply ?>" class="needs-validation" novalidate>
 	<div class="form-row"> <?php
 									
-		if( $measure_toggle === 86 ) : // custom measures
+		if( $measure_toggle == 86 ) : // custom measures
 			custom_measure_dropdown( $edit_measure );
 
-		elseif( $measure_toggle === 85 ) : // yearly measure 										
+		elseif( $measure_toggle == 85 ) : // yearly measure 										
 			reporting_year_start_date( $edit_measure_date_formatted );
 	
 		else : ?>
@@ -60,8 +60,8 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 														
 			<div class="col-md-6 mb-3 d-flex align-items-end"> <?php 
 															
-				if( $measure_toggle === 84 || $measure_toggle === 83 ) : // monthly or weekly measures ?>
-					<small>If this entry is for a period of time it will be added to the <?php if( $measure_toggle === 84 ) : echo 'month'; elseif( $measure_toggle === 83 ) : echo 'week'; endif; ?> of the selected date.</small> <?php
+				if( $measure_toggle == 84 || $measure_toggle == 83 ) : // monthly or weekly measures ?>
+					<small>If this entry is for a period of time it will be added to the <?php if( $measure_toggle == 84 ) : echo 'month'; elseif( $measure_toggle == 83 ) : echo 'week'; endif; ?> of the selected date.</small> <?php
 				endif; ?>
 																
 			</div><?php
@@ -77,14 +77,14 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
         if( empty( $add_url ) ) : ?><label for="edit-source">Supply Source<sup class="text-danger">*</sup></label><?php endif; ?>
 				<select class="form-control" id="edit-source" name="edit-source[]" required><?php
           if( empty( $edit_url ) ) : ?><option value="">Select Source *</option><?php endif; ?>
-					<option value="0" <?php if( $edit_source_id === 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
+					<option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
 					foreach ($source_dropdowns as $source_dropdown ) :
 
 						$source_parent_id = $source_dropdown->parent_id;
 						$source = $source_dropdown->location;
 
-						if( $edit_source_id === $source_parent_id ) : $selected = 'selected'; else : $selected = ''; endif; ?>
+						if( $edit_source_id == $source_parent_id ) : $selected = 'selected'; else : $selected = ''; endif; ?>
 
 						<option value="<?php echo $source_parent_id ?>" <?php echo $selected ?>><?php echo $source ?></option> <?php
 
@@ -111,7 +111,7 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 		</div>
 	</div><?php
 		
-	if( $tag_toggle === 1 ) : ?>										
+	if( $tag_toggle == 1 ) : ?>										
 		<h5 class="border-top pt-3 mt-3">Tags</h5>
 
 		<div class="form-row">
