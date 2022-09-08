@@ -12,7 +12,8 @@ Template Part:  Latest Entries - Operations
 *** */
 
 $user_id = get_current_user_id();
-$cat_id = $args['extra_value'];
+$cat_id = $args['cat_id'];
+$title = $args['title'];
 
 $add_rows = $wpdb->get_results( "SELECT measure_date, measure_start, master_tag.tag AS master_tag, custom_tag.tag AS custom_tag, amount FROM data_operations LEFT JOIN data_measure ON (data_operations.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) INNER JOIN custom_tag ON (data_operations.utility_id=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN master_tag ON master_tag.id=custom_tag.tag_id INNER JOIN relation_user ON data_operations.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND master_tag.cat_id=$cat_id AND data_operations.id IN (SELECT MAX(id) FROM data_operations GROUP BY parent_id) GROUP BY data_operations.id ORDER BY data_operations.id DESC LIMIT 5" );
 
@@ -27,7 +28,7 @@ else : ?>
 			<thead>
 				<tr>
 					<th scope="col">Date</th>
-					<th scope="col"><?php echo $args['title'] ?></th>
+					<th scope="col"><?php echo $title ?></th>
 						<th scope="col">Amount</th>
 				</tr>
 			</thead>

@@ -165,12 +165,8 @@ require get_template_directory().'/lib/inc/form-extras.php';
 require get_template_directory().'/lib/inc/form-submission.php';
 require get_template_directory().'/lib/inc/snippet-registration.php';
 require get_template_directory().'/lib/inc/snippet-account.php';
-require get_template_directory().'/lib/inc/snippet-settings.php';
-require get_template_directory().'/lib/inc/snippet-measure.php';
 require get_template_directory().'/lib/inc/snippet-operations.php';
-require get_template_directory().'/lib/inc/snippet-labour.php';
 require get_template_directory().'/lib/inc/snippet-charity.php';
-require get_template_directory().'/lib/inc/snippet-supply.php';
 require get_template_directory() . '/lib/inc/shortcode.php';
 //require get_template_directory() . '/lib/inc/widget-areas.php';
 

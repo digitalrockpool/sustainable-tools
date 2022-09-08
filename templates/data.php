@@ -66,7 +66,7 @@ elseif( $mod_id == 4 ) : // charity
 
 	$latest_measure_date = $wpdb->get_row( "SELECT measure_date FROM data_charity INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND donation_type=$tag_id AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) ORDER BY measure_date DESC" );
 
-elseif( $mod_id == 5 ) : // supply
+elseif( $mod_id == 5 ) : // supply chain
 
 	$latest_measure_date = $wpdb->get_row( "SELECT measure_date FROM data_supply INNER JOIN relation_user ON data_supply.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_supply.id IN (SELECT MAX(id) FROM data_supply GROUP BY parent_id) ORDER BY measure_date DESC" );
 
@@ -84,7 +84,7 @@ $month_start = date_format( date_create( $_GET['start'] ), 'd-M-Y' );
 
 if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $mod_query == 1 && $calendar == 231 ) : $measure_query = '=231'; else : $measure_query = ' IS NULL'; endif;
 
-if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
+if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
 	<article class="col-xl-8 px-3">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
@@ -98,64 +98,32 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 
 			<small>Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
 
-			if( $mod_id == 1 ) : // measures
+			$args = array(
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id
+			);
 
-				measures_data_form( $latest_start, $latest_end, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_measure_end_formatted, $edit_bednight, $edit_roomnight, $edit_client, $edit_staff, $edit_area, $edit_note, $edit_parent_id );
-
-			elseif( $mod_id == 2 ) : // operations
-
-				$utility_id = $tag_id; echo 'helo';
-				// operations_form( $cat_id, $latest_start, $latest_end, $edit_operations, $edit_id, $employee_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_utility_id, $edit_amount, $edit_cost, $edit_disposal, $edit_disposal_id, $edit_note, $edit_parent_id );
-
-			elseif( $mod_id == 3 ) : // labour
-
-				$employee_id = $tag_id;
-				labour_form( $edit_labour, $latest_start, $latest_end, $edit_id, $employee_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_hometown_id, $edit_gender_id, $edit_ethnicity_id, $edit_disability_id, $edit_level_id, $edit_role_id, $edit_part_time_id, $edit_promoted_id, $edit_under16_id, $edit_start_date, $edit_start_date_formatted, $edit_leave_date, $edit_leave_date_formatted, $edit_days_worked, $edit_time_mentored, $edit_contract_dpw, $edit_contract_wpy, $edit_annual_leave, $edit_salary, $edit_overtime, $edit_bonuses, $edit_gratuities, $edit_benefits, $edit_cost_training, $edit_training_days, $edit_note, $edit_parent_id );
-
-			elseif( $mod_id == 4 ) : // charity
-
-				$donation_id = $tag_id;
-				charity_form( $edit_charity, $latest_start, $latest_end, $edit_id, $donation_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_donee_location_id, $edit_value_type_id, $edit_amount, $edit_duration, $edit_note, $edit_parent_id );
-
-			elseif( $mod_id == 5 ) : // supply chain
-
-				supply_chain_form( $edit_supply, $latest_start, $latest_end, $edit_id, $edit_measure, $edit_measure_name, $edit_measure_date_formatted, $edit_source_id, $edit_amount, $edit_tax, $edit_note, $edit_parent_id );
-
-			else :
-
-				echo 'redirect to dashboard';
-
-			endif; ?>
+			get_template_part('/parts/forms/form', $module_strip, $args ); ?>
 
 		</section>
 	</article>
 
 	<aside class="col-xl-4 pr-3">
-
 		<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-
-			<h2 class="h4-style">Latest Entries</h2> <?php
-
-			$latest_entry_function = $module_strip.'_latest_entries';
-
-			if( $mod_id == 2 ) : /* snippet-operations */ $extra_value = $cat_id; elseif( $mod_id == 3 ) : /* snippet-labour */ $extra_value = $tag_id; endif;
-
-			$latest_entry_function( $add, $title, $extra_value ); ?>
-
-			TRIALING TEMPLATE PART OPTION <?php
+			<h2 class="h4-style">Latest Entries</h2><?php
 
 			$args = array(
-				'extra_value' => $cat_id,
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id,
 				'title'		=> $title
 			);
 
-			get_template_part('/parts/latest-entries/latest-entry', 'operations', $args ); ?>
+			get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
 
-			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $title ?></a>
-
+			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
 		</section> <?php
 
-		$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$add'" );
+		$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
 
 		if( ( $plan_id == 3 || $plan_id == 4) && !empty( $uploads ) ) : ?>
 
@@ -163,8 +131,6 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 				<h2 class="h4-style">Upload Entries</h2> <?php
 
 				echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
-
-
 
 					/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
 
@@ -243,11 +209,8 @@ if( !empty( $add ) && $user_role != 225 ) : /* subscriber */ ?>
 				</div>
 
 				<p><strong class="text-danger">! PLEASE NOTE ! </strong><br />Uploaded <?php echo strtolower( $title ) ?> takes up to 24 hours to appear in the system.</p>
-
 			</section> <?php
-
 		endif; ?>
-
 	</aside> <?php
 
 elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
@@ -281,13 +244,18 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 					ob_end_flush();
 				endif; ?>
 
-			</header>  <?php
+			</header><?php
 
-			$edit_function = $module_strip.'_edit';
-
-			if( $mod_id == 2 ) : /* snippet-operations */ $extra_value = $cat_id; elseif( $mod_id == 3 || $mod_id == 4 ) : /* snippet-labour */ $extra_value = $tag_id; endif;
-
-			$edit_function( $edit, $latest_start, $latest_end, $title, $extra_value ); ?>
+			$args = array(
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id,
+				'module_strip' => $module_strip,
+				'title'		=> $title,
+				'latest_start' => $latest_start,
+				'latest_end' => $latest_end
+			);
+	
+			get_template_part('/parts/tables/table', $module_strip, $args ); ?>
 
 		</section>
 	</article> <?php
@@ -371,12 +339,13 @@ $page_length = $custom_page_length->tag ?: 25; ?>
 </script>
 
 <!-- date picker -->
+<script type="text/javascript" src="<?php get_template_directory_uri(); ?>/lib/js/date-picker.js"></script>
 <script>
 	$('.date').datepicker({
 		format: 'd-M-yyyy',
 		endDate: '+0d',
 		autoclose: true
- 	});
+	});
 </script>
 
 <!-- repeater fields -->
@@ -408,7 +377,7 @@ $page_length = $custom_page_length->tag ?: 25; ?>
 		var forms = document.getElementsByClassName('needs-validation');
 		var validation = Array.prototype.filter.call(forms, function(form) {
 		  form.addEventListener('submit', function(event) {
-			if (form.checkValidity() === false) {
+			if (form.checkValidity() == false) {
 			  event.preventDefault();
 			  event.stopPropagation();
 			}

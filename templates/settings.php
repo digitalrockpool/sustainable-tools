@@ -15,6 +15,7 @@ get_header();
 global $wpdb;
 global $post;
 
+
 $site_url = get_site_url().'/yardstick';
 $slug = $post->post_name;
 
@@ -35,16 +36,17 @@ $tag_toggle = $_SESSION['tag_toggle'];
 
 $setting_query = $_GET['setting'];
 $setting = str_replace( '_', ' ', $setting_query );
+$setting_query_edits = $setting_query.'-edits';
+$setting_query_revisions = $setting_query.'-revisions';
 $setting_setup = $wpdb->get_row( "SELECT master_setting.id, module, title, title_singular, cat_id, category, help_id FROM master_setting LEFT JOIN master_module ON master_setting.mod_id=master_module.id LEFT JOIN master_category ON master_setting.cat_id=master_category.id WHERE title='$setting'" );
 $set_id = $setting_setup->id;
 $module = $setting_setup->module;
+$module_strip = str_replace( ' ', '_', strtolower($module) );
 $title = $setting_setup->title;
 $title_singular = $setting_setup->title_singular;
 $cat_id = $setting_setup->cat_id;
 $category = $setting_setup->category;
 $help_id = $setting_setup->help_id;
-
-$setting_funtion = strtolower( $module ).'_add_setting';
 
 if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
@@ -56,25 +58,13 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
 			</header> <?php
 
-			if( $set_id == 18 ) : // data
-				data_add_setting();
-
-			elseif( $set_id == 15 ) : // reporting
-				reporting_add_setting();
-
-			elseif( $set_id == 2 ) : // categories
-				category_add_setting( $title );
-
-			elseif( $set_id == 17 ) : // tags
-				tag_add_setting( $cat_id );
-
-			elseif( $set_id == 12 ) : // locations
-				echo do_shortcode( '[gravityform id="83" title="false" description="false" ajax="false"]' );
-
-			else : // modules
-				$setting_funtion( $set_id, $cat_id, $title, $title_singular );
-
-			endif; ?>
+			$args = array(
+					'cat_id' => $cat_id,
+					'title'	=> $title,
+					'title_singular' => $title_singular
+				);
+	
+				get_template_part('/parts/settings/setting', $setting_query, $args ); ?>
 
 		</section> <?php
 
@@ -83,13 +73,18 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 				<h2 class="h4-style"> <?php echo $title ?></h2> <?php
 
-				if( $set_id == 2) : // categories
+				if( $set_id == 2 || $set_id == 12 ) : // categories || locations
 
-					category_edit_setting( $title, $title_singular );
+					$args = array(
+						'title'	=> $title,
+						'title_singular' => $title_singular
+					);
+		
+					get_template_part('/parts/settings/setting', $setting_query_edits, $args );
 
-				elseif( $set_id == 12 ) : // locations
+					// category_edit_setting( $title, $title_singular )
 
-					location_edit_setting( $title );
+					// location_edit_setting( $title );
 
 				else :
 
@@ -150,7 +145,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 										if( !empty( $edit_system ) && empty( $edit_custom ) && !empty( $edit_size ) && !empty( $edit_unit) ) : $row_item = $edit_system.' ('.$edit_size.' '.$edit_unit.')'; $col_title = 'Size / Unit'; endif;
 										if( !empty( $edit_system ) && !empty( $edit_custom ) && !empty( $edit_size ) && !empty( $edit_unit) ) : $row_item = $edit_system.' - '.$edit_custom.' ('.$edit_size.' '.$edit_unit.')'; $col_title = $edit_system; endif; ?>
 
-										<tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
+										<tr <?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
 											<td class="align-top strikeout-buttons">
 
 												<button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
@@ -168,11 +163,11 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 																if( $set_id == 17 ) : // Tag
 
-																	$revision_rows = $wpdb->get_results( "SELECT custom_tag.id, custom_tag.entry_date, custom_tag.tag AS custom_tag, category, custom_tag.parent_id, display_name, custom_tag.active FROM custom_tag INNER JOIN yard_users ON custom_tag.user_id=yard_users.id LEFT JOIN custom_category ON custom_tag.custom_cat=custom_category.parent_id AND custom_category.id IN (SELECT MAX(id) FROM custom_category GROUP BY parent_id) WHERE custom_tag.parent_id=$edit_parent_id ORDER BY custom_tag.id DESC" );
+																	$revision_rows = $wpdb->get_results( "SELECT custom_tag.id, custom_tag.entry_date, custom_tag.tag AS custom_tag, category, custom_tag.parent_id, display_name, custom_tag.active FROM custom_tag INNER JOIN wp_users ON custom_tag.user_id=wp_users.id LEFT JOIN custom_category ON custom_tag.custom_cat=custom_category.parent_id AND custom_category.id IN (SELECT MAX(id) FROM custom_category GROUP BY parent_id) WHERE custom_tag.parent_id=$edit_parent_id ORDER BY custom_tag.id DESC" );
 
 																else :
 
-																	$revision_rows = $wpdb->get_results( "SELECT custom_tag.id, entry_date, custom_tag.tag AS custom_tag, system_tag.tag AS system_tag, size, master_tag.tag AS unit_tag, parent_id, display_name, active FROM custom_tag INNER JOIN yard_users ON custom_tag.user_id=yard_users.id LEFT JOIN master_tag system_tag ON custom_tag.tag_id=system_tag.id LEFT JOIN master_tag ON custom_tag.unit_id=master_tag.id WHERE parent_id=$edit_parent_id ORDER BY custom_tag.id DESC" );
+																	$revision_rows = $wpdb->get_results( "SELECT custom_tag.id, entry_date, custom_tag.tag AS custom_tag, system_tag.tag AS system_tag, size, master_tag.tag AS unit_tag, parent_id, display_name, active FROM custom_tag INNER JOIN wp_users ON custom_tag.user_id=wp_users.id LEFT JOIN master_tag system_tag ON custom_tag.tag_id=system_tag.id LEFT JOIN master_tag ON custom_tag.unit_id=master_tag.id WHERE parent_id=$edit_parent_id ORDER BY custom_tag.id DESC" );
 
 																endif;
 
@@ -419,7 +414,15 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 	<aside class="col-xl-4 pr-3"> <?php
 
-		if( $set_id == 15 ) : report_edit_setting( $title ); endif; ?>
+		if( $set_id == 15 ) :
+
+			$args = array(
+				'title'	=> $title
+			);
+
+			get_template_part('/parts/settings/setting', $setting_query_revisions, $args );
+
+		endif; ?>
 
 	</aside> <?php
 
