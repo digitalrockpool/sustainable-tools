@@ -46,10 +46,6 @@
 	width: 49%!important;
 }
 
-.gform_wrapper select {
-	height: 30px;
-}
-
 .gform_wrapper input,
 .gform_wrapper input:focus,
 .gform_wrapper textarea,
@@ -73,7 +69,8 @@
 }
 
 .gform_wrapper .report_filter label.gfield_label,
-.gform_wrapper label.gfield_label {
+.gform_wrapper label.gfield_label,
+.gform_wrapper legend.gfield_label_before_complex {
 	font-weight: 400!important;
 	padding-top: 5px;
 }
@@ -309,12 +306,17 @@ body .ginput_container_list table.gfield_list tbody tr td.gfield_list_icons {
 	font-weight: 300!important;
 	height: calc(2.25rem + 2px)!important;
 	letter-spacing: 1px!important;
+	line-height: 24px!important;
 	padding: .375rem .75rem!important;
 	text-transform: none;
 }
 
 .gform_wrapper .chosen-container-active .chosen-single {
 	box-shadow: none!important;
+}
+
+.gform_wrapper.gravity-theme .chosen-container-single .chosen-single span {
+	line-height: 24px!important;
 }
 
 #gf_coupon_button {

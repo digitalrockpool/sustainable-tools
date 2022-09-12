@@ -127,7 +127,7 @@ if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/d
 	$plan_attributes = $wpdb->get_row( "SELECT plan, membership_id FROM master_plan WHERE id=$plan_id" );
 	$plan = strtolower( $plan_attributes->plan );
 
-	if ( $wp_user_role == 'not_subscribed' && strtotime( $registration_date ) < strtotime( '-15 days' ) ) : wp_redirect( home_url().'/subscription/'.$plan.'-yearly/?plan='.$plan_id.'&interval=y' ); endif; ?>
+	if ( $wp_user_role == 'not_subscribed' ) : wp_redirect( home_url().'/subscription/'.$plan.'-yearly/?plan='.$plan_id.'&interval=y' ); endif; ?>
 	
 	<header id="masthead" class="col-xl-2 site-header">
 		<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p> <?php
