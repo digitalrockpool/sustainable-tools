@@ -30,7 +30,11 @@
 	$user_id = get_current_user_id();
 	$user_role = $_SESSION['user_role'];
 	$user_role_tag = $_SESSION['user_role_tag'];
-	$wp_user_role = $_SESSION['wp_user_role'];
+	// $wp_user_role = $_SESSION['wp_user_role']; // ????????
+
+	$user_meta = get_userdata( $user_id );
+	$wp_user_roles = $user_meta->roles;
+	$wp_user_role = $wp_user_roles[0];
 	
 	$plan_id = $_SESSION['plan_id'];
 	$standards_assigned = $_SESSION['standards_assigned']; ?>
@@ -62,13 +66,13 @@
 	
 	endif;
 		
-	if( $plan_id != 4 ) : /* plan: enterprise */ ?>
+	if( $plan_id != 4 && $wp_user_role != 'administrator' ) : /* plan: enterprise */ ?>
 		
 		#mega-menu-item-1710 { display: none!important; } /* my account: manage teams */ <?php
 	
 	endif;
 		
-	if( $plan_id != 5 ) : /* plan: organisation */ ?>
+	if( $plan_id != 5 && $wp_user_role != 'administrator' ) : /* plan: organisation */ ?>
 		
 		#mega-menu-item-2063 { display: none!important; } /* my account: manage members */ <?php
 	

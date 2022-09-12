@@ -145,7 +145,15 @@ else : ?>
 				
 		endif;
 
-		if( $page_id == 1100 && ( $user_role == 222 || $user_role == 223 ) ) : property_profile_edit(); endif; /* property profile && super admin || admin */
+		if( $page_id == 1100 && ( $user_role == 222 || $user_role == 223 ) ) : /* property profile && super admin || admin */
+
+			$part_name = $slug.'-revisions';
+
+			get_template_part('/parts/accounts/account', $part_name ); 
+			
+		endif; 
+
+
 		if( $page_id == 1505 && ( $user_role == 222 || $user_role == 223 ) && $plan_id == 4 ) : team_member_edit(); endif;  /* team member && super admin || admin && enterprise */ ?>
 
 	</aside> <?php
