@@ -1,6 +1,8 @@
 <?php
 
-/* Template Name: Yardstick
+/* ***
+
+Template Name: Yardstick
 
 Template Post Type: Post, Page, Help
 
@@ -8,7 +10,9 @@ Template Post Type: Post, Page, Help
 @author		Digital Rockpool
 @link		https://www.sustainable.tools/yardstick
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+@license	GPL-2.0+
+
+*** */
 
 get_header();
 
@@ -23,7 +27,6 @@ $master_loc = $_SESSION['master_loc'];
 $user_id = get_current_user_id();
 $user_role = $_SESSION['user_role'];
 $user_role_tag = $_SESSION['user_role_tag'];
-$wp_user_role = $_SESSION['wp_user_role'];
 
 $plan_id = $_SESSION['plan_id'];
 
@@ -127,7 +130,7 @@ else : ?>
 
 				<h2 class="h4-style delete-account">Delete account</h2> <?php
 				
-				if( $wp_user_role == 'has_account' ) : ?>
+				if( $user_role == 222 ) : ?>
 				
 					<p>Please cancel your subscription before deleting your account.</p>
 				
@@ -143,18 +146,15 @@ else : ?>
 				
 			</section> <?php
 				
-		endif;
+		endif; 
 
-		if( $page_id == 1100 && ( $user_role == 222 || $user_role == 223 ) ) : /* property profile && super admin || admin */
+		$part_name = $slug.'-revisions';
 
-			$part_name = $slug.'-revisions';
+		if( ( $page_id == 1100 || ( $page_id == 1505 && $plan_id == 4 ) ) && ( $user_role == 222 || $user_role == 223 ) ) : /* ( property profile || team member && enterprise ) && super admin || admin */
 
 			get_template_part('/parts/accounts/account', $part_name ); 
 			
-		endif; 
-
-
-		if( $page_id == 1505 && ( $user_role == 222 || $user_role == 223 ) && $plan_id == 4 ) : team_member_edit(); endif;  /* team member && super admin || admin && enterprise */ ?>
+		endif; ?>
 
 	</aside> <?php
 endif;

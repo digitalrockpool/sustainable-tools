@@ -1,7 +1,7 @@
 <?php 
 /* ***
 
-Template Part:  Forms - Property Profile - Revisions
+Template Part:  Accounts - Property Profile - Revisions
 
 @package	      Sustainable Tools
 @author		      Digital Rockpool

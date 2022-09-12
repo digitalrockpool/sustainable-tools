@@ -8,6 +8,61 @@
 @copyright	Copyright (c) 2019, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
+// GRAVITY DROPDOWNS: COUNTRY / TEAM MEMBER
+add_filter( 'gform_pre_render_114', 'populate_edit_location_country' );
+add_filter( 'gform_admin_pre_render_114', 'populate_edit_location_country' );
+function populate_edit_location_country( $form ) {
+	
+	global $wpdb;
+
+	$results = $wpdb->get_results( "SELECT country FROM master_country ORDER BY country ASC" );
+
+	foreach( $results as $rows ) :
+		$choices[] = array( 'text' => $rows->country, 'value' => $rows->country );
+	endforeach;
+
+	foreach( $form['fields'] as &$field ) :
+		if( $field['id'] == 51 ) :
+			$field['placeholder'] = 'Select Country';
+			$field['choices'] = $choices;
+		endif;
+	endforeach;
+
+	return $form;
+}
+
+add_filter( 'gform_pre_render_120', 'populate_add_team_member' );
+add_filter( 'gform_admin_pre_render_120', 'populate_add_team_member' );
+function populate_add_team_member( $form ) {
+	
+	global $wpdb;
+	
+	$user_role = $_SESSION['user_role'];
+	
+	if( $user_role == 222 ) : /* super admin */
+
+		$results = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=35 ORDER BY id ASC" ); 
+	
+	else : 
+	
+		$results = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=35 AND id!=222 ORDER BY id ASC" ); 
+	
+	endif;
+
+	foreach( $results as $rows ) :
+		$choices[] = array( 'text' => $rows->tag, 'value' => $rows->id );
+	endforeach;
+
+	foreach( $form['fields'] as &$field ) :
+		if( $field['id'] == 17 ) :
+			$field['placeholder'] = 'Select User Role';
+			$field['choices'] = $choices;
+		endif;
+	endforeach;
+
+	return $form;
+}
+
 
 // SETTINGS: REPORT SETTINGS SECTOR
 function report_settings_sector() {

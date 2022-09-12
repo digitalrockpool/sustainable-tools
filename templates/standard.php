@@ -23,7 +23,6 @@ $master_loc = $_SESSION['master_loc'];
 $user_id = get_current_user_id();
 $user_role = $_SESSION['user_role'];
 $user_role_tag = $_SESSION['user_role_tag'];
-$wp_user_role = $_SESSION['wp_user_role'];
 
 $plan_id = $_SESSION['plan_id'];
 

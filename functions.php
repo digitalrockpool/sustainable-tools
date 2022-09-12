@@ -156,13 +156,13 @@ add_action( 'wp_enqueue_scripts', 'sustainable_tools_scripts' );
 
 
 /*** Add library includes */
+require get_template_directory().'/lib/inc/custom-posts.php';
 require get_template_directory().'/lib/inc/csv_uploads.php';
 require get_template_directory().'/lib/inc/form-dropdown.php';
 require get_template_directory().'/lib/inc/form-dynamic.php';
 require get_template_directory().'/lib/inc/form-extras.php';
 require get_template_directory().'/lib/inc/form-submission.php';
 require get_template_directory().'/lib/inc/snippet-registration.php';
-require get_template_directory().'/lib/inc/snippet-account.php';
 require get_template_directory().'/lib/inc/snippet-operations.php';
 require get_template_directory().'/lib/inc/snippet-charity.php';
 require get_template_directory() . '/lib/inc/shortcode.php';
@@ -256,10 +256,6 @@ if ( is_user_logged_in() ) :
 	$user_role = $wpdb->get_row( "SELECT role_id, tag FROM relation_user INNER JOIN master_tag ON relation_user.role_id=master_tag.id WHERE user_id=$user_id AND active=1 ORDER BY relation_user.id DESC" ) ;
 	$_SESSION['user_role'] = $user_role->role_id;
 	$_SESSION['user_role_tag'] = $user_role->tag;
-
-	$wp_user = wp_get_current_user();
-	$wp_user_roles = ( array ) $wp_user->roles;
-	if( in_array( 'contributor', $wp_user_roles ) || in_array( 'administrator', $wp_user_roles ) ) : $_SESSION['wp_user_role'] = 'has_account'; else : $_SESSION['wp_user_role'] = 'not_subscribed'; endif;
 
 	$plan = $wpdb->get_row( "SELECT plan_id, licence, city, county, profile_location.country, discount FROM profile_location INNER JOIN master_country ON profile_location.country=master_country.country WHERE master_loc=$master_loc ORDER BY profile_location.id DESC" );
 	$_SESSION['plan_id'] = $plan->plan_id;
