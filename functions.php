@@ -134,7 +134,7 @@ function sustainable_tools_scripts() {
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800' );
 	wp_enqueue_style( 'font-awesome', '//pro.fontawesome.com/releases/v5.10.1/css/all.css">' );
   wp_enqueue_style( 'datatables-style', '//cdn.datatables.net/1.10.21/css/jquery.dataTables.css' );
-	wp_enqueue_style( 'bootstrap-styles', '//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' );
+	wp_enqueue_style( 'bootstrap-styles', '//cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' );
 	wp_enqueue_style( 'datepicker-styles', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.standalone.min.css' );
 	wp_enqueue_style( 'select-styles', '//cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css' );
 	wp_enqueue_style( 'base-style', get_stylesheet_uri() );
