@@ -1,6 +1,6 @@
 <?php ob_start();
 
-/* Template Name: Charts
+/* ***
 
 Template Post Type: Page
 
@@ -8,11 +8,11 @@ Template Post Type: Page
 @author		Digital Rockpool
 @link		https://www.sustainable.tools/yardstick
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+@license	GPL-2.0+
+
+*** */
 
 get_header();
-
-
 
 $calendar_id = $_SESSION['calendar_id'];
 $measure_toggle = $_SESSION['measure_toggle'];
@@ -144,7 +144,7 @@ $chart_unit = $chart_units->unit_tag; ?>
 			ob_end_flush();	  
 		endif;  ?>
 		
-		<div class="d-none"> <?php dynamic_sidebar( 'chart-sidebar' ); ?></div> 
+		<div class="d-none">hello<?php dynamic_sidebar( 'chart-sidebar' ); ?></div> 
 		
 	</section>
 </aside>

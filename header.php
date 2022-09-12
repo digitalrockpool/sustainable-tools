@@ -30,7 +30,10 @@
 	$user_id = get_current_user_id();
 	$user_role = $_SESSION['user_role'];
 	$user_role_tag = $_SESSION['user_role_tag'];
-	$wp_user_role = $_SESSION['wp_user_role'];
+
+	$user_meta = get_userdata( $user_id );
+	$wp_user_roles = $user_meta->roles;
+	$wp_user_role = $wp_user_roles[0];
 	
 	$plan_id = $_SESSION['plan_id'];
 	$standards_assigned = $_SESSION['standards_assigned']; ?>
@@ -62,13 +65,13 @@
 	
 	endif;
 		
-	if( $plan_id != 4 ) : /* plan: enterprise */ ?>
+	if( $plan_id != 4 && $wp_user_role != 'administrator' ) : /* plan: enterprise */ ?>
 		
 		#mega-menu-item-1710 { display: none!important; } /* my account: manage teams */ <?php
 	
 	endif;
 		
-	if( $plan_id != 5 ) : /* plan: organisation */ ?>
+	if( $plan_id != 5 && $wp_user_role != 'administrator' ) : /* plan: organisation */ ?>
 		
 		#mega-menu-item-2063 { display: none!important; } /* my account: manage members */ <?php
 	
@@ -127,7 +130,7 @@ if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/d
 	$plan_attributes = $wpdb->get_row( "SELECT plan, membership_id FROM master_plan WHERE id=$plan_id" );
 	$plan = strtolower( $plan_attributes->plan );
 
-	if ( $wp_user_role == 'not_subscribed' ) : wp_redirect( home_url().'/subscription/'.$plan.'-yearly/?plan='.$plan_id.'&interval=y' ); endif; ?>
+	if ( $wp_user_role == 'subscriber' ) : wp_redirect( home_url().'/subscription/'.$plan.'-yearly/?plan='.$plan_id.'&interval=y' ); endif; // THIS IS WHERE PEOPLE ARE REDIRECTED IF NOT SUBSCRIPTION HAS EXPIRED ?>
 	
 	<header id="masthead" class="col-xl-2 site-header">
 		<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p> <?php

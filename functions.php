@@ -134,7 +134,7 @@ function sustainable_tools_scripts() {
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800' );
 	wp_enqueue_style( 'font-awesome', '//pro.fontawesome.com/releases/v5.10.1/css/all.css">' );
   wp_enqueue_style( 'datatables-style', '//cdn.datatables.net/1.10.21/css/jquery.dataTables.css' );
-	wp_enqueue_style( 'bootstrap-styles', '//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' );
+	wp_enqueue_style( 'bootstrap-styles', '//cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' );
 	wp_enqueue_style( 'datepicker-styles', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.standalone.min.css' );
 	wp_enqueue_style( 'select-styles', '//cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css' );
 	wp_enqueue_style( 'base-style', get_stylesheet_uri() );
@@ -156,13 +156,13 @@ add_action( 'wp_enqueue_scripts', 'sustainable_tools_scripts' );
 
 
 /*** Add library includes */
+require get_template_directory().'/lib/inc/custom-posts.php';
 require get_template_directory().'/lib/inc/csv_uploads.php';
 require get_template_directory().'/lib/inc/form-dropdown.php';
 require get_template_directory().'/lib/inc/form-dynamic.php';
 require get_template_directory().'/lib/inc/form-extras.php';
 require get_template_directory().'/lib/inc/form-submission.php';
 require get_template_directory().'/lib/inc/snippet-registration.php';
-require get_template_directory().'/lib/inc/snippet-account.php';
 require get_template_directory().'/lib/inc/snippet-operations.php';
 require get_template_directory().'/lib/inc/snippet-charity.php';
 require get_template_directory() . '/lib/inc/shortcode.php';
@@ -218,7 +218,7 @@ function logged_out_redirect() {
 
 /*** Custom Login Screen */
 function custom_login() {
-	echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/lib/css/login-style.css" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/lib/css/login.css" />';
 }
 add_action('login_head', 'custom_login');
 
@@ -256,10 +256,6 @@ if ( is_user_logged_in() ) :
 	$user_role = $wpdb->get_row( "SELECT role_id, tag FROM relation_user INNER JOIN master_tag ON relation_user.role_id=master_tag.id WHERE user_id=$user_id AND active=1 ORDER BY relation_user.id DESC" ) ;
 	$_SESSION['user_role'] = $user_role->role_id;
 	$_SESSION['user_role_tag'] = $user_role->tag;
-
-	$wp_user = wp_get_current_user();
-	$wp_user_roles = ( array ) $wp_user->roles;
-	if( in_array( 'contributor', $wp_user_roles ) || in_array( 'administrator', $wp_user_roles ) ) : $_SESSION['wp_user_role'] = 'has_account'; else : $_SESSION['wp_user_role'] = 'not_subscribed'; endif;
 
 	$plan = $wpdb->get_row( "SELECT plan_id, licence, city, county, profile_location.country, discount FROM profile_location INNER JOIN master_country ON profile_location.country=master_country.country WHERE master_loc=$master_loc ORDER BY profile_location.id DESC" );
 	$_SESSION['plan_id'] = $plan->plan_id;
