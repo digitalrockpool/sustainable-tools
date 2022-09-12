@@ -218,7 +218,7 @@ function logged_out_redirect() {
 
 /*** Custom Login Screen */
 function custom_login() {
-	echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/lib/css/login-style.css" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_uri().'/lib/css/login.css" />';
 }
 add_action('login_head', 'custom_login');
 
