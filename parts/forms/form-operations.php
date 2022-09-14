@@ -56,8 +56,8 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
       <div class="col-md-4 mb-3">
         <label class="control-label" for="edit-measure-date">Date<sup class="text-danger">*</sup></label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+        <div class="input-group has-validation mb-2">
+          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
           <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
           <div class="invalid-feedback">Please select a date</div>
         </div>

@@ -85,11 +85,11 @@ if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $mod_query == 1 &&
 
 if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
-	<article class="col-xl-8 px-3">
-		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+	<div class="row px-3">
+		<article class="col-xl-8 primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 
 			<header class="header-flexbox">
-				<h1 class="h4-style">Data <i class="fal fa-chevron-double-right small"></i> <?php echo $module; ?> <i class="fal fa-chevron-double-right small"></i> Add <?php echo $title;
+				<h1 class="h4-style">Data <i class="fal fa-chevron-double-right small"></i> <?php echo $module; ?> <i class="fal fa-chevron-double-right small"></i> Add <?php echo $title; 
 
 				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?> </h1>
 
@@ -104,113 +104,113 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
 			get_template_part('/parts/forms/form', $module_strip, $args ); ?>
 
-		</section>
-	</article>
+		</article>
 
-	<aside class="col-xl-4 pr-3">
-		<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-			<h2 class="h4-style">Latest Entries</h2><?php
+		<aside class="col-xl-4 pr-3">
+			<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+				<h2 class="h4-style">Latest Entries</h2><?php
 
-			$args = array(
-				'cat_id' => $cat_id,
-				'tag_id' => $tag_id,
-				'title'		=> $title
-			);
+				$args = array(
+					'cat_id' => $cat_id,
+					'tag_id' => $tag_id,
+					'title'		=> $title
+				);
 
-			get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
+				get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
 
-			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
-		</section> <?php
+				<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
+			</section> <?php
 
-		$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
+			$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
 
-		if( ( $plan_id == 3 || $plan_id == 4) && !empty( $uploads ) ) : ?>
+			if( ( $plan_id == 3 || $plan_id == 4) && !empty( $uploads ) ) : ?>
 
-			<section class="dark-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-				<h2 class="h4-style">Upload Entries</h2> <?php
+				<section class="dark-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+					<h2 class="h4-style">Upload Entries</h2> <?php
 
-				echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
+					echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
 
-					/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
+						/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
 
-							$file = $_FILES['csv']['tmp_name'];
-							$fileHandle = fopen($file, "r");
-							$i=0;
+								$file = $_FILES['csv']['tmp_name'];
+								$fileHandle = fopen($file, "r");
+								$i=0;
 
-							$loc_name = $_POST['loc_name'];
-							$utility_type = (int)$_POST['utility_type']; // Get these from page
-							$employee_type = (int)$_POST['employee_type'];
-							$donation_type = (int)$_POST['donation_type'];
+								$loc_name = $_POST['loc_name'];
+								$utility_type = (int)$_POST['utility_type']; // Get these from page
+								$employee_type = (int)$_POST['employee_type'];
+								$donation_type = (int)$_POST['donation_type'];
 
-							while( ( $cell = fgetcsv( $fileHandle, 0, "," ) ) !== FALSE ) :
+								while( ( $cell = fgetcsv( $fileHandle, 0, "," ) ) !== FALSE ) :
 
-								$i++;
-								$cell0_check = $cell[0];
-								$cell1_check = $cell[1];
+									$i++;
+									$cell0_check = $cell[0];
+									$cell1_check = $cell[1];
 
-								if( $measure_toggle == 86 && $employee_type != 69 && $employee_type != 70 && $employee_type != 71 && $employee_type != 228 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
+									if( $measure_toggle == 86 && $employee_type != 69 && $employee_type != 70 && $employee_type != 71 && $employee_type != 228 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
 
-									$cell_check = 0;
+										$cell_check = 0;
 
-								elseif( $measure_toggle == 84 && $mod_query == 1 && $calendar == 231 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
+									elseif( $measure_toggle == 84 && $mod_query == 1 && $calendar == 231 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
 
-									$cell_check = 0;
+										$cell_check = 0;
 
-								elseif( $measure_toggle == 86 && $employee_type != 72 && $employee_type != 73 && empty( $cell0_check ) ) :
+									elseif( $measure_toggle == 86 && $employee_type != 72 && $employee_type != 73 && empty( $cell0_check ) ) :
 
-									$cell_check = 0;
+										$cell_check = 0;
 
-								elseif( $measure_toggle != 86 && empty( $cell0_check ) ) :
+									elseif( $measure_toggle != 86 && empty( $cell0_check ) ) :
 
-									$cell_check = 0;
+										$cell_check = 0;
 
-								else :
+									else :
 
-									$cell_check = 1;
+										$cell_check = 1;
 
-								endif;
+									endif;
 
-								if( $i>1 && !empty( $cell_check ) ) :
+									if( $i>1 && !empty( $cell_check ) ) :
 
-									csv_upload( $cell, $mod_query, $utility_type, $employee_type, $donation_type, $loc_name );
+										csv_upload( $cell, $mod_query, $utility_type, $employee_type, $donation_type, $loc_name );
 
-								endif;
+									endif;
 
-							endwhile;
+								endwhile;
 
-							header ( "Location: $site_url/$slug/?mod=$mod_query" );
+								header ( "Location: $site_url/$slug/?mod=$mod_query" );
 
-						elseif( $_FILES['csv']['size'] > 0 ) :
+							elseif( $_FILES['csv']['size'] > 0 ) :
 
-							echo 'The file you tried to upload is empty';
+								echo 'The file you tried to upload is empty';
 
-						elseif( $_FILES['csv']['type'] == 'text/csv' ) :
+							elseif( $_FILES['csv']['type'] == 'text/csv' ) :
 
-							echo 'The file you tried to upload is not a csv';
+								echo 'The file you tried to upload is not a csv';
 
-						endif; */ ?>
+							endif; */ ?>
 
-				<div class="clearfix"></div>
+					<div class="clearfix"></div>
 
-				<div class="d-flex align-items-center my-3">
+					<div class="d-flex align-items-center my-3">
 
-					<div>
-						<h5>Download File Template</h5>
-						<p>Please use this template for uploading your data.</p>
-					</div><?php
+						<div>
+							<h5>Download File Template</h5>
+							<p>Please use this template for uploading your data.</p>
+						</div><?php
 
-					$filename = $uploads->upload; ?>
+						$filename = $uploads->upload; ?>
 
-					<div class="text-center" style="width:60%;">
-						<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fad fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
+						<div class="text-center" style="width:60%;">
+							<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fad fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
+						</div>
+
 					</div>
 
-				</div>
-
-				<p><strong class="text-danger">! PLEASE NOTE ! </strong><br />Uploaded <?php echo strtolower( $title ) ?> takes up to 24 hours to appear in the system.</p>
-			</section> <?php
-		endif; ?>
-	</aside> <?php
+					<p><strong class="text-danger">! PLEASE NOTE ! </strong><br />Uploaded <?php echo strtolower( $title ) ?> takes up to 24 hours to appear in the system.</p>
+				</section> <?php
+			endif; ?>
+		</aside>
+		</div> <?php
 
 elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 
