@@ -40,7 +40,7 @@ body {
 	background-size: cover!important;
 	background-repeat: no-repeat;
 	color: #3a3a3a;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	font-size: 16px;
 	font-size: 1rem;
 	font-weight: 300;
@@ -247,7 +247,7 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	line-height: 1.2;
 	margin: 0 0 25px;
 }
@@ -278,7 +278,6 @@ h4,
 	font-size: 20px;
 	font-size: 1.25rem;
 	font-weight: 400;
-	text-transform: uppercase;
 }
 
 h5,
@@ -985,19 +984,19 @@ li ol > li:before {
 }
 
 .primary-box {
-	border-top: 3px solid #ff5421;
+	border-top: 2px solid #ff5421;
 }
 
 .secondary-box  {
-	border-top: 3px solid #ce211b;
+	border-top: 2px solid #ce211b;
 }
 
 .dark-box  {
-	border-top: 3px solid #263238;
+	border-top: 2px solid #263238;
 }
 
 .light-box  {
-	border-top: 3px solid #ff9a21;
+	border-top: 2px solid #ff9a21;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -1045,15 +1044,131 @@ button.wdt-clear-filters-widget-button {
 
 
 /* ## Site Navigation
---------------------------------------------- 
-
-Styles are controlled in the Mega Menu plugin for main menu
-
 --------------------------------------------- */
+.sidebar-nav {
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: calc(100% - 17rem);
+  margin-left: 17rem;
+  transition: all 0.4s;
+}
+
+/* for toggle behavior */
+
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+#sidebarCollapse {
+	background: transparent;
+	float: none;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -17rem;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    width: 100%;
+    margin: 0;
+  }
+  #content.active {
+    margin-left: 17rem;
+    width: calc(100% - 17rem);
+  }
+}
+
+.sidebar-nav .nav-section-label {
+	color: #9da9bb;
+	display: flex;
+	flex-direction: row;
+	font-size: 12px;
+	font-size: .75rem;
+	font-weight: 500;
+	margin-top: 1rem;
+}
+.nav-section-label::after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 1px solid #ced4da;
+	margin: auto;
+	width: 75%;
+}
+
+.sidebar-nav a,
+.dropdown-menu a {
+	color: #5e6e82;
+	text-transform: none;
+	font-size: 13px;
+	font-size: 0.8125rem;
+	font-weight: 400;
+	padding: 8px;
+}
+
+.sidebar-nav a i {
+	width: 32px;
+}
+
+.sidebar-nav ul {
+	-webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  font-size: .8125rem;
+}
+
+.sidebar-nav ul li {
+	padding-left: 32px;
+	margin-bottom: 0;
+}
+
+.dropdown-menu ul {
+	padding: 0;
+	margin-bottom: 0;
+}
+
+.dropdown-menu ul li {
+	padding: 4px;
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+.sidebar-nav ul li a:hover,
+.dropdown-menu a:hover {
+	color: #ff5421;
+}
+
+.sidebar-nav .nav-dropdown-indicator::after {
+	content: "\f078";
+	font-family: 'Font Awesome 5 Pro';
+	font-size: 0.75rem;
+	font-weight: 400;
+	margin-left: 0.5rem;
+	position: absolute;
+	right: 0;
+}
+
 
 .remove-nav-transparency {
 	background: #263238;
 }
+
 
 ul#legal-menu {
 	margin-bottom: 0;
@@ -1062,6 +1177,29 @@ ul#legal-menu {
 #legal-menu li {
 	display: inline-block;
 	margin-bottom: 0;
+}
+
+/* ## Site Header
+--------------------------------------------- */
+.user-circle {
+	background: #5e6e82;
+	border-radius: 50%;
+	color: #fff;
+	display: inline-block;
+	font-size: 1.5rem;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	width: 40px;
+}
+
+.user-text {
+	display: inline-block;
+	font-size: 12px;
+	font-size: 0.75rem;
+	font-weight: 400;
+	line-height: 1.1;
+	margin: 0 8px;
 }
 
 

@@ -18,13 +18,16 @@ if( is_page_template( 'templates/fullscreen.php' ) ) : ?>
 
 else : ?>
 
-	<footer id="colophon" class="site-footer row no-gutters clearfix">
+</div><!-- #content -->
+</div><!-- .row --> 
 
-		<section class="site-info col-sm-6 pl-5">
+<footer id="colophon" class="site-footer row">
+
+	<section class="site-info col-sm-6 pl-5">
 			Copyright &copy; <?php echo date('Y'); ?> Digital Rockpool LTD
 		</section>
 
-		<section class="legal-info col-sm-6 pr-5 text-right"> <?php
+		<section class="legal-info col-sm-6 pr-5 align-self-end"> <?php
 			wp_nav_menu( array(
 				'theme_location' => 'menu-3',
 				'menu_id'        => 'legal-menu',
@@ -36,8 +39,7 @@ endif;
 	
 if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/yardstick.php' ) ) : ?>
 
-	</div><!-- .col-10 -->
-	</div><!-- .row --> <?php 
+	</div><!-- .container --> <?php 
 
 endif;
 
