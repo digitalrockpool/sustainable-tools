@@ -69,13 +69,13 @@ foreach( $selected_modules as $selected_module ) :
   $module_toggle[] = $selected_tag_id.$selected_tag;
 endforeach; ?>
 
-<img src="<?php echo get_template_directory_uri() ?>/lib/img/logo-yardstick-dark.png" alt="Yardstick Logo" class="py-2" />
+<img src="<?php echo get_template_directory_uri() ?>/lib/img/logo-yardstick-dark.png" alt="Yardstick Logo" class="py-3" height="60" />
 
 <a class="nav-link" href="<?php echo $site_url ?>/yardstick/" role="button"><i class="fa-regular fa-chart-pie"></i>Dashboard</a><?php
 
 if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_admin || admin || editor */ ?>
 
-  <div class="nav-section-label">Data</div>  
+  <div class="nav-section-label"><span>Data</span></div>  
 
   <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=measures" role="button"><i class="fa-regular fa-bed"></i>Measures</a><?php
 
@@ -122,13 +122,13 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
   endif;
   
   if( $standards_assigned >= 0 ) : ?>
-    <div class="nav-section-label">Standards</div>  
+    <div class="nav-section-label"><span>Standards</span></div>  
     <a class="nav-link" href="<?php echo $site_url ?>/yardstick/standards" role="button"><i class="fa-regular fa-star"></i>Standards</a> <?php
   endif;
 
 endif; ?>
 
-<div class="nav-section-label">Charts</div><?php
+<div class="nav-section-label"><span>Charts</span></div><?php
 
 if( in_array( "313on", $module_toggle ) ) : /* operations */ ?>
   <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-chart-operations" role="button" aria-expanded="false" aria-controls="collapse-chart-operations"><i class="fa-regular fa-car-building"></i>Operations</a>
@@ -161,7 +161,7 @@ endif;
 
 if( $user_role == 222 || $user_role == 223 ) : /* super_admin || admin */ ?>
 
-  <div class="nav-section-label">Settings</div> 
+  <div class="nav-section-label"><span>Settings</span></div> 
   <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-setting-general" role="button" aria-expanded="false" aria-controls="collapse-setting-general"><i class="fa-regular fa-sliders"></i>General</a>
   <ul class="nav collapse" id="collapse-setting-general"><?php
     if( $plan_id != 2 ) : ?>

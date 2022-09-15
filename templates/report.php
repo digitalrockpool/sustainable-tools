@@ -37,7 +37,7 @@ if( empty( $end_url ) ) : $end = date( 'Y-m-d'); else : $end = date( 'Y-m-d', st
 <article class="col-12 px-3">
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		<header class="header-flexbox">
-			<h1 class="h4-style">Report <i class="fal fa-chevron-double-right small"></i> <?php echo $report ?></h1> <?php
+			<h1 class="h4-style">Report <i class="fa-solid fa-chevrons-right"></i> <?php echo $report ?></h1> <?php
 
 			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
 		</header>

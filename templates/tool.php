@@ -48,7 +48,7 @@ endif;  ?>
 		else : ?>
 		
 			<header class="header-flexbox">
-				<h1 class="h4-style"><?php echo get_the_title( $post->post_parent ).' <i class="fal fa-chevron-double-right small"></i> '.get_the_title(); ?></h1> 
+				<h1 class="h4-style"><?php echo get_the_title( $post->post_parent ).' <i class="fa-solid fa-chevrons-right"></i> '.get_the_title(); ?></h1> 
 			</header> <?php 
 		
 			if( $wp_user_role == 'not_subscribed' && $page_id == 2060 ) : /* page_id == manage subscription */

@@ -52,7 +52,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 	<article class="col-xl-8 px-3">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 			<header class="header-flexbox">
-				<h1 class="h4-style">Settings <?php if( !empty( $module ) ) : echo '<i class="fal fa-chevron-double-right small"></i> '.$module; endif; ?> <i class="fal fa-chevron-double-right small"></i> <?php echo $title; ?></h1> <?php
+				<h1 class="h4-style">Settings <?php if( !empty( $module ) ) : echo '<i class="fa-solid fa-chevrons-right"></i> '.$module; endif; ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $title; ?></h1> <?php
 
 				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
 			</header> <?php

@@ -44,7 +44,7 @@ $std_description = $standard_setup->description; ?>
 <article class="col-xl-8 px-3"> 
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		<header class="header">
-			<h1 class="h4-style">Standard <i class="fal fa-chevron-double-right small"></i> <?php echo $std_name ?></h1> 
+			<h1 class="h4-style">Standard <i class="fa-solid fa-chevrons-right"></i> <?php echo $std_name ?></h1> 
 			<p><?php echo $std_description ?></p>
 		</header> <?php
 	

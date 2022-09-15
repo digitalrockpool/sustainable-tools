@@ -46,7 +46,7 @@ $chart_unit = $chart_units->unit_tag; ?>
 <article class="col-12 px-3">
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		
-		<h1 class="h4-style">Charts <i class="fal fa-chevron-double-right small"></i> <?php echo $module ?> <i class="fal fa-chevron-double-right small"></i> <?php echo $chart; if( !empty( $filter ) ) : ?> <i class="fal fa-chevron-double-right small"></i> <?php echo $filter; endif; if( !empty( $chart_unit ) ) : echo ' <span style="text-transform:none;">('.$chart_unit.')</span>'; endif; ?></h1> <?php
+		<h1 class="h4-style">Charts <i class="fa-solid fa-chevrons-right"></i> <?php echo $module ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $chart; if( !empty( $filter ) ) : ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $filter; endif; if( !empty( $chart_unit ) ) : echo ' <span style="text-transform:none;">('.$chart_unit.')</span>'; endif; ?></h1> <?php
 		
 		if( $display == 'inline' ) : ?><div class="row"><div class="col-6"> <?php endif;
 
