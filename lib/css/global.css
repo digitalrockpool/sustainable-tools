@@ -19,9 +19,11 @@ Lost Items
 
 small {
 	display: block;
+	font-size: 12px;
+	font-size: 0.75rem;
 	font-weight: 300;
 	letter-spacing: 0.5pt;
-	margin: 0 0 15px;
+	margin: 0;
 	white-space: normal;
 }
 
@@ -35,11 +37,6 @@ small {
 	top: 0;
  }
 
-header.header-flexbox {
-	display: flex;
-	justify-content: space-between;
-}
-
 .clearfix {
 	clear: both;
 }
@@ -52,4 +49,22 @@ button:focus {
 	outline: none!important;
 }
 
+
+/* GRAVITY FORMS */
+
+.gform_wrapper.gravity-theme .gform_heading {
+	display: none;
+}
+
+.gform_wrapper.gravity-theme form .gfield_label {
+	font-weight: 400;
+}
+
+.gform_wrapper.gravity-theme form .gfield_description {
+	font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5pt;
+  margin: 1px 0 0 0;
+  padding: 0;
+}
 

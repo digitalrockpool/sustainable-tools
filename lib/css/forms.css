@@ -70,6 +70,9 @@ input[type="submit"],
 	-o-transition:      all 0.4s ease-in-out;
 	transition:         all 0.4s ease-in-out;
 }
+label {
+	font-weight: 400;
+}
 
 input:focus,
 select:focus,
@@ -78,6 +81,11 @@ textarea:focus {
 	outline: none;
 }
 
+input[type="checkbox"],
+input[type="image"],
+input[type="radio"] {
+	padding: 0;
+}
 .custom-select.is-valid, .form-control.is-valid,
 .was-validated .custom-select:valid,
 .was-validated .form-control:valid,
@@ -94,6 +102,12 @@ textarea:focus {
 .dropdown-item {
 	color: #393939;
 	font-weight: 300;
+}
+
+input.reporting-off,
+.reporting-off input {
+	background-color: #e9ecef;
+	opacity: 1;
 }
 
 /* List Form Add | Remove Buttons */
@@ -297,12 +311,12 @@ span.tag-inactive:active:after {
 	width: 140%;
 } */
 
-input[type="checkbox"],
+/* input[type="checkbox"],
 input[type="image"],
 input[type="radio"] {
 	height: auto;
 	width: auto;
-}
+} */
 
 .button {
 	display: inline-block;
@@ -357,6 +371,8 @@ a.btn-primary:active,
 a.btn-primary:focus,
 .btn-primary:hover,
 a.btn-primary:hover,
+.btn.btn-primary:first-child:hover
+button.btn-primary:hover,
 input[type=submit]:hover.button,
 .gform_wrapper input[type=submit]:hover.button {
 	color: #fff;

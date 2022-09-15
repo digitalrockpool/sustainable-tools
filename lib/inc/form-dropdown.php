@@ -128,9 +128,8 @@ function reporting_year_start_date( $edit_measure_date_formatted ) {
 
 		<label class="d-block">Reporting Year Start Date<sup class="text-danger">*</sup></label>
 		<div class="input-group">
-			<div class="input-group-prepend"><label class="input-group-text" for="edit-measure-date"><?php echo $fy_day.' '.$month_name; ?></label></div>
-
-			<select class="custom-select" name="edit-measure-date" id="edit-measure-date"> <?php
+			<label class="input-group-text" for="edit-measure-date"><?php echo $fy_day.' '.$month_name; ?></label>
+			<select class="form-select" name="edit-measure-date" id="edit-measure-date"> <?php
 
 				if( empty( $edit_measure_date_formatted ) ) : $selected_year = date( 'Y' ); else : $selected_year = date_format( date_create( $edit_measure_date_formatted ), 'Y' ); endif;
 				$earliest_year = date( 'Y',strtotime( '-10 year' ) );
@@ -192,7 +191,7 @@ function custom_measure_dropdown( $edit_measure ) {
 	
 	<div class="<?php if( empty( $measure_count ) ) : echo 'col-md-8'; else : echo 'col-md-12'; endif; ?> mb-3">
 		<label for="edit-measure">Measure<sup class="text-danger">*</sup></label>
-		<select class="form-control" name="edit-measure" id="edit-measure" required>
+		<select class="form-select" name="edit-measure" id="edit-measure" required>
 			<option value="">Select Measure</option> <?php
 
 			$dropdowns = $wpdb->get_results( "SELECT data_measure.id, custom_tag.id, data_measure.parent_id, tag, measure_start, measure_end FROM data_measure LEFT JOIN custom_tag ON (custom_tag.parent_id=data_measure.measure_name AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) WHERE data_measure.loc_id=$master_loc AND data_measure.active=1 AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id) ORDER BY tag ASC" );

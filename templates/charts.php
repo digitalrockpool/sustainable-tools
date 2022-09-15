@@ -124,7 +124,7 @@ $chart_unit = $chart_units->unit_tag; ?>
 			<div class="form-group">
 				<label class="control-label" for="chart-start-date">Date Range<sup class="text-danger">*</sup></label>
 				<div class="input-group mb-2">
-					<div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+					<div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
 					<input type="text" class="form-control date" name="chart-start-date" id="chart-start-date" aria-describedby="chart-start-date" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $start_date ) ) ?>" data-date-end-date="0d" required>
 					<input type="text" class="form-control date" name="chart-end-date" id="chart-end-date" aria-describedby="chart-end-date" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $end_date ) ) ?>" data-date-end-date="0d" required>
 				</div>

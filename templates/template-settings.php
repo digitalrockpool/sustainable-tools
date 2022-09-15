@@ -35,7 +35,7 @@ $show_help = get_field('show_help'); ?>
 
 			<h1 class="h4-style">Add <?php echo $title ?></h1> <?php
 
-			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
+			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
 
 		</header> <?php
 
@@ -106,7 +106,7 @@ $show_help = get_field('show_help'); ?>
 						</div>
 
 						<div class="col-2">
-							<span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+							<span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
 						</div>
 					</div>
 				</div>
@@ -221,7 +221,7 @@ $show_help = get_field('show_help'); ?>
 							<tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
 								<td class="align-top strikeout-buttons"> <?php // start of view revisions ?>
 
-									<button type="button" class="btn btn-dark d-inline-block edit-button-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
+									<button type="button" class="btn btn-dark d-inline-block edit-button-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
 
 									<div class="modal fade text-left" id="modalRevisions-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $edit_id ?>Title" aria-hidden="true">
 										<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -229,7 +229,7 @@ $show_help = get_field('show_help'); ?>
 
 												<div class="modal-header">
 													<h5 class="modal-title" id="modalRevisions-<?php echo $edit_id ?>Title">Revisions for <?php echo $edit_entry_name ?></h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+													<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 												</div>
 
 												<div class="modal-body"> <?php
@@ -271,7 +271,7 @@ $show_help = get_field('show_help'); ?>
 
 									if( $edit_active == 1 ) : // start of edit ?>
 
-										<button type="button" class="btn btn-light d-inline-block edit-button-block" data-toggle="modal" data-target="#modal-<?php echo $edit_id ?>"><i class="fas fa-pencil"></i></button>
+										<button type="button" class="btn btn-light d-inline-block edit-button-block" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button>
 
 										<div class="modal fade" id="modal-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?php echo $edit_id ?>Title" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered <?php if( $record_type == 'item' ) : echo 'modal-lg'; endif; ?>" role="document">
@@ -279,7 +279,7 @@ $show_help = get_field('show_help'); ?>
 
 													<div class="modal-header">
 														<h5 class="modal-title" id="modal-<?php echo $edit_id ?>Title"><?php echo $edit_entry_name ?></h5>
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+														<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 													</div>
 
 													<div class="modal-body">
@@ -355,7 +355,7 @@ $show_help = get_field('show_help'); ?>
 
 										else : ?>
 
-											<button type="button" class="btn btn-light-inactive d-inline-block edit-button-block"><i class="fas fa-pencil"></i></button> <?php
+											<button type="button" class="btn btn-light-inactive d-inline-block edit-button-block"><i class="fa-solid fa-pencil"></i></button> <?php
 
 									endif;
 
@@ -396,7 +396,7 @@ $show_help = get_field('show_help'); ?>
 
 									if( empty( $items_attached ) ) :
 
-										if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fas fa-trash-alt"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fas fa-trash-restore-alt"></i>'; endif; ?>
+										if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fa-solid fa-trash-can"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fa-solid fa-trash-can-arrow-up"></i>'; endif; ?>
 
 										<form method="post" name="archive" id="<?php echo $edit_archive ?>" class="d-inline-block">
 											<button type="submit" class="btn <?php echo $btn_style ?> d-inline-block edit-button-block" name="<?php echo $edit_archive ?>"><?php echo $edit_value ?></button>
@@ -489,7 +489,7 @@ $show_help = get_field('show_help'); ?>
 			controlForm.find('.entry:not(:last) .btn-add')
 			.removeClass('btn-add').addClass('btn-remove')
 			.removeClass('btn-success').addClass('btn-danger')
-			.html('<i class="fas fa-minus"></i>');
+			.html('<i class="fa-solid fa-minus"></i>');
 		}).on('click', '.btn-remove', function(e)
 		{
 			e.preventDefault();

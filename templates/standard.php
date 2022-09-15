@@ -481,7 +481,7 @@ $std_description = $standard_setup->description; ?>
 
 						<tr>
 							<td> 
-								<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-<?php echo $revision_submission_id ?>"><i class="far fa-eye"></i></button>
+								<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $revision_submission_id ?>"><i class="fa-regular fa-eye"></i></button>
 
 								<div class="modal fade" id="modal-<?php echo $revision_submission_id ?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?php echo $revision_submission_id ?>" aria-hidden="true">
 									<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -489,7 +489,7 @@ $std_description = $standard_setup->description; ?>
 
 											<div class="modal-header">
 												<h5 class="modal-title" id="viewSubmissionTitle"><?php echo $std_name ?></h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 											</div>
 
 											<div class="modal-body"> <?php echo '<p>Entered on '.date_format( $revision_submission_entry_date, "d-M-Y H:i" ).' by '.$revision_submission_display_name.'</p>';

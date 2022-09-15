@@ -70,7 +70,7 @@ if( empty( $edit_annual_leave ) ) : $annual_leave = $master_annual_leave->tag; e
 if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_labour = $edit_labour; endif; ?>
 
 <form method="post" name="edit" id="<?php echo $update_labour ?>" class="needs-validation" novalidate>
-  <div class="form-row"> <?php
+  <div class="form-group row"> <?php
 
     if( $measure_toggle == 86 && $tag_id != 69 && $tag_id != 70 && $tag_id != 71 ) : // custom measures || permanent || seasonal || fixed term
 
@@ -83,12 +83,12 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
     else : ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-measure-date">Date of <?php if( $tag_id == 73 ) : echo 'Internship'; else : echo 'Work'; endif; ?><sup class="text-danger">*</sup></label>
+        <label for="edit-measure-date">Date of <?php if( $tag_id == 73 ) : echo 'Internship'; else : echo 'Work'; endif; ?><sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+          <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
           <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date('d-M-Y'); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
-          <div class="invalid-feedback">Please select a date</div>
         </div>
+        <div class="invalid-feedback">Please select a date</div>
       </div>
 
       <div class="col-md-4 mb-2 d-flex align-items-end"> <?php
@@ -105,11 +105,10 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
   <h5 class="border-top pt-3">Employee</h5>
 
-  <div class="form-row">
-
+  <div class="row g-1">
     <div class="col-md-4 mb-3">
       <label for="edit-hometown">Hometown<sup class="text-danger">*</sup></label>
-      <select class="form-control" name="edit-hometown" id="edit-hometown" required> <?php
+      <select class="form-select" name="edit-hometown" id="edit-hometown" required> <?php
         if( empty( $edit_url ) ) : ?> <option value="">Select Hometown</option> <?php endif; ?>
         <option value="0">Unknown Location</option> <?php
 
@@ -132,7 +131,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
     <div class="col-md-4 mb-3">
       <label for="edit-gender">Gender<sup class="text-danger">*</sup></label>
-      <select class="form-control" name="edit-gender" id="edit-gender" required> <?php
+      <select class="form-select" name="edit-gender" id="edit-gender" required> <?php
         if( empty( $edit_url ) ) : ?> <option value="">Select Gender</option> <?php endif;
 
         $gender_dropdowns = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=7 ORDER BY tag ASC" );
@@ -154,7 +153,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
     <div class="col-md-4 mb-3">
       <label for="edit-ethnicity">Ethnicity</label>
-      <select class="form-control" name="edit-ethnicity" id="edit-ethnicity">
+      <select class="form-select" name="edit-ethnicity" id="edit-ethnicity">
         <option value="">Select Ethnicity</option> <?php
 
         $ethnicity_dropdowns = $wpdb->get_results( "SELECT parent_id, tag FROM custom_tag WHERE loc_id=$master_loc AND cat_id=20 AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag ASC" );
@@ -172,14 +171,12 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
       </select>
     </div>
-
   </div>
 
-  <div class="form-row">
-
+  <div class="row g-1">
     <div class="col-md-4 mb-3">
       <label for="edit-role">Role</label>
-      <select class="form-control" name="edit-role" id="edit-role">
+      <select class="form-select" name="edit-role" id="edit-role">
         <option value="">Select Role</option> <?php
 
         $role_dropdowns = $wpdb->get_results( "SELECT parent_id, tag FROM custom_tag WHERE loc_id=$master_loc AND cat_id=21 AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag ASC" );
@@ -227,16 +224,15 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
         <label class="form-check-label" for="edit-under16-no">No</label>
       </div>
     </div>
-
   </div> <?php
 
   if( $tag_id == 69 || $tag_id == 70 || $tag_id == 71 ) : // permanent || seasonal || fixed term ?>
 
-    <div class="form-row">
+    <div class="row g-1">
 
       <div class="col-md-4 mb-3">
         <label for="edit-level">Level</label>
-        <select class="form-control" name="edit-level" id="edit-level">
+        <select class="form-select" name="edit-level" id="edit-level">
         <option value="">Select Level</option> <?php
 
           $level_dropdowns = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=9 ORDER BY id ASC" );
@@ -284,14 +280,13 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
           <label class="form-check-label" for="edit-promoted-no">No</label>
         </div>
       </div>
-
     </div> <?php
 
   endif; ?>
 
   <h5 class="border-top pt-3">Days</h5>
 
-  <div class="form-row"> <?php
+  <div class="row g-1"> <?php
 
     if( $tag_id == 72 ) : // casual ?>
 
@@ -318,17 +313,17 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
     else : ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-start-date">Start Date</label>
+        <label for="edit-start-date">Start Date</label>
         <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+          <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
           <input type="text" class="form-control date" name="edit-start-date" id="edit-start-date" aria-describedby="editStartDate" placeholder="dd-mmm-yyyy" value="<?php if( !empty( $edit_start_date ) ) : echo $edit_start_date_formatted; endif; ?>" data-date-end-date="0d">
         </div>
       </div>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-leave-date">Leave Date</label>
+        <label for="edit-leave-date">Leave Date</label>
         <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+          <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
           <input type="text" class="form-control date" name="edit-leave-date" id="edit-leave-date" aria-describedby="editLeaveDate" placeholder="dd-mmm-yyyy" value="<?php if( !empty( $edit_leave_date ) ) : echo $edit_leave_date_formatted; endif; ?>" data-date-end-date="0d">
         </div>
       </div>
@@ -337,7 +332,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
         <small class="pb-2">Dates are only required if the employee has worked a partial year</small>
       </div>
 
-      </div><div class="form-row">
+      </div><div class="row g-1">
 
       <div class="col-md-4 mb-3">
         <label for="edit-contract-dpw">Contracted Days per Week<sup class="text-danger">*</sup></label>
@@ -358,13 +353,11 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
       </div> <?php
 
     endif; ?>
-
   </div>
 
   <h5 class="border-top pt-3">Pay</h5>
 
-  <div class="form-row">
-
+  <div class="row g-1">
     <div class="col-md-4 mb-3">
       <label for="edit-salary"><?php if( $tag_id == 72 ) /* casual */ : echo 'Pay'; elseif( $tag_id == 73 ) /* intern */ : echo 'Financial Compensation'; else : echo 'Salary'; endif; ?><sup class="text-danger">*</sup></label>
       <input type="number" class="form-control" name="edit-salary" id="edit-salary" aria-describedby="editSalary" value="<?php echo $edit_salary ?>" min="1" step="0.01" required>
@@ -384,7 +377,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
         <div class="invalid-feedback">Please enter a number greater than 0.01</div>
       </div>
 
-      </div><div class="form-row"> <?php
+      </div><div class="row g-1"> <?php
 
     endif; ?>
 
@@ -407,12 +400,11 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
       </div> <?php
 
     endif; ?>
-
   </div>
 
   <h5 class="border-top pt-3">Training</h5>
 
-  <div class="form-row">
+  <div class="row g-1">
 
     <div class="col-md-4 mb-3">
       <label for="edit-cost-training">Cost of Training</label>
@@ -436,7 +428,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
     <h5 class="border-top pt-3">Tags</h5>
 
-    <div class="form-row">
+    <div class="row g-1">
 
       <div class="col-12 mb-3">
 
@@ -465,19 +457,15 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
 
   <h5 class="border-top pt-3">Notes</h5>
 
-  <div class="form-row">
-
+  <div class="row g-1">
     <div class="col-12 mb-3">
       <label for="edit-note">Please enter any notes for this <?php if( $tag_id == 73 ) : echo 'intern'; else : echo 'employee'; endif; ?></label>
         <textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
     </div>
-
   </div>
 
-  <div class="form-row">
-
+  <div class="row g-1">
     <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_labour ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
-
   </div>
 
 </form> <?php

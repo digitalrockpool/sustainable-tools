@@ -42,7 +42,7 @@ $edit_parent_id = $args['edit_parent_id'];
 if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else : $update_operations = $edit_operations; endif; ?>
 
 <form method="post" name="edit" id="<?php echo $update_operations ?>" class="needs-validation" novalidate>
-  <div class="form-row"> <?php
+  <div class="row"> <?php
 
     if( $measure_toggle == 86 ) : // custom measures
 
@@ -55,9 +55,9 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
     else : ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-measure-date">Date<sup class="text-danger">*</sup></label>
-        <div class="input-group has-validation mb-2">
-          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+        <label for="edit-measure-date">Date<sup class="text-danger">*</sup></label>
+        <div class="input-group has-validation">
+          <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
           <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
           <div class="invalid-feedback">Please select a date</div>
         </div>
@@ -78,9 +78,9 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
   if( empty( $edit_url ) ) : ?>
 
     <div id="repeater-field">
-      <div class="entry form-row mb-1">
+      <div class="entry row g-1 mb-1">
         <div class="col-4">
-          <select class="form-control edit-utility" id="edit-utility" name="edit-utility[]" required>
+          <select class="form-select edit-utility" id="edit-utility" name="edit-utility[]" required>
             <option value="" selected disabled>Select <?php echo ucfirst( str_replace( '-', ' ', $add_url ) ); ?> *</option> <?php
 
             if( $add_url == 'plastic' ) :
@@ -135,7 +135,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
       if( $add_url == 'waste' ) : ?>
 
         <div class="col-3 mb-1">
-            <select class="form-control edit-disposal" name="edit-disposal[]" id="edit-disposal" required>
+            <select class="form-select edit-disposal" name="edit-disposal[]" id="edit-disposal" required>
             <option value="" selected disabled>Select Waste Disposal *</option> <?php
 
             $disposal_dropdowns = $wpdb->get_results( "SELECT custom_tag.tag_id, master_tag.tag FROM master_tag INNER JOIN custom_tag ON master_tag.id=custom_tag.tag_id WHERE custom_tag.cat_id=16 AND loc_id=$master_loc AND active=1 GROUP BY parent_id ORDER BY master_tag.tag ASC" );
@@ -151,7 +151,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
       endif; ?>
 
         <div class="col-1">
-          <button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div> <?php

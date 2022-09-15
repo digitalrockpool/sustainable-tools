@@ -88,24 +88,26 @@ if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $mod_query == 1 &&
 
 if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
-	<section class="col-xl-8 primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+	<div class="col-xl-8">
+		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 
-		<header class="header-flexbox">
-			<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Add <?php echo $title; 
+			<header class="d-flex justify-content-between">
+				<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Add <?php echo $title; ?></h1><?php
 
-			if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?> </h1>
-		</header>
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>"> <i class="fa-duotone fa-circle-question" style="font-size:24px;" aria-hidden="true"></i></a> <?php endif; ?>
+			</header>
 
-		<small>Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
+			<small class="pb-3">Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
 
-		$args = array(
-			'cat_id' => $cat_id,
-			'tag_id' => $tag_id
-		);
+			$args = array(
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id
+			);
 
-		get_template_part('/parts/forms/form', $module_strip, $args ); ?>
+			get_template_part('/parts/forms/form', $module_strip, $args ); ?>
 
-	</section>
+		</section>
+	</div>
 
 	<aside class="col-xl-4">
 		<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
@@ -202,7 +204,7 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 					$filename = $uploads->upload; ?>
 
 					<div class="text-center" style="width:60%;">
-						<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fad fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
+						<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fa-duotone fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
 					</div>
 
 				</div>
@@ -219,19 +221,16 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 		<header class="header-flexbox">
 			<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Edit <?php echo $title;
 
-			if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?> </h1>
+			if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?> </h1>
 
 			<form method="post" name="change-date-range" id="change-date-range">
-				<div class="form-group">
-					<div class="input-group mb-2">
-						<div class="input-group-prepend"><div class="input-group-text">SELECT DATE RANGE</div></div>
-						<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
-						<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
-						<div class="input-group-append"><button type="submit" class="btn btn-primary" name="change-date-range"><i class="far fa-calendar-alt"></i></button></div>
-					</div>
-					<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
+				<div class="input-group mb-2">
+					<span class="input-group-text">SELECT DATE RANGE</span>
+					<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
+					<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
+					<button type="submit" class="btn btn-primary" name="change-date-range"><i class="fa-regular fa-calendar-days"></i></button>
 				</div>
-
+				<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
 			</form> <?php
 
 			if( isset( $_POST['change-date-range'] ) ) :
@@ -355,7 +354,7 @@ $page_length = $custom_page_length->tag ?: 25; ?>
 			controlForm.find('.entry:not(:last) .btn-add')
 			.removeClass('btn-add').addClass('btn-remove')
 			.removeClass('btn-success').addClass('btn-danger')
-			.html('<i class="fas fa-minus"></i>');
+			.html('<i class="fa-solid fa-minus"></i>');
 		}).on('click', '.btn-remove', function(e) {
 			e.preventDefault();
 			$(this).parents('.entry:first').remove();

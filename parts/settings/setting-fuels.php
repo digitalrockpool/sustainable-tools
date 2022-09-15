@@ -34,9 +34,9 @@ else : ?>
   <form method="post" name="add-operation-settings" id="add-operation-settings" class="needs-validation" novalidate>
 
   <div id="repeater-field">
-      <div class="entry form-row mb-1">
+      <div class="entry row g-1 mb-1">
         <div class="col-5">
-          <select id="set-operation-type" name="set-operation-type[]" class="form-control set-utility-type" required>
+          <select id="set-operation-type" name="set-operation-type[]" class="form-select set-utility-type" required>
             <option value="" selected disabled>Select <?php echo $title_singular ?> *</option> <?php
 
             foreach( $utility_dropdowns as $utility_dropdown ) : ?>
@@ -48,7 +48,7 @@ else : ?>
         </div>
 
         <div class="col-5">
-          <select id="set-operation-unit" name="set-operation-unit[]" class="form-control set-utility-unit" required>
+          <select id="set-operation-unit" name="set-operation-unit[]" class="form-select set-utility-unit" required>
             <option value="" selected disabled>Select Units *</option> <?php
 
             $unit_dropdowns = $wpdb->get_results( "SELECT master_tag.id, master_tag.tag FROM master_tag INNER JOIN relation_tag ON master_tag.id=relation_tag.child_id WHERE relation='$title_singular-unit' GROUP BY master_tag.tag" );
@@ -62,12 +62,12 @@ else : ?>
         </div>
 
         <div class="col-2">
-          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
         </div>
       </div>
     </div>
 
-    <div class="form-row">
+    <div class="row g-1">
       <div class="col-2 offset-10 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-operation-settings">Add</button></div>
     </div>
   </form> <?php

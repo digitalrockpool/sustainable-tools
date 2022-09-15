@@ -40,7 +40,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
 
 <form method="post" name="edit" id="<?php echo $update_measure ?>" class="needs-validation" novalidate>
 
-  <div class="form-row"> <?php
+  <div class="row"> <?php
 
     if( $measure_toggle == 86 ) : // custom ?>
 
@@ -70,7 +70,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
     if( $measure_toggle == 83 ) : // weekly ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-measure-week">Measure Week<sup class="text-danger">*</sup></label>
+        <label for="edit-measure-week">Measure Week<sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
           <select class="custom-select" name="edit-measure-week" id="edit-measure-week"> <?php
 
@@ -108,7 +108,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
     elseif( $measure_toggle == 84 ) : // monthly ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-measure-month">Measure Month<sup class="text-danger">*</sup></label>
+        <label for="edit-measure-month">Measure Month<sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
           <select class="custom-select" name="edit-measure-month" id="edit-measure-month"> <?php
 
@@ -158,7 +158,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
       <div class="col-md-4 mb-3">
         <label class="control-label" for="edit-measure-date">Measure Date<sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+          <div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
           <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureStart" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) && $add_url != 'measures' ) : echo date('d-M-Y'); elseif( $add_url == 'measures' ) : echo ''; else : echo date_format( date_create( $edit_measure_date_formatted ), 'd-M-Y' ); endif; ?>" data-date-end-date="0d" required>
         </div>
       </div> <?php
@@ -172,7 +172,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
       <div class="col-md-4 mb-3">
         <label class="control-label" for="edit-measure-end">Measure End Date<sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+          <div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
           <input type="text" class="form-control date" name="edit-measure-end" id="edit-measure-end" aria-describedby="editMeasureEnd" placeholder="dd-mmm-yyyy" value="<?php echo $selected_date ?>" data-date-end-date="0d" required>
         </div>
       </div> <?php
@@ -181,8 +181,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
 
   </div>
 
-  <div class="form-row">
-
+  <div class="row">
     <div class="col-md-6 mb-3">
       <label for="edit-bednight">Bed Nights</label>
       <input type="number" class="form-control" name="edit-bednight" id="edit-bednight" aria-describedby="editBedNight" nameplaceholder="Bed Nights" min="1" step="1" value="<?php echo $edit_bednight ?>">
@@ -194,11 +193,9 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
       <input type="number" class="form-control" name="edit-roomnight" id="edit-roomnight" aria-describedby="editRoomNight" nameplaceholder="Room Nights" min="1" step="1" value="<?php echo $edit_roomnight ?>">
       <div class="invalid-feedback">Please enter a whole number greater than or equal to 1</div>
     </div>
-
   </div>
 
-  <div class="form-row">
-
+  <div class="row">
     <div class="col-md-6 mb-3">
       <label for="edit-client">Clients</label>
       <input type="number" class="form-control" name="edit-client" id="edit-client" aria-describedby="editClient" nameplaceholder="Clients" min="1" step="1" value="<?php echo $edit_client ?>">
@@ -210,32 +207,27 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
       <input type="number" class="form-control" name="edit-staff" id="edit-staff" aria-describedby="editStaff" nameplaceholder="Staff" min="1" step="1" value="<?php echo $edit_staff ?>">
       <div class="invalid-feedback">Please enter a whole number greater than or equal to 1</div>
     </div>
-
   </div>
 
-  <div class="form-row">
-
+  <div class="row">
     <div class="col-md-6 mb-3">
       <label for="edit-area">Area (m2)</label>
       <input type="number" class="form-control" name="edit-area" id="edit-area" aria-describedby="editArea" nameplaceholder="Area" min="1" step="1" value="<?php echo $edit_area ?>">
       <div class="invalid-feedback">Please enter a whole number greater than or equal to 1</div>
     </div>
-
   </div>
 
-  <div class="form-row">
-
+  <div class="row">
     <div class="col-12 mb-3">
       <label for="edit-note">Notes</label>
         <textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
     </div>
-
   </div>
 
-  <div class="form-row">
-
-    <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_measure ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
-
+  <div class="row">
+    <div class="col-12 mb-3">
+      <button class="btn btn-primary" type="submit" name="<?php echo $update_measure ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button>
+    </div>
   </div>
 
 </form> <?php

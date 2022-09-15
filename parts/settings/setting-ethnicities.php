@@ -26,18 +26,18 @@ $title_singular = $args['title_singular']; ?>
 <form method="post" id="add-employee-settings" name="add-employee-settings" class="needs-validation" novalidate>
 
   <div id="repeater-field">
-    <div class="entry form-row mb-1">
+    <div class="entry row g-1 mb-1">
       <div class="col-10">
         <input type="text" class="form-control" id="set-employee-setting" name="set-employee-setting[]" placeholder="Add <?php echo strtolower( $title_singular ); ?>" required>
       </div>
 
       <div class="col-2">
-        <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+        <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
       </div>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="row g-1">
     <div class="col-2 offset-10 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-employee-settings">Add</button></div>
   </div>
 </form> <?php

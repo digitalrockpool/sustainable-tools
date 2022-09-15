@@ -17,7 +17,7 @@ $master_loc = $_SESSION['master_loc']; ?>
 
   <h2 class="h4-style">Revisions</h2> <?php
 
-  $report_settings = $wpdb->get_results( "SELECT profile_locationmeta.id, entry_date, display_name, parent_id FROM profile_locationmeta INNER JOIN yard_users ON profile_locationmeta.user_id=yard_users.id WHERE loc_id=$master_loc AND parent_id<>0 ORDER BY entry_date DESC" );
+  $report_settings = $wpdb->get_results( "SELECT profile_locationmeta.id, entry_date, display_name, parent_id FROM profile_locationmeta INNER JOIN wp_users ON profile_locationmeta.user_id=wp_users.id WHERE loc_id=$master_loc AND parent_id<>0 ORDER BY entry_date DESC" );
 
   if( empty( $report_settings ) ) : ?>
 
@@ -38,7 +38,7 @@ $master_loc = $_SESSION['master_loc']; ?>
 
             <tr>
               <td>
-                <button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $view_id ?>"><i class="far fa-eye"></i></button>
+                <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $view_id ?>"><i class="fa-regular fa-eye"></i></button>
 
                 <div class="modal fade text-left" id="modalRevisions-<?php echo $view_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $view_id ?>Title" aria-hidden="true">
                   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -46,12 +46,12 @@ $master_loc = $_SESSION['master_loc']; ?>
 
                       <div class="modal-header">
                         <h5 class="modal-title" id="modalRevisions-<?php echo $view_id ?>Title">Revisions</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                       </div>
 
                       <div class="modal-body"> <?php
 
-                        $revision_rows = $wpdb->get_results( "SELECT profile_locationmeta.id, profile_locationmeta.entry_date, display_name, industry, master_tag.tag AS industry_tag, sector, sector.tag AS sector_tag, subsector, subsector.tag AS subsector_tag, other, fy_day, fy_month, currency, geo_type, very_local, local, county, city, calendar, profile_locationmeta.parent_id FROM profile_locationmeta INNER JOIN yard_users ON profile_locationmeta.user_id=yard_users.id INNER JOIN profile_location ON profile_locationmeta.loc_id=profile_location.parent_id LEFT JOIN master_tag ON profile_locationmeta.industry=master_tag.id LEFT JOIN master_tag sector ON profile_locationmeta.sector=sector.id LEFT JOIN master_tag subsector ON profile_locationmeta.subsector=subsector.id WHERE profile_locationmeta.id=$view_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)" );
+                        $revision_rows = $wpdb->get_results( "SELECT profile_locationmeta.id, profile_locationmeta.entry_date, display_name, industry, master_tag.tag AS industry_tag, sector, sector.tag AS sector_tag, subsector, subsector.tag AS subsector_tag, other, fy_day, fy_month, currency, geo_type, very_local, local, county, city, calendar, profile_locationmeta.parent_id FROM profile_locationmeta INNER JOIN wp_users ON profile_locationmeta.user_id=wp_users.id INNER JOIN profile_location ON profile_locationmeta.loc_id=profile_location.parent_id LEFT JOIN master_tag ON profile_locationmeta.industry=master_tag.id LEFT JOIN master_tag sector ON profile_locationmeta.sector=sector.id LEFT JOIN master_tag subsector ON profile_locationmeta.subsector=subsector.id WHERE profile_locationmeta.id=$view_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)" );
 
                         foreach( $revision_rows as $revision_row ) :
 

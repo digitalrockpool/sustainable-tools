@@ -39,7 +39,7 @@ $edit_parent_id = $args['edit_parent_id'];
 if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_supply = $edit_supply; endif; ?>
 	
 <form method="post" name="edit" id="<?php echo $update_supply ?>" class="needs-validation" novalidate>
-	<div class="form-row"> <?php
+	<div class="row"> <?php
 									
 		if( $measure_toggle == 86 ) : // custom measures
 			custom_measure_dropdown( $edit_measure );
@@ -50,12 +50,12 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 		else : ?>
 														
 			<div class="col-md-4 mb-3">
-				<label class="control-label" for="edit-measure-date">Date of Purchase<sup class="text-danger">*</sup></label>
-				<div class="input-group mb-2">
-					<div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+				<label for="edit-measure-date">Date of Purchase<sup class="text-danger">*</sup></label>
+				<div class="input-group">
+					<span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
 					<input type="text" class="form-control date" id="edit-measure-date" name="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
-					<div class="invalid-feedback">Please select a date</div>
 				</div>
+				<div class="invalid-feedback">Please select a date</div>
 			</div>
 														
 			<div class="col-md-6 mb-3 d-flex align-items-end"> <?php 
@@ -70,12 +70,12 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 	</div>
 													
 	<div id="repeater-field">
-		<div class="entry form-row mb-1"><?php					
+		<div class="entry row g-1 mb-1"><?php					
 			$source_dropdowns = $wpdb->get_results( "SELECT parent_id, location FROM custom_location WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id) ORDER BY location ASC" ); ?>
 
 			<div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-5<?php endif; ?>"><?php
         if( empty( $add_url ) ) : ?><label for="edit-source">Supply Source<sup class="text-danger">*</sup></label><?php endif; ?>
-				<select class="form-control" id="edit-source" name="edit-source[]" required><?php
+				<select class="form-select" id="edit-source" name="edit-source[]" required><?php
           if( empty( $edit_url ) ) : ?><option value="">Select Source *</option><?php endif; ?>
 					<option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
@@ -106,7 +106,7 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 				<div class="invalid-feedback">Please enter a number greater than 0.01</div>
 			</div> <?php 
 
-			if( empty( $edit_url ) ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></div> <?php endif; ?>
+			if( empty( $edit_url ) ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></div> <?php endif; ?>
 
 		</div>
 	</div><?php
@@ -114,9 +114,8 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 	if( $tag_toggle == 1 ) : ?>										
 		<h5 class="border-top pt-3 mt-3">Tags</h5>
 
-		<div class="form-row">
+		<div class="row">
 			<div class="col-12">
-					
 				<select class="selectpicker form-control" name="edit-tag[]" multiple title="Select Tags" multiple data-live-search="true"> <?php
 					$tag_dropdowns = $wpdb->get_results( "SELECT parent_id, tag FROM custom_tag WHERE loc_id=$master_loc AND cat_id=22 AND tag IS NOT NULL AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag ASC" );
 
@@ -135,24 +134,23 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 					endforeach; ?>
 				</select>
 			</div>
-
 		</div><?php
 	
 	endif; ?>
 		
 	<h5 class="border-top pt-3 mt-3">Notes</h5>
 													
-	<div class="form-row">
-				
+	<div class="row">
 		<div class="col-12 mb-3">
 			<label for="edit-note">Please enter any notes for this entry</label>
-    		<textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
+    	<textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
 		</div>
-				
 	</div>
 															
-	<div class="form-row">
-		<div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_supply ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
+	<div class="row">
+		<div class="col-12 mb-3">
+			<button class="btn btn-primary" type="submit" name="<?php echo $update_supply ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button>
+		</div>
 	</div>
 </form><?php
 											 

@@ -56,7 +56,7 @@ if( !empty( $set_industry_other ) ) : $set_industry_separator = ': '; endif;
 if( !empty( $set_sector_other ) ) : $set_sector_separator = ': '; endif;
 if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
 
-<p><span class="text-danger"><i class="fas fa-exclamation-circle"></i></i></span> It is recommended that report settings are only entered once and not changed after submission.</p>
+<p><span class="text-danger"><i class="fa-solid fa-circle-exclamation"></i></i></span> It is recommended that report settings are only entered once and not changed after submission.</p>
 
 <p class="small">Fields marked with an asterisk <span class="text-danger">*</span> are required.</p>
 
@@ -71,7 +71,7 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
 
     $display_none_reporting_on = 'display:none;'; ?>
 
-    <div class="form-row">
+    <div class="row">
       <div class="col-12"><label>Change settings <span class="text-danger">*</span></label>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="report-change-set">
@@ -85,14 +85,11 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
   <h5 class="border-top mt-4 pt-3">Reporting Period</h5>
   <p class="form-text">Add the month and day you would like your reporting year to start. For example you may want to choose the same date as the start of your financial year.</p>
 
-  <div class="form-row">
-    <div class="form-group col-6">
+  <div class="row">
+    <div class="col-6">
       <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-        </div>
+        <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
         <input type="text" class="form-control date reporting-on" style="<?php echo $display_none_reporting_on ?>" name="set-reporting-date" id="set-reporting-date" aria-describedby="set-reporting-date" placeholder="dd-mmm" value="<?php echo date_format( date_create( $set_fy_date ),'d-M' ); ?>" required>
-
         <input type="text" class="form-control date reporting-off" style="<?php echo $display_none_reporting_off ?>" aria-describedby="set-reporting-date" value="<?php echo date_format( date_create( $set_fy_date ),'d-M' ); ?>" readonly>
       </div>
     </div>
@@ -101,10 +98,10 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
   <h5 class="border-top mt-4 pt-3">Currency and Calendar</h5>
   <p class="form-text">Only one currency and calendar is supported per property. If your business uses multiple currencies choose the most frequently used. Data is entered using the Gregorian - International calendar but reports are generated using the regional calendar, if selected</p>
 
-  <div class="form-row">
-    <div class="form-group col-6">
+  <div class="row g-1">
+    <div class="col-6">
       <label for="set-reporting-currency-code">Currency Code<span class="text-danger"> *</span></label>
-      <select class="form-control reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-currency-code" name="set-reporting-currency-code"> <!-- multi-select doesn't work with reporting-on/off -->
+      <select class="form-select reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-currency-code" name="set-reporting-currency-code"> <!-- multi-select doesn't work with reporting-on/off -->
         <option value="" selected disabled>Select Currency</option> <?php
 
         $currencies = $wpdb->get_results( "SELECT currency_alpha FROM master_country GROUP BY currency_alpha ORDER BY currency_alpha ASC" );
@@ -121,9 +118,9 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
       </select>
       <input type="text" class="form-control reporting-off" style="<?php echo $display_none_reporting_off ?>" value="<?php echo $set_currency ?>" readonly>
     </div>
-    <div class="form-group col-6">
+    <div class="col-6">
       <label for="set-reporting-calendar">Calendar<span class="text-danger"> *</span></label>
-      <select class="form-control reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-calendar" name="set-reporting-calendar">
+      <select class="form-select reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-calendar" name="set-reporting-calendar">
         <option value="" selected disabled>Select Calendar</option> <?php
 
         $calendars = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=37 ORDER BY tag ASC" );
@@ -148,7 +145,7 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
 
   if( empty( $_SESSION['loc_city'] ) ) : ?>
 
-    <p><span class="text-danger"><i class="fas fa-exclamation-circle"></i></i></span> Please enter your location before setting your geographical boundaries.</p> <?php
+    <p><span class="text-danger"><i class="fa-solid fa-circle-exclamation"></i></i></span> Please enter your location before setting your geographical boundaries.</p> <?php
 
   endif;
 
@@ -180,37 +177,37 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
     <label class="form-check-label" for="set-reporting-distance">By location</label>
   </div>
 
-  <div class="form-row mt-2 distance-on <?php echo $reporting_on_distance ?>" style="display:none;">
+  <div class="row g-1 mt-2 distance-on <?php echo $reporting_on_distance ?>" style="display:none;">
     <div class="form-group col-6">
       <label for="set-reporting-distance-very-local">Very Local<?php echo $unit ?><span class="text-danger"> *</span></label>
       <input type="number" class="form-control distance-on-required" name="set-reporting-distance-very-local" id="set-reporting-distance-very-local" aria-describedby="set-reporting-distance-very-local" min="1" step="0.01" value="<?php echo $set_distance_very_local ?>">
     </div>
 
-    <div class="form-group col-6">
+    <div class="col-6">
       <label for="set-reporting-distance-local">Local<?php echo $unit ?><span class="text-danger"> *</span></label>
       <input type="number" class="form-control distance-on-required" name="set-reporting-distance-local" id="set-reporting-distance-local" aria-describedby="set-reporting-distance-local" min="1" step="0.01" value="<?php echo $set_distance_local ?>">
     </div>
   </div>
 
-  <div class="form-row mt-2 location-on <?php echo $reporting_on_location ?>" style="display:none;">
-    <div class="form-group col-6">
+  <div class="row g-1 mt-2 location-on <?php echo $reporting_on_location ?>" style="display:none;">
+    <div class="col-6">
       <label for="set-reporting-location-very-local">Very Local<span class="text-danger"> *</span></label>
       <input type="text" class="form-control location-on-required" name="set-reporting-location-very-local" id="set-reporting-location-very-local" aria-describedby="set-reporting-location-very-local" value="<?php echo $set_very_local_location ?>" readonly>
     </div>
 
-    <div class="form-group col-6">
+    <div class="col-6">
       <label for="set-reporting-location-local">Local<span class="text-danger"> *</span></label>
       <input type="text" class="form-control location-on-required" name="set-reporting-location-local" id="set-reporting-location-local" aria-describedby="set-reporting-location-local" value="<?php echo $set_local_location ?>" readonly>
     </div>
   </div>
 
-  <div class="form-row reporting-off" style="<?php echo $display_none_reporting_off ?>">
-    <div class="form-group col-6">
+  <div class="row g-1 reporting-off" style="<?php echo $display_none_reporting_off ?>">
+    <div class="col-6">
       <label>Very Local<?php echo $unit ?></label>
       <input type="text" class="form-control" value="<?php echo $set_very_local ?>" readonly>
     </div>
 
-    <div class="form-group col-6">
+    <div class="col-6">
       <label>Local<?php echo $unit ?></label>
       <input type="text" class="form-control" value="<?php echo $set_local ?>" readonly>
     </div>
@@ -219,10 +216,10 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
   <h5 class="border-top mt-4 pt-3">Benchmarking</h5>
   <p class="form-text">Benchmark your performance against other businesses in your industry, sector and subsector.</p>
 
-  <div class="form-row">
-    <div class="form-group col-4">
+  <div class="row g-1 mb-3">
+    <div class="col-4">
       <label for="set-reporting-industry">Industry<span class="text-danger"> *</span></label>
-      <select class="form-control reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-industry" name="set-reporting-industry">
+      <select class="form-select reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-industry" name="set-reporting-industry">
         <option value="" selected disabled>Select Industry</option> <?php
 
         $industries = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=1 ORDER BY tag ASC" );
@@ -244,9 +241,9 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
       <input type="text" class="form-control <?php echo $industry_other_display ?> industry-other-on mt-1" style="display: none;" name="set-reporting-industry-other" id="set-reporting-industry-other" aria-describedby="set-reporting-industry-other" value="<?php echo $set_industry_other ?>">
       <input type="text" class="form-control reporting-off" style="<?php echo $display_none_reporting_off ?>" value="<?php echo $set_industry.$set_industry_separator.$set_industry_other ?>" readonly>
     </div>
-    <div class="form-group col-4">
+    <div class="col-4">
       <label for="set-reporting-sector">Sector<span class="text-danger"> *</span></label>
-      <select class="form-control reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-sector" name="set-reporting-sector">
+      <select class="form-select reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-sector" name="set-reporting-sector">
         <option value="" selected disabled>Select Sector</option> <?php
 
         $sectors = $wpdb->get_results( "SELECT master_tag.id, tag FROM master_tag INNER JOIN relation_tag ON master_tag.id=relation_tag.child_id WHERE parent_id=$set_industry_id ORDER BY tag ASC" );
@@ -268,9 +265,9 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
       <input type="text" class="form-control <?php echo $sector_other_display ?> sector-other-on mt-1" style="display: none;" name="set-reporting-sector-other" id="set-reporting-sector-other" aria-describedby="set-reporting-sector-other" value="<?php echo $set_sector_other ?>">
       <input type="text" class="form-control reporting-off" style="<?php echo $display_none_reporting_off ?>" value="<?php echo $set_sector.$set_sector_separator.$set_sector_other ?>" readonly>
     </div>
-    <div class="form-group col-4">
+    <div class="col-4">
       <label for="set-reporting-subsector">Subsector<span class="text-danger"> *</span></label>
-      <select class="form-control reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-subsector" name="set-reporting-subsector">
+      <select class="form-select reporting-on" style="<?php echo $display_none_reporting_on ?>" id="set-reporting-subsector" name="set-reporting-subsector">
         <option value="" selected disabled>Select Subsector</option> <?php
 
         $subsectors = $wpdb->get_results( "SELECT master_tag.id, tag FROM master_tag INNER JOIN relation_tag ON master_tag.id=relation_tag.child_id WHERE parent_id=$set_sector_id ORDER BY tag ASC" );
@@ -294,7 +291,7 @@ if( !empty( $set_subsector_other ) ) : $set_subsector_separator = ': '; endif;?>
     </div>
   </div>
 
-  <div class="form-row reporting-on" style="<?php echo $display_none_reporting_on ?>">
+  <div class="row g-1 reporting-on" style="<?php echo $display_none_reporting_on ?>">
     <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="set-reporting-update">Update</button></div>
   </div> <?php
 
