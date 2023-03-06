@@ -39,7 +39,7 @@ $master_loc = $_SESSION['master_loc']; ?>
 
             <tr>
               <td> 
-                <button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $view_id ?>"><i class="far fa-eye"></i></button>
+                <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $view_id ?>"><i class="fa-regular fa-eye"></i></button>
 
                 <div class="modal fade text-left" id="modalRevisions-<?php echo $view_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $view_id ?>Title" aria-hidden="true">
                   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -47,7 +47,7 @@ $master_loc = $_SESSION['master_loc']; ?>
 
                       <div class="modal-header">
                         <h5 class="modal-title" id="modalRevisions-<?php echo $view_id ?>Title">Revisions for <?php echo $view_loc_name ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                       </div>
 
                       <div class="modal-body"> <?php

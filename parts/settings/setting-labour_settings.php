@@ -33,7 +33,7 @@ else : ?>
 
   <form method="post" id="add-employee-settings" name="add-employee-settings" class="needs-validation" novalidate>
 
-    <div class="form-row">
+    <div class="row g-1">
 
       <div class="col-md-4 mb-3">
         <label for="set-dpw">Contracted days per week<sup class="text-danger">*</sup></label>
@@ -58,7 +58,7 @@ else : ?>
 
     </div>
 
-    <div class="form-row">
+    <div class="row">
       <div class="col-2 offset-10 mb-3"><button class="btn btn-primary" type="submit" name="add-employee-settings">Add</button></div>
     </div>
   </form> <?php

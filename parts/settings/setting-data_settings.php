@@ -35,7 +35,7 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
 
     if( $switch_toggle === 'off'  ) : $switch_toggle = 'selected'; else : $switch_toggle = ''; endif; ?>
 
-    <div class="form-group row">
+    <div class="row g-1">
       <label for="staticEmail" class="col-sm-2 col-form-label"><?php echo $switch_title ?></label>
       <div class="col-sm-10">
         <select class="form-control" name="set-data-setting[]" id="<?php echo $switch ?>on" >
@@ -55,17 +55,17 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
   $data_table = $custom_data_table->tag ?: 25; ?>
 
   <h5 class="border-top mt-4 pt-3">Edit Data Table Settings</h5>
-  <div class="form-row">
+  <div class="row g-1">
     <div class="form-group col-6">
       <label for="set-default-date-range-number">Default Date Range<span class="text-danger"> *</span></label>
       <div class="input-group">
         <input type="number" class="form-control" id="set-default-date-range-number" name="set-data-setting[]" min="1" max="365" step="1" value="<?php echo $data_date ?>" required>
-        <select class="form-control" id="set-default-date-range" name="set-tag-id[]">
+        <select class="form-select" id="set-default-date-range" name="set-tag-id[]">
           <option value="310">days</option>
           <option value="311" selected>month(s)</option>
         </select>
-        <input type="hidden" name="set-cat-id[]" value="48">
       </div>
+      <input type="hidden" name="set-cat-id[]" value="48">
     </div>
     <div class="form-group col-6">
       <label for="set-default-table-rows">Default Table Rows<span class="text-danger"> *</span></label>

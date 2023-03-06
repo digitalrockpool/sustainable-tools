@@ -1,49 +1,46 @@
 <?php
 
-/* Footer
+/* ***
 
-@package	Sustainable Tools
-@author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
-@copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+Footer
 
-?>
+@package	      Sustainable Tools
+@author		      Digital Rockpool
+@link		        https://www.sustainable.tools/
+@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@license	      GPL-2.0+ 
 
-</main><!-- #sticky-footer --> <?php
-
-if( is_page_template( 'templates/fullscreen.php' ) ) : ?>
-		
-	</div><!-- #background-fullscreen --> <?php
-
-else : ?>
-
-</div><!-- #content -->
-</div><!-- .row --> 
-
-<footer id="colophon" class="site-footer row">
-
-	<section class="site-info col-sm-6 pl-5">
-			Copyright &copy; <?php echo date('Y'); ?> Digital Rockpool LTD
-		</section>
-
-		<section class="legal-info col-sm-6 pr-5 align-self-end"> <?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-3',
-				'menu_id'        => 'legal-menu',
-			) ); ?>
-		</section><!-- .site-info -->
-	</footer><!-- #colophon --> <?php
-	
-endif;
-	
-if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/yardstick.php' ) ) : ?>
-
-	</div><!-- .container --> <?php 
-
+*** */
+if( is_page_template( 'templates/fullscreen.php' ) ) : 
+	$aside_bg_dark = 'aside-bg-dark';
 endif;
 
-wp_footer(); ?>
+if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/report.php' ) || is_page_template( 'templates/setting.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/stock.php' ) || is_page_template( 'templates/tool.php' )  ): ?>
+			</article><!-- end article row -->
+		</div><!-- end div col --><?php
+
+		$bg_transparent = 'bg-transparent';
+endif; ?>
+
+		</main><!-- end main row -->
+
+		<footer id="site-footer" class="row g-0 <?php echo $bg_transparent ?>"><!-- start footer row -->
+
+			<section class="site-info col-lg-4 ps-3 <?php echo $aside_bg_dark ?>">
+				Copyright &copy; <?php echo date('Y'); ?> Digital Rockpool LTD
+			</section>
+
+			<section class="legal-info col-lg-8 pe-3 text-end"> <?php
+				wp_nav_menu( array(
+					'theme_location' => 'menu-3',
+					'menu_id'        => 'legal-menu',
+				) ); ?>
+			</section>
+		</footer><!-- end footer row -->
+
+	</div><!-- end div container --><?php
+
+	wp_footer(); ?>
 
 </body>
 </html>

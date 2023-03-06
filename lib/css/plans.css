@@ -1,0 +1,160 @@
+/* ***
+
+CSS: Plans
+
+@package	      Sustainable Tools
+@author		      Digital Rockpool
+@link		        https://www.sustainable.tools/
+@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@license	      GPL-2.0+ 
+
+
+/* #  Table of Contents
+      - Headings
+
+
+/* # Headings
+---------------------------------------------------------------------------------------------------- */
+.container-plan {
+	margin: 0 25px;
+}
+
+@media screen and (max-width: 1524px) {
+	.wp-block-columns.container-plan {
+		flex-wrap: wrap;
+	}
+
+	.container-plan .wp-block-column:nth-child(3) {
+		margin-left: 0;
+	}
+	
+}
+
+@media screen and (max-width: 784px) {
+	.container-plan .wp-block-column {
+		flex-basis: 100%!important;
+		margin-left: 0;
+	}
+}
+
+.box-plan {
+	background-color: #ffffff;
+	border-radius: 5px;
+	padding-bottom: 15px;
+	margin-top: 25px;
+}
+
+.box-plan h2 {
+	background: #263238;
+	border-radius: 5px 5px 0 0;
+	color: #ffffff;
+	font-size: 32px;
+	font-weight: 300;
+	margin: 0;
+	padding: 10px 0 15px;
+	text-align: center;
+}
+
+.box-plan h3 {
+	font-size: 20px;
+	font-size: 1.25rem;
+	padding: 15px 15px 0;
+}
+
+.box-plan .plan-price {
+	background: #ff5421;
+	border: none;
+	border-radius: 0;
+	color: #ffffff;
+	font-size: 18px!important;
+	font-weight: 400;
+	padding: 12px 10px;
+	text-align: center;
+	width: 100%;
+}
+
+.box-plan .plan-price small {
+	display: inline-block;
+}
+
+.box-plan .plan-options li.active-list:before {
+	color: #ce211b;
+	content: '\f05d';
+	font-family: 'FontAwesome';
+	font-size: 16px;
+	left: 0;
+	margin: 0 10px 0 0;
+	position: absolute;
+}
+
+.box-plan .plan-options li.inactive-list:before {
+	color: #c3c3c3;
+	content: '\f05c';
+	font-family: 'FontAwesome';
+	font-size: 16px;
+	left: 0;
+	margin: 0 10px 0 0;
+	position: absolute;
+}
+
+.box-plan .plan-options li.price-list:before {
+	color: #ce211b;
+	content: '\f154';
+	font-family: 'FontAwesome';
+	font-size: 16px;
+	left: 0;
+	margin: 0 10px 0 0;
+	position: absolute;
+}
+
+.box-plan .plan-options li.inactive-list {
+	color: #c3c3c3;
+}
+
+.box-plan .plan-options ol li {
+	margin: 5px;
+	padding-left: 15px; 
+}
+
+.box-plan .plan-button a {
+	border: 2px solid #263238;
+	border-radius: 5px;
+	color: #263238;
+	display: block;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 10px;
+	margin: 15px auto 25px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	width: 80%;
+}
+
+@media screen and (min-width: 1025px) {
+
+	.box-plan {
+		-webkit-transition: all .25s;
+		   -moz-transition: all .25s;
+			-ms-transition: all .25s;
+			 -o-transition: all .25s;
+				transition: all .25s;
+	}
+
+	.box-plan:hover {
+		-webkit-transform: scale(1.04);
+		   -moz-transform: scale(1.04);
+			-ms-transform: scale(1.04);
+			 -o-transform: scale(1.04);
+				transform: scale(1.04);
+	}
+
+	.box-plan .button a {
+		-webkit-transition: all .25s;
+		   -moz-transition: all .25s;
+			-ms-transition: all .25s;
+			 -o-transition: all .25s;
+				transition: all .25s;
+	}
+
+}

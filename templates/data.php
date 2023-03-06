@@ -1,16 +1,19 @@
 <?php ob_start();
 
-/* Template Name: Data
+/* ***
 
+Template Name: Data
 Template Post Type: Page
 
 @package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
+@link		https://www.sustainable.tools/
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+@license	GPL-2.0+
 
-get_header();
+*** */
+
+get_header('tool');
 
 global $wpdb;
 global $post;
@@ -85,17 +88,16 @@ if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $mod_query == 1 &&
 
 if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
-	<div class="row px-3">
-		<article class="col-xl-8 primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+	<div class="col-xl-8">
+		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 
-			<header class="header-flexbox">
-				<h1 class="h4-style">Data <i class="fal fa-chevron-double-right small"></i> <?php echo $module; ?> <i class="fal fa-chevron-double-right small"></i> Add <?php echo $title; 
+			<header class="d-flex justify-content-between">
+				<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Add <?php echo $title; ?></h1><?php
 
-				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?> </h1>
-
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>"> <i class="fa-duotone fa-circle-question" style="font-size:24px;" aria-hidden="true"></i></a> <?php endif; ?>
 			</header>
 
-			<small>Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
+			<small class="pb-3">Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
 
 			$args = array(
 				'cat_id' => $cat_id,
@@ -104,135 +106,132 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
 			get_template_part('/parts/forms/form', $module_strip, $args ); ?>
 
-		</article>
+		</section>
+	</div>
 
-		<aside class="col-xl-4 pr-3">
-			<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-				<h2 class="h4-style">Latest Entries</h2><?php
+	<aside class="col-xl-4">
+		<section class="secondary-box p-3 pb-4 mb-3 bg-white shadow-sm clearfix">
+			<h2 class="h4-style">Latest Entries</h2><?php
 
-				$args = array(
-					'cat_id' => $cat_id,
-					'tag_id' => $tag_id,
-					'title'		=> $title
-				);
+			$args = array(
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id,
+				'title'		=> $title
+			);
 
-				get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
+			get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
 
-				<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
-			</section> <?php
+			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
+		</section> <?php
 
-			$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
+		$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
 
-			if( ( $plan_id == 3 || $plan_id == 4) && !empty( $uploads ) ) : ?>
+		if( ( $plan_id == 3 || $plan_id == 4) && !empty( $uploads ) ) : ?>
 
-				<section class="dark-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-					<h2 class="h4-style">Upload Entries</h2> <?php
+			<section class="dark-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+				<h2 class="h4-style">Upload Entries</h2> <?php
 
-					echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
+				echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
 
-						/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
+					/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
 
-								$file = $_FILES['csv']['tmp_name'];
-								$fileHandle = fopen($file, "r");
-								$i=0;
+							$file = $_FILES['csv']['tmp_name'];
+							$fileHandle = fopen($file, "r");
+							$i=0;
 
-								$loc_name = $_POST['loc_name'];
-								$utility_type = (int)$_POST['utility_type']; // Get these from page
-								$employee_type = (int)$_POST['employee_type'];
-								$donation_type = (int)$_POST['donation_type'];
+							$loc_name = $_POST['loc_name'];
+							$utility_type = (int)$_POST['utility_type']; // Get these from page
+							$employee_type = (int)$_POST['employee_type'];
+							$donation_type = (int)$_POST['donation_type'];
 
-								while( ( $cell = fgetcsv( $fileHandle, 0, "," ) ) !== FALSE ) :
+							while( ( $cell = fgetcsv( $fileHandle, 0, "," ) ) !== FALSE ) :
 
-									$i++;
-									$cell0_check = $cell[0];
-									$cell1_check = $cell[1];
+								$i++;
+								$cell0_check = $cell[0];
+								$cell1_check = $cell[1];
 
-									if( $measure_toggle == 86 && $employee_type != 69 && $employee_type != 70 && $employee_type != 71 && $employee_type != 228 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
+								if( $measure_toggle == 86 && $employee_type != 69 && $employee_type != 70 && $employee_type != 71 && $employee_type != 228 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
 
-										$cell_check = 0;
+									$cell_check = 0;
 
-									elseif( $measure_toggle == 84 && $mod_query == 1 && $calendar == 231 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
+								elseif( $measure_toggle == 84 && $mod_query == 1 && $calendar == 231 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
 
-										$cell_check = 0;
+									$cell_check = 0;
 
-									elseif( $measure_toggle == 86 && $employee_type != 72 && $employee_type != 73 && empty( $cell0_check ) ) :
+								elseif( $measure_toggle == 86 && $employee_type != 72 && $employee_type != 73 && empty( $cell0_check ) ) :
 
-										$cell_check = 0;
+									$cell_check = 0;
 
-									elseif( $measure_toggle != 86 && empty( $cell0_check ) ) :
+								elseif( $measure_toggle != 86 && empty( $cell0_check ) ) :
 
-										$cell_check = 0;
+									$cell_check = 0;
 
-									else :
+								else :
 
-										$cell_check = 1;
+									$cell_check = 1;
 
-									endif;
+								endif;
 
-									if( $i>1 && !empty( $cell_check ) ) :
+								if( $i>1 && !empty( $cell_check ) ) :
 
-										csv_upload( $cell, $mod_query, $utility_type, $employee_type, $donation_type, $loc_name );
+									csv_upload( $cell, $mod_query, $utility_type, $employee_type, $donation_type, $loc_name );
 
-									endif;
+								endif;
 
-								endwhile;
+							endwhile;
 
-								header ( "Location: $site_url/$slug/?mod=$mod_query" );
+							header ( "Location: $site_url/$slug/?mod=$mod_query" );
 
-							elseif( $_FILES['csv']['size'] > 0 ) :
+						elseif( $_FILES['csv']['size'] > 0 ) :
 
-								echo 'The file you tried to upload is empty';
+							echo 'The file you tried to upload is empty';
 
-							elseif( $_FILES['csv']['type'] == 'text/csv' ) :
+						elseif( $_FILES['csv']['type'] == 'text/csv' ) :
 
-								echo 'The file you tried to upload is not a csv';
+							echo 'The file you tried to upload is not a csv';
 
-							endif; */ ?>
+						endif; */ ?>
 
-					<div class="clearfix"></div>
+				<div class="clearfix"></div>
 
-					<div class="d-flex align-items-center my-3">
+				<div class="d-flex align-items-center my-3">
 
-						<div>
-							<h5>Download File Template</h5>
-							<p>Please use this template for uploading your data.</p>
-						</div><?php
+					<div>
+						<h5>Download File Template</h5>
+						<p>Please use this template for uploading your data.</p>
+					</div><?php
 
-						$filename = $uploads->upload; ?>
+					$filename = $uploads->upload; ?>
 
-						<div class="text-center" style="width:60%;">
-							<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fad fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
-						</div>
-
+					<div class="text-center" style="width:60%;">
+						<a href="<?php echo $site_url.'/wp-content/themes/yardstick/downloads/'.$filename ?>"><i class="fa-duotone fa-file-excel" style="font-size:32px;" aria-hidden="true"></i><br /><?php echo $filename ?></a>
 					</div>
 
-					<p><strong class="text-danger">! PLEASE NOTE ! </strong><br />Uploaded <?php echo strtolower( $title ) ?> takes up to 24 hours to appear in the system.</p>
-				</section> <?php
-			endif; ?>
-		</aside>
-		</div> <?php
+				</div>
+
+				<p><strong class="text-danger">! PLEASE NOTE ! </strong><br />Uploaded <?php echo strtolower( $title ) ?> takes up to 24 hours to appear in the system.</p>
+			</section> <?php
+		endif; ?>
+	</aside><?php
 
 elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 
-	<article class="col-xl-12 px-3">
+	<div class="col-xl-12">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 
 			<header class="header-flexbox">
-				<h1 class="h4-style">Data <i class="fal fa-chevron-double-right small"></i> <?php echo $module; ?> <i class="fal fa-chevron-double-right small"></i> Edit <?php echo $title;
+				<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Edit <?php echo $title;
 
-				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?> </h1>
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?> </h1>
 
 				<form method="post" name="change-date-range" id="change-date-range">
-					<div class="form-group">
-						<div class="input-group mb-2">
-							<div class="input-group-prepend"><div class="input-group-text">SELECT DATE RANGE</div></div>
-							<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
-							<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
-							<div class="input-group-append"><button type="submit" class="btn btn-primary" name="change-date-range"><i class="far fa-calendar-alt"></i></button></div>
-						</div>
-						<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
+					<div class="input-group mb-2">
+						<span class="input-group-text">SELECT DATE RANGE</span>
+						<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
+						<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
+						<button type="submit" class="btn btn-primary" name="change-date-range"><i class="fa-regular fa-calendar-days"></i></button>
 					</div>
-
+					<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
 				</form> <?php
 
 				if( isset( $_POST['change-date-range'] ) ) :
@@ -253,19 +252,17 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 				'latest_start' => $latest_start,
 				'latest_end' => $latest_end
 			);
-	
+
 			get_template_part('/parts/tables/table', $module_strip, $args ); ?>
 
 		</section>
-	</article> <?php
+		</div> <?php
 
 else : ?>
 
-	<article class="col-xl-12 px-3">
-		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-			<p>You have been assigned the <?php echo strtolower( $user_role_tag ); ?> user role that does not have access to this section. Please contact your adminstrator.</p>
-		</section>
-	</article> <?php
+	<section class="col-xl-12 primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+		<p>You have been assigned the <?php echo strtolower( $user_role_tag ); ?> user role that does not have access to this section. Please contact your adminstrator.</p>
+	</section><?php
 
 endif;
 
@@ -359,7 +356,7 @@ $page_length = $custom_page_length->tag ?: 25; ?>
 			controlForm.find('.entry:not(:last) .btn-add')
 			.removeClass('btn-add').addClass('btn-remove')
 			.removeClass('btn-success').addClass('btn-danger')
-			.html('<i class="fas fa-minus"></i>');
+			.html('<i class="fa-solid fa-minus"></i>');
 		}).on('click', '.btn-remove', function(e) {
 			e.preventDefault();
 			$(this).parents('.entry:first').remove();

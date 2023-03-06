@@ -10,24 +10,19 @@ Template Post Type: Page
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
-get_header();
+get_header(); ?>
 
-/* $plan_url = $_GET['plan']; 
-$interval_url = $_GET['interval']; */ ?>
-	
-<article class="col-8 offset-2 mt-5">
-	<section class="p-5 mb-4 clearfix" style="background-color:rgba(255, 255, 255, 0.7);"> 
-		<?php 
+<aside class="col-lg-4 py-5 px-4" style="background-color: #263238">
+	<img src="<?php echo get_template_directory_uri(); ?>/lib/img/logo-yardstick-light.png" alt="Yardstick">
+	<p class="text-white py-5">All ready have account?<br /><a href="http://sustainable-tools.sandbox/sign-in/">Sign In</a></p>
+</aside>
 
-		if ( have_posts() ) : while ( have_posts() ) : the_post();
+<article class="col-lg-6 py-5 px-4"><?php 
+	if ( have_posts() ) : while ( have_posts() ) : the_post();
+				
+		the_content();
 			
-			the_content();
-		
-		endwhile; endif; ?>
-			
-	</section>
-</article> <?php
+	endwhile; endif; ?>
+</article><?php
 
 get_footer(); 
-
-/* if( !empty ( $plan_url ) && !empty ( $interval_url ) ) : populate_subscription_fields(); endif; */ ?>

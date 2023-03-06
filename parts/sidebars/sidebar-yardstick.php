@@ -69,13 +69,13 @@ foreach( $selected_modules as $selected_module ) :
   $module_toggle[] = $selected_tag_id.$selected_tag;
 endforeach; ?>
 
-<img src="<?php echo get_template_directory_uri() ?>/lib/img/logo-yardstick-dark.png" alt="Yardstick Logo" class="py-2" />
+<img src="<?php echo get_template_directory_uri() ?>/lib/img/logo-yardstick-dark.png" alt="Yardstick Logo" class="py-3" height="60" />
 
 <a class="nav-link" href="<?php echo $site_url ?>/yardstick/" role="button"><i class="fa-regular fa-chart-pie"></i>Dashboard</a><?php
 
 if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_admin || admin || editor */ ?>
 
-  <div class="nav-section-label">Data</div>  
+  <div class="nav-section-label"><span>Data</span></div>  
 
   <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=measures" role="button"><i class="fa-regular fa-bed"></i>Measures</a><?php
 
@@ -90,7 +90,7 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
   endif;
 
   if( in_array( "314on", $module_toggle ) ) : /* labour */
-    $employee_types = $wpdb->get_results( "SELECT tag FROM master_tag WHERE cat_id=6 AND id NOT IN (SELECT tag_id FROM custom_tag WHERE cat_id=6 AND active=1 AND loc_id=$master_loc)");
+    $employee_types = $wpdb->get_results( "SELECT tag FROM master_tag WHERE cat_id=6 AND id IN (SELECT tag_id FROM custom_tag WHERE cat_id=6 AND active=1 AND loc_id=$master_loc AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id))" );
     if( $employee_types ) : ?>
       <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-data-labour" role="button" aria-expanded="false" aria-controls="collapse-data-labour"><i class="fa-solid fa-people-pants-simple"></i>Labour</a>
       <ul class="nav collapse" id="collapse-data-labour"><?php
@@ -108,7 +108,7 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
   endif;
 
   if( in_array( "316on", $module_toggle ) ) : /* charity */
-    $donation_types = $wpdb->get_results( "SELECT tag FROM master_tag WHERE cat_id=4 AND id NOT IN (SELECT tag_id FROM custom_tag WHERE cat_id=4 AND active=1 AND loc_id=$master_loc AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id))");
+    $donation_types = $wpdb->get_results( "SELECT tag FROM master_tag WHERE cat_id=4 AND id IN (SELECT tag_id FROM custom_tag WHERE cat_id=4 AND active=1 AND loc_id=$master_loc AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id))");
     if( $donation_types ) : ?>
       <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-data-charity" role="button" aria-expanded="false" aria-controls="collapse-data-charity"><i class="fa-regular fa-hand-holding-heart"></i>Charity</a>
         <ul class="nav collapse" id="collapse-data-charity"><?php
@@ -122,13 +122,13 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
   endif;
   
   if( $standards_assigned >= 0 ) : ?>
-    <div class="nav-section-label">Standards</div>  
+    <div class="nav-section-label"><span>Standards</span></div>  
     <a class="nav-link" href="<?php echo $site_url ?>/yardstick/standards" role="button"><i class="fa-regular fa-star"></i>Standards</a> <?php
   endif;
 
 endif; ?>
 
-<div class="nav-section-label">Charts</div><?php
+<div class="nav-section-label"><span>Charts</span></div><?php
 
 if( in_array( "313on", $module_toggle ) ) : /* operations */ ?>
   <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-chart-operations" role="button" aria-expanded="false" aria-controls="collapse-chart-operations"><i class="fa-regular fa-car-building"></i>Operations</a>
@@ -161,7 +161,7 @@ endif;
 
 if( $user_role == 222 || $user_role == 223 ) : /* super_admin || admin */ ?>
 
-  <div class="nav-section-label">Settings</div> 
+  <div class="nav-section-label"><span>Settings</span></div> 
   <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-setting-general" role="button" aria-expanded="false" aria-controls="collapse-setting-general"><i class="fa-regular fa-sliders"></i>General</a>
   <ul class="nav collapse" id="collapse-setting-general"><?php
     if( $plan_id != 2 ) : ?>
@@ -169,7 +169,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super_admin || admin */ ?>
       <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=categories">Categories</a></li>
       <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=tags">Tags</a></li><?php
     endif; ?>
-    <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=reporting">Reporting</a></li>
+    <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=report_settings">Reporting</a></li>
   </ul> <?php
 
   if( $plan_id != 2 ) : ?>
@@ -182,11 +182,11 @@ if( $user_role == 222 || $user_role == 223 ) : /* super_admin || admin */ ?>
     <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-setting-operations" role="button" aria-expanded="false" aria-controls="collapse-setting-operations"><i class="fa-regular fa-car-building"></i>Operations</a>
     <ul class="nav collapse" id="collapse-setting-operations">
       <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=operation_settings">Operation Settings</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=fuel">Fuel</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=fuels">Fuel</a></li>
       <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=water">Water</a></li>
       <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=waste">Waste</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=waste_disposal">Waste Disposal</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=plastic">Plastic</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=disposal_methods">Waste Disposal</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/settings/?setting=plastics">Plastic</a></li>
     </ul><?php
   endif;
 

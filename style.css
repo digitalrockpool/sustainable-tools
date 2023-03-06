@@ -11,5 +11,11 @@ Text Domain: sustainable-tools
 
 */ 
 
+@import "lib/css/forms.css";
 @import "lib/css/global.css";
-@import "lib/css/plugin.css";
+@import "lib/css/gutenberg.css";
+@import "lib/css/layout.css";
+@import "lib/css/plans.css";
+@import "lib/css/plugins.css";
+@import "lib/css/tables.css";
+@import "lib/css/typography.css";

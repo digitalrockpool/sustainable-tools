@@ -32,9 +32,9 @@ else : ?>
   <form method="post" name="add-tag-settings" id="add-tag-settings" class="needs-validation" novalidate>
 
     <div id="repeater-field">
-      <div class="entry form-row mb-1">
+      <div class="entry row g-1 mb-1">
         <div class="col-5">
-          <select id="set-category" name="set-category[]" class="form-control" required>
+          <select id="set-category" name="set-category[]" class="form-select" required>
             <option value="" selected disabled>Select Category *</option> <?php
 
             $category_dropdowns = $wpdb->get_results( "SELECT parent_id, category FROM custom_category WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_category GROUP BY parent_id) ORDER BY category ASC" );
@@ -52,12 +52,12 @@ else : ?>
         </div>
 
         <div class="col-2">
-          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
         </div>
       </div>
     </div>
 
-    <div class="form-row">
+    <div class="row g-1">
       <div class="col-2 offset-10 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-tag-settings">Add</button></div>
     </div>
   </form> <?php

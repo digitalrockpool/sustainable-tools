@@ -41,7 +41,7 @@ $edit_parent_id = $args['edit_parent_id'];
 if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_charity = $edit_charity; endif; ?>
 
 <form method="post" name="edit" id="<?php echo $update_charity ?>" class="needs-validation" novalidate>
-  <div class="form-row"> <?php
+  <div class="row"> <?php
 
     if( $measure_toggle == 86 ) : // custom measures
 
@@ -54,12 +54,12 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
     else : ?>
 
       <div class="col-md-4 mb-3">
-        <label class="control-label" for="edit-measure-date">Date of Donation<sup class="text-danger">*</sup></label>
-        <div class="input-group mb-2">
-          <div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+        <label for="edit-measure-date">Date of Donation<sup class="text-danger">*</sup></label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
           <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
-          <div class="invalid-feedback">Please select a date</div>
         </div>
+        <div class="invalid-feedback">Please select a date</div>
       </div>
 
       <div class="col-md-6 mb-3 d-flex align-items-end">  <?php
@@ -75,13 +75,13 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
   </div>
 
   <div id="repeater-field">
-    <div class="entry form-row mb-1"> <?php
+    <div class="entry row g-1 mb-1"> <?php
 
       $donee_dropdowns = $wpdb->get_results( "SELECT parent_id, location FROM custom_location WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id) ORDER BY location ASC" ); ?>
 
       <div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-5<?php endif; ?>">
         <?php if( empty( $add_url ) ) : ?><label for="edit-donee-location">Donee Location<sup class="text-danger">*</sup></label><?php endif; ?>
-        <select class="form-control" id="edit-donee-location" name="edit-donee-location[]" required>
+        <select class="form-select" id="edit-donee-location" name="edit-donee-location[]" required>
           <?php if( empty( $edit_url ) ) : ?><option value="">Select Donee Location</option><?php endif; ?>
           <option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
@@ -114,7 +114,7 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
 
         <div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-3<?php endif; ?>">
           <?php if( empty( $add_url ) ) : ?><label for="edit-value-type">Value Type<sup class="text-danger">*</sup></label><?php endif; ?>
-          <select class="form-control" id="edit-value-type" name="edit-value-type[]" required>
+          <select class="form-select" id="edit-value-type" name="edit-value-type[]" required>
             <option value="68">Cash</option>
             <option value="67" <?php echo $selected ?>>In-Kind</option>
           </select>
@@ -129,7 +129,7 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
         <div class="invalid-feedback">Please enter a number greater than 0.01</div>
       </div> <?php
 
-      if( empty( $edit_url ) ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></div> <?php endif; ?>
+      if( empty( $edit_url ) ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></div> <?php endif; ?>
 
     </div>
   </div> <?php
@@ -138,7 +138,7 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
 
     <h5 class="border-top pt-3 mt-3">Tags</h5>
 
-    <div class="form-row">
+    <div class="row">
 
       <div class="col-12 mb-3">
 
@@ -167,16 +167,14 @@ if( empty( $edit_charity ) ) : $update_charity = 'edit_charity'; else : $update_
 
   <h5 class="border-top pt-3 mt-3">Notes</h5>
 
-  <div class="form-row">
-
+  <div class="row">
     <div class="col-12 mb-3">
       <label for="edit-note">Please enter any notes for this entry</label>
         <textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
     </div>
-
   </div>
 
-  <div class="form-row">
+  <div class="row">
     <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_charity ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
   </div>
 </form> <?php

@@ -33,9 +33,9 @@ else : ?>
 
   <form method="post" id="add-charity-settings" name="add-charity-settings" class="needs-validation" novalidate>
     <div id="repeater-field">
-      <div class="entry form-row mb-1">
+      <div class="entry row g-1 mb-1">
         <div class="col-10">
-          <select class="form-control" id="set-donation-type" name="set-donation-type[]" required>
+          <select class="form-select" id="set-donation-type" name="set-donation-type[]" required>
             <option value="" selected disabled>Select <?php echo $title_singular ?> *</option> <?php
 
             foreach( $charity_dropdowns as $charity_dropdown ) : ?>
@@ -47,13 +47,13 @@ else : ?>
         </div>
 
         <div class="col-2">
-          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
         </div>
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="col-2 offset-10 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-charity-settings">Add</button></div>
+    <div class="row g-1">
+      <div class="col-2 offset-10 p-0 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-charity-settings">Add</button></div>
     </div>
   </form> <?php
 

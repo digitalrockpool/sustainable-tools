@@ -12,11 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) :
 	exit; // Exit if accessed directly.
 endif;
 
-get_header();
-
 get_header(); ?>
 
-<article class="col-xl-12"> <?php
+<article class="col-xl-12"><?php
 
 	if( have_posts() ) : while( have_posts() ) : the_post();
 		the_content();

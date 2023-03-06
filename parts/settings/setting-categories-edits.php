@@ -53,7 +53,7 @@ else : ?>
           <tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
             <td class="align-top strikeout-buttons">
 
-              <button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
+              <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
 
               <div class="modal fade text-left" id="modalRevisions-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $edit_id ?>Title" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -61,7 +61,7 @@ else : ?>
 
                     <div class="modal-header">
                       <h5 class="modal-title" id="modalRevisions-<?php echo $edit_id ?>Title">Revisions for <?php echo $edit_category ?></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                     </div>
 
                     <div class="modal-body"> <?php
@@ -93,7 +93,7 @@ else : ?>
                 </div>
               </div> <?php
 
-              if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fas fa-trash-alt"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fas fa-trash-restore-alt"></i>'; endif; ?>
+              if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fa-solid fa-trash-can"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fa-solid fa-trash-can-arrow-up"></i>'; endif; ?>
 
               <form method="post" name="archive" id="<?php echo $edit_archive ?>" class="d-inline-block">
                 <button type="submit" class="btn <?php echo $btn_style ?> d-inline-block" name="<?php echo $edit_archive ?>"><?php echo $edit_value ?></button>
@@ -120,7 +120,7 @@ else : ?>
 
               if( $edit_active == 1 ) : ?>
 
-                <button type="button" class="btn btn-light d-inline-block" data-toggle="modal" data-target="#modal-<?php echo $edit_id ?>"><i class="fas fa-pencil"></i></button>
+                <button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button>
 
                 <div class="modal fade" id="modal-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?php echo $edit_id ?>Title" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -128,7 +128,7 @@ else : ?>
 
                       <div class="modal-header">
                         <h5 class="modal-title" id="modal-<?php echo $edit_id ?>Title"><?php echo $edit_category ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                       </div>
 
                       <div class="modal-body">

@@ -5,7 +5,7 @@ Template Part:  Edit Table - Measures
 
 @package	      Sustainable Tools
 @author		      Digital Rockpool
-@link		        https://www.sustainable.tools/yardstick
+@link		        https://www.sustainable.tools/
 @copyright	    Copyright (c) 2022, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
@@ -77,7 +77,7 @@ else : ?>
           <tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
             <td class="align-top strikeout-buttons">
 
-              <button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
+              <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
 
               <div class="modal fade text-left" id="modalRevisions-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $edit_id ?>Title" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -85,12 +85,12 @@ else : ?>
 
                     <div class="modal-header">
                       <h5 class="modal-title" id="modalRevisions-<?php echo $edit_id ?>Title">Revisions for <?php echo $title ?></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                     </div>
 
                     <div class="modal-body"> <?php
 
-                      $revision_rows = $wpdb->get_results( "SELECT data_measure.id, data_measure.entry_date, tag, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name, display_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN yard_users ON data_measure.user_id=yard_users.id INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE data_measure.parent_id=$edit_parent_id AND relation_user.user_id=$user_id ORDER BY data_measure.id DESC" );
+                      $revision_rows = $wpdb->get_results( "SELECT data_measure.id, data_measure.entry_date, tag, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name, display_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN wp_users ON data_measure.user_id=wp_users.id INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE data_measure.parent_id=$edit_parent_id AND relation_user.user_id=$user_id ORDER BY data_measure.id DESC" );
 
                       foreach( $revision_rows as $revision_row ) :
 
@@ -168,7 +168,7 @@ else : ?>
 
               if( $edit_active == 1 ) : ?>
 
-                <button type="button" class="btn btn-light d-inline-block" data-toggle="modal" data-target="#modalEdit-<?php echo $edit_id ?>"><i class="fas fa-pencil"></i></button><?php
+                <button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal" data-bs-target="#modalEdit-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button><?php
 
               endif; ?>
 
@@ -178,7 +178,7 @@ else : ?>
 
                     <div class="modal-header">
                       <h5 class="modal-title" id="modalEdit-<?php echo $edit_id ?>Title">Edit <?php echo $title ?></h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
                     </div>
 
                     <div class="modal-body">

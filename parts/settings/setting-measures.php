@@ -26,7 +26,7 @@ $cat_id = $args['cat_id']; ?>
 
 <form method="post" name="edit-measures" id="edit-measures">
 
-  <div class="form-row">
+  <div class="row g-1">
     <div class="col-md-12 mb-3">
       <p>Measures are time periods where you can record the occupancy of both staff and clients and/or the proportion of the building that was in use.</p>
       <label class="font-weight-normal align-top pt-1 pr-4">Change Measures:<sup class="text-danger">*</sup></label> <?php
@@ -99,7 +99,7 @@ if( $measure_toggle == 86 ) : ?>
         </div>
 
         <div class="col-2">
-          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+          <span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
         </div>
       </div>
     </div>

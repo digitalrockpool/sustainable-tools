@@ -2,19 +2,18 @@
 
 /* ***
 
-Template Name: Yardstick
-
+Template Name: Tool
 Template Post Type: Post, Page, Help
 
 @package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
+@link		https://www.sustainable.tools/
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+
 
 *** */
 
-get_header();
+get_header('tool');
 
 global $wpdb;
 global $post;
@@ -48,7 +47,7 @@ endif;  ?>
 		else : ?>
 		
 			<header class="header-flexbox">
-				<h1 class="h4-style"><?php echo get_the_title( $post->post_parent ).' <i class="fal fa-chevron-double-right small"></i> '.get_the_title(); ?></h1> 
+				<h1 class="h4-style"><?php echo get_the_title( $post->post_parent ).' <i class="fa-solid fa-chevrons-right"></i> '.get_the_title(); ?></h1> 
 			</header> <?php 
 		
 			if( $wp_user_role == 'not_subscribed' && $page_id == 2060 ) : /* page_id == manage subscription */

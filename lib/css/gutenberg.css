@@ -1,0 +1,114 @@
+/* ***
+
+CSS: Gutenberg
+
+@package	      Sustainable Tools
+@author		      Digital Rockpool
+@link		        https://www.sustainable.tools/
+@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@license	      GPL-2.0+ 
+
+
+/* #  Table of Contents
+      - Gutenberg Colour Palette
+      - Gutenberg Block Styles
+
+
+/* # Gutenberg Colour Palette
+---------------------------------------------------------------------------------------------------- */
+.has-orange-background-color {
+  background-color: #ff5421;
+}
+
+.has-orange-color,
+.orange-text {
+  color: #ff5421;
+}
+
+.has-red-background-color {
+background-color: #ce211b;
+}
+
+.has-red-color,
+.red-text {
+  color: #ce211b;
+}
+
+.has-yellow-background-color {
+  background-color: #ff9a21;
+}
+
+.has-yellow-color,
+.yellow-text {
+  color: #ff9a21;
+}
+
+.has-dark-grey-background-color {
+  background-color: #263238;
+}
+
+.has-dark-grey-color,
+.dark-grey-text {
+  color: #263238;
+}
+
+.has-light-grey-background-color {
+  background-color: #e9ecef;
+}
+
+.has-light-grey-color,
+.light-grey-text {
+  color: #e9ecef;
+}
+
+.has-white-background-color {
+  background-color: #ffffff;
+}
+
+.has-white-color,
+.white-text {
+  color: #ffffff;
+}
+
+.has-green-color,
+.green-text {
+  color: #18a64d;
+}
+
+
+/* # Gutenberg Block Styles
+---------------------------------------------------------------------------------------------------- */
+.has-white-background-color.background-opacity {
+background: rgba(255,255,255,0.85);
+}
+
+.has-dark-grey-background-color.background-opacity {
+background: rgba(38,50,56,0.85);
+}
+
+.has-orange-background-color.background-opacity {
+background: rgba(255,84,33,0.95);
+}
+
+.wide-row {
+padding-bottom: 8rem;
+padding-top: 8rem;
+}
+
+.icon-block {
+font-size: 56px;
+}
+
+.image-overflow-right, .image-overflow-right img { /*????????*/
+max-width: none;
+min-height: 500px;
+}
+
+.orange-leftbar {
+border-left: solid 5px #ff5421;
+border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+margin: 20px 0px 20px 20px;
+padding: 20px;
+}

@@ -37,9 +37,9 @@ if( empty( $end_url ) ) : $end = date( 'Y-m-d'); else : $end = date( 'Y-m-d', st
 <article class="col-12 px-3">
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		<header class="header-flexbox">
-			<h1 class="h4-style">Report <i class="fal fa-chevron-double-right small"></i> <?php echo $report ?></h1> <?php
+			<h1 class="h4-style">Report <i class="fa-solid fa-chevrons-right"></i> <?php echo $report ?></h1> <?php
 
-			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
+			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
 		</header>
 
 		<form method="post" name="change_chart" id="chartTypeForm">
@@ -70,7 +70,7 @@ if( empty( $end_url ) ) : $end = date( 'Y-m-d'); else : $end = date( 'Y-m-d', st
 				<div class="form-group col-md-6">
 					<label class="control-label" for="filter-date-range">Date Range<sup class="text-danger">*</sup></label>
 					<div class="input-group mb-2">
-						<div class="input-group-prepend"><div class="input-group-text"><i class="far fa-calendar-alt"></i></div></div>
+						<div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
 						<input type="text" class="form-control date" name="filter-date-start" id="filter-date-start" aria-describedby="filter-date-start" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $start )) ?>" data-date-end-date="0d" required>
 						<input type="text" class="form-control date" name="filter-date-end" id="filter-date-end" aria-describedby="filter-date-end" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $end )) ?>" data-date-end-date="0d" required>
 					</div>

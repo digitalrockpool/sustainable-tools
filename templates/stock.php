@@ -51,7 +51,7 @@ $show_help = get_field('show_help');
 
 			<h1 class="h4-style"><?php echo $title ?> Items</h1> <?php
 
-			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
+			if( !empty( $show_help ) ) : ?> <a href="<?php echo $show_help ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
 
 		</header>
 
@@ -94,7 +94,7 @@ $show_help = get_field('show_help');
 					<div class="input-group">
 						<input type="text" class="form-control date" name="stock-date" id="stock-date" aria-describedby="stock-date" value="<?php echo date_format( date_create( $entry_date ), 'd-M-Y' ) ?>" data-date-end-date="0d" required>
 
-						<div class="input-group-append"><span class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
+						<div class="input-group-append"><span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span></div>
 					</div>
 
 				</div>
@@ -143,7 +143,7 @@ $show_help = get_field('show_help');
 					</div>
 
 					<div class="col-2">
-						<span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fas fa-plus"></i></button></span>
+						<span class="input-group-btn"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></span>
 					</div>
 				</div>
 			</div>
@@ -282,7 +282,7 @@ $show_help = get_field('show_help');
 						<div class="input-group-prepend"><div class="input-group-text">SELECT DATE RANGE</div></div>
 						<input type="text" class="form-control date" name="edit_date_range_start" id="edit_date_range_start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
 						<input type="text" class="form-control date" name="edit_date_range_end" aria-describedby="edit_date_range_end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
-						<div class="input-group-append"><button type="submit" class="btn btn-primary" name="change_date_range"><i class="far fa-calendar-alt"></i></button></div>
+						<div class="input-group-append"><button type="submit" class="btn btn-primary" name="change_date_range"><i class="fa-regular fa-calendar-days"></i></button></div>
 					</div>
 					<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
 				</div>
@@ -351,7 +351,7 @@ $show_help = get_field('show_help');
 							<tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
 								<td class="align-top strikeout-buttons"><?php // start of view revisions ?>
 
-									<button type="button" class="btn btn-dark d-inline-block edit-button-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
+									<button type="button" class="btn btn-dark d-inline-block edit-button-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
 
 									<div class="modal fade text-left" id="modalRevisions-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $edit_id ?>Title" aria-hidden="true">
 										<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -359,7 +359,7 @@ $show_help = get_field('show_help');
 
 												<div class="modal-header">
 													<h5 class="modal-title" id="modalRevisions-<?php echo $edit_id ?>Title">Revisions for <?php echo $edit_card_name.': '.$edit_item_name; if( !empty( $edit_item_size ) ) : echo ' ('.$edit_item_size.' '.$edit_item_unit.')'; endif; ?></h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+													<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 												</div>
 
 												<div class="modal-body"> <?php
@@ -408,7 +408,7 @@ $show_help = get_field('show_help');
 
 										if( $edit_active == 1 ) :  // start of edit stock ?>
 
-											<button type="button" class="btn btn-light d-inline-block edit-button-block" data-toggle="modal" data-target="#modal-<?php echo $edit_id ?>"><i class="fas fa-pencil"></i></button>
+											<button type="button" class="btn btn-light d-inline-block edit-button-block" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button>
 
 											<div class="modal fade" id="modal-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?php echo $edit_id ?>Title" aria-hidden="true">
 												<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -416,7 +416,7 @@ $show_help = get_field('show_help');
 														<div class="modal-header">
 															<h5 class="modal-title" id="modal-<?php echo $edit_id ?>Title"><?php echo $edit_card_name.': '.$edit_item_name; if( !empty( $edit_item_size ) ) : echo ' ('.$edit_item_size.' '.$edit_item_unit.')'; endif; ?></h5>
 
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+															<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 														</div>
 
 														<div class="modal-body">
@@ -431,7 +431,7 @@ $show_help = get_field('show_help');
 																		<div class="input-group">
 																			<input type="text" class="form-control date" name="update-stock-date" id="update-stock-date" aria-describedby="stock-item-date" value="<?php echo date_format( date_create( $edit_stock_date ), 'd-M-Y' ) ?>" data-date-end-date="0d" required>
 
-																			<div class="input-group-append"><span class="input-group-text"><i class="far fa-calendar-alt"></i></span></div>
+																			<div class="input-group-append"><span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span></div>
 																		</div>
 																	</div> <?php
 
@@ -501,11 +501,11 @@ $show_help = get_field('show_help');
 
 										else : ?>
 
-											<button type="button" class="btn btn-light-inactive d-inline-block edit-button-block"><i class="fas fa-pencil"></i></button> <?php
+											<button type="button" class="btn btn-light-inactive d-inline-block edit-button-block"><i class="fa-solid fa-pencil"></i></button> <?php
 
 										endif; // end of edit stock
 
-										if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fas fa-trash-alt"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fas fa-trash-restore-alt"></i>'; endif; // start of delete | restore stock
+										if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fa-solid fa-trash-can"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fa-solid fa-trash-can-arrow-up"></i>'; endif; // start of delete | restore stock
 
 										if( $edit_active == 1 && $stock_type == 'issue' ) : $archive_balance = $edit_quantity+$edit_balance; elseif( $edit_active == 0 && $stock_type == 'issue' ) : $archive_balance = $edit_balance-$edit_quantity; else : $archive_balance = $edit_quantity; endif; ?>
 
@@ -774,7 +774,7 @@ $show_help = get_field('show_help');
 			controlForm.find('.entry:not(:last) .btn-add')
 			.removeClass('btn-add').addClass('btn-remove')
 			.removeClass('btn-success').addClass('btn-danger')
-			.html('<i class="fas fa-minus"></i>');
+			.html('<i class="fa-solid fa-minus"></i>');
 		}).on('click', '.btn-remove', function(e)
 		{
 			e.preventDefault();

@@ -10,7 +10,7 @@ Template Post Type: Page
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
-get_header();
+get_header('tool');
 
 global $wpdb;
 global $post;
@@ -52,9 +52,9 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 	<article class="col-xl-8 px-3">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 			<header class="header-flexbox">
-				<h1 class="h4-style">Settings <?php if( !empty( $module ) ) : echo '<i class="fal fa-chevron-double-right small"></i> '.$module; endif; ?> <i class="fal fa-chevron-double-right small"></i> <?php echo $title; ?></h1> <?php
+				<h1 class="h4-style">Settings <?php if( !empty( $module ) ) : echo '<i class="fa-solid fa-chevrons-right"></i> '.$module; endif; ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $title; ?></h1> <?php
 
-				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-question-circle" aria-hidden="true"></i></a> <?php endif; ?>
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
 			</header> <?php
 
 			$args = array(
@@ -147,7 +147,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 										<tr <?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
 											<td class="align-top strikeout-buttons">
 
-												<button type="button" class="btn btn-dark d-inline-block" data-toggle="modal" data-target="#modalRevisions-<?php echo $edit_id ?>"><i class="far fa-eye"></i></button>
+												<button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
 
 												<div class="modal fade text-left" id="modalRevisions-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modalRevisions-<?php echo $edit_id ?>Title" aria-hidden="true">
 													<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -155,7 +155,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 															<div class="modal-header">
 																<h5 class="modal-title" id="modalRevisions-<?php echo $edit_id ?>Title">Revisions for <?php echo $row_item ?></h5>
-																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+																<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 															</div>
 
 															<div class="modal-body"> <?php
@@ -235,7 +235,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 													</div>
 												</div> <?php
 
-												if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fas fa-trash-alt"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fas fa-trash-restore-alt"></i>'; endif;
+												if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="fa-solid fa-trash-can"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1; $btn_style = 'btn-success'; $edit_value = '<i class="fa-solid fa-trash-can-arrow-up"></i>'; endif;
 
 												if( $set_id != 13 && $set_id != 14 ) : /* labour setting && operation setting */ ?>
 
@@ -271,7 +271,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 												if( !empty( $col_title ) && $edit_active == 1 ) : ?>
 
-													<button type="button" class="btn btn-light d-inline-block" data-toggle="modal" data-target="#modal-<?php echo $edit_id ?>"><i class="fas fa-pencil"></i></button>
+													<button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal" data-bs-target="#modal-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button>
 
 													<div class="modal fade" id="modal-<?php echo $edit_id ?>" tabindex="-1" role="dialog" aria-labelledby="modal-<?php echo $edit_id ?>Title" aria-hidden="true">
 														<div class="modal-dialog modal-dialog-centered" role="document">
@@ -279,7 +279,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 																<div class="modal-header">
 																	<h5 class="modal-title" id="modal-<?php echo $edit_id ?>Title"><?php echo $row_item ?></h5>
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+																	<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa-regular fa-circle-xmark"></i></span></button>
 																</div>
 
 																<div class="modal-body">
@@ -298,7 +298,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 																				$dropdowns = $wpdb->get_results( "SELECT master_tag.id, master_tag.tag FROM master_tag INNER JOIN relation_tag ON master_tag.id=relation_tag.child_id WHERE parent_id=$edit_system_id AND relation <> 'waste-disposal'" );  ?>
 
-																				<select class="custom-select d-inline-block" id="unitUpdate" aria-label="Unit Update" name="update_unit"><?php
+																				<select class="form-select d-inline-block" id="unitUpdate" aria-label="Unit Update" name="update_unit"><?php
 
 																					foreach( $dropdowns as $dropdown ) :
 
@@ -317,7 +317,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 																				$dropdowns = $wpdb->get_results( "SELECT parent_id, category FROM custom_category WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_category GROUP BY parent_id) ORDER BY category ASC" );  ?>
 
-																				<select class="custom-select d-inline-block" id="categoryUpdate" aria-label="Category Update" name="update_category"><?php
+																				<select class="form-select d-inline-block" id="categoryUpdate" aria-label="Category Update" name="update_category"><?php
 
 																					foreach( $dropdowns as $dropdown ) :
 
@@ -344,7 +344,7 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 																			endif; ?>
 
-																			<div class="input-group-append"><input type="submit" class="btn btn-primary d-inline-block" aria-describedby="tagUpdate" name="<?php echo $edit_update ?>" value="Update" /></div>
+																			<input type="submit" class="btn btn-primary d-inline-block" aria-describedby="tagUpdate" name="<?php echo $edit_update ?>" value="Update" />
 																		</div>
 
 																	</form>
@@ -481,7 +481,7 @@ endif; ?>
 			controlForm.find('.entry:not(:last) .btn-add')
 			.removeClass('btn-add').addClass('btn-remove')
 			.removeClass('btn-success').addClass('btn-danger')
-			.html('<i class="fas fa-minus"></i>');
+			.html('<i class="fa-solid fa-minus"></i>');
 		}).on('click', '.btn-remove', function(e) {
 			e.preventDefault();
 			$(this).parents('.entry:first').remove();

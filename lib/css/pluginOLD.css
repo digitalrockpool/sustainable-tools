@@ -346,37 +346,7 @@ body .ginput_container_list table.gfield_list tbody tr td.gfield_list_icons {
 	}
 }
 
-/* ### Password Strenth Indicator */
 
-.gfield_password_strength {
-	background-color: #eeeeee!important;
-	border: 1px solid #dddddd!important;
-	border-radius: 3px;
-	color: #3a3a3a;
-	font-size: 14px!important;
-	height: 30px;
-	padding: 1px!important;
-	width: 100%;
-}
-
-.gform_wrapper .gfield_password_strength.short,
-.gform_wrapper .gfield_password_strength.bad {
-	background-color: #ce211b!important; 
-	border: 1px solid #ce211b!important; 
-	color: #ffc2c0;
-	}
-
-.gform_wrapper .gfield_password_strength.good {
-	background-color: #ff9a21!important;
-	border: 1px solid #ff9a21!important;
-	color: #ffe4c4;
-}
-
-.gform_wrapper .gfield_password_strength.strong {
-	background-color: #00a74d!important;
-	border: 1px solid #00a74d!important;
-	color: #9eeac1;
-}
 
 /* ### Contact Support - Attachment Box */
 

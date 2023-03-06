@@ -33,7 +33,7 @@ else : ?>
 
   <form method="post" name="add-operation-settings" id="add-operation-settings" class="needs-validation" novalidate>
 
-    <div class="form-row">
+    <div class="row g-1">
 
       <div class="col-md-4 mb-3">
         <label for="set-capacity">Capacity<sup class="text-danger">*</sup></label>
@@ -59,7 +59,7 @@ else : ?>
 
     </div>
 
-    <div class="form-row">
+    <div class="row g-1">
       <div class="col-2 offset-10 mb-3"><button class="btn btn-primary" type="submit" name="add-operation-settings">Add</button></div>
     </div>
   </form> <?php

@@ -35,7 +35,7 @@ $location_setup_checks = $wpdb->get_results( "SELECT id FROM custom_location WHE
 		
 		<header class="header-flexbox">
 			<h1 class="h4-style">Getting Started</h1>
-			<a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="far fa-times-circle-o" aria-hidden="true"></i></a>
+			<a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-regular fa-circle-xmark-o" aria-hidden="true"></i></a>
 		</header> 
 						
 		
