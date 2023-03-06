@@ -3,11 +3,11 @@
 
 Template Part:  Latest Entries - Operations
 
-@package	      Sustainable Tools
-@author		      Digital Rockpool
-@link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
-@license	      GPL-2.0+ 
+@package    Sustainable Tools
+@author     Digital Rockpool
+@link       https://www.sustainable.tools/yardstick
+@copyright  Copyright (c) 2023, Digital Rockpool LTD
+@license    GPL-2.0+ 
 
 *** */
 
@@ -29,7 +29,7 @@ else : ?>
 				<tr>
 					<th scope="col">Date</th>
 					<th scope="col"><?php echo $title ?></th>
-						<th scope="col">Amount</th>
+					<th scope="col">Amount</th>
 				</tr>
 			</thead>
 
@@ -45,11 +45,11 @@ else : ?>
 					$latest_custom_tag_entry = $add_row->custom_tag;
 					$latest_amount = $add_row->amount;
 
-          if( !empty( $latest_custom_tag_entry ) ) : $latest_custom_tag = ' - '.$latest_custom_tag_entry; endif; ?>
+          if( !empty( $latest_custom_tag_entry ) ) : $latest_custom_tag = ' - '.$latest_custom_tag_entry; else : $latest_custom_tag = ''; endif; ?>
 
 					<tr>
 					<td nowrap><?php if( empty( $latest_date ) ) : echo $latest_measure_start_formatted; else : echo $latest_date_formatted; endif; ?></td> <?php
-					if( $loc_number > 1 ) : ?> <td scope="col"><?php echo substr( $latest_loc_name, 10 ) ?></td> <?php endif; ?>
+					/* if( $loc_number > 1 ) : ?> <td scope="col"><?php echo substr( $latest_loc_name, 10 ) ?></td> <?php endif; */ ?>
 					<td><?php echo $latest_master_tag.$latest_custom_tag ?></td>
 					<td class="text-right" nowrap><?php echo number_format($latest_amount, 2) ?></td>
 					</tr> <?php

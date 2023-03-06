@@ -14,11 +14,6 @@ Template Part:  Forms - Operations
 $site_url = get_site_url();
 $slug = $post->post_name;
 
-$add_url = $_GET['add'];
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
-
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
 $measure_toggle = $_SESSION['measure_toggle'];
@@ -26,18 +21,27 @@ $tag_toggle = $_SESSION['tag_toggle'];
 
 $entry_date = date( 'Y-m-d H:i:s' );
 
+if( isset( $_GET['add'] ) && !empty( $_GET['add'] ) ) : $add_url = $_GET['add']; endif;
+
+if( isset( $_GET['edit'] ) && !empty( $_GET['edit'] ) ) : 
+  $edit_url = $_GET['edit'];
+  $edit_operations = $args['edit_operations'];
+  $edit_id = $args['edit_id'];
+  $edit_measure = $args['edit_measure'];
+  $edit_measure_date_formatted = $args['edit_measure_date_formatted'];
+  $edit_utility_id = $args['edit_utility_id'];
+  $edit_amount = $args['edit_amount'];
+  $edit_cost = $args['edit_cost'];
+  $edit_disposal = $args['edit_disposal'];
+  $edit_disposal_id = $args['edit_disposal_id'];
+  $edit_note = $args['edit_note'];
+  $edit_parent_id = $args['edit_parent_id'];
+ endif;
+
+if( isset( $_GET['start'] ) && !empty( $_GET['start'] ) ) : $start = $_GET['start']; endif;
+if( isset( $_GET['end'] ) && !empty( $_GET['end'] ) ) : $end = $_GET['end']; endif;
+
 $cat_id = $args['cat_id'];
-$edit_operations = $args['edit_operations'];
-$edit_id = $args['edit_id'];
-$edit_measure = $args['edit_measure'];
-$edit_measure_date_formatted = $args['edit_measure_date_formatted'];
-$edit_utility_id = $args['edit_utility_id'];
-$edit_amount = $args['edit_amount'];
-$edit_cost = $args['edit_cost'];
-$edit_disposal = $args['edit_disposal'];
-$edit_disposal_id = $args['edit_disposal_id'];
-$edit_note = $args['edit_note'];
-$edit_parent_id = $args['edit_parent_id'];
 
 if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else : $update_operations = $edit_operations; endif; ?>
 
@@ -237,7 +241,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
     <div class="col-12 mb-3">
       <label for="edit-note">Please enter any notes for this entry</label>
-        <textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php echo $edit_note ?></textarea>
+        <textarea class="form-control" name="edit-note" id="edit-note" aria-describedby="editNote" placeholder="Notes"><?php if( isset($edit_note) ) : echo $edit_note; endif; ?></textarea>
     </div>
 
   </div>

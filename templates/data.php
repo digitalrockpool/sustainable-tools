@@ -8,7 +8,7 @@ Template Post Type: Page
 @package	Sustainable Tools
 @author		Digital Rockpool
 @link		https://www.sustainable.tools/
-@copyright	Copyright (c) 2022, Digital Rockpool LTD
+@copyright	Copyright (c) 2023, Digital Rockpool LTD
 @license	GPL-2.0+
 
 *** */
@@ -34,12 +34,19 @@ $measure_toggle = $_SESSION['measure_toggle'];
 $calendar = $_SESSION['calendar'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
-$add_url = $_GET['add'];
-$add = str_replace( '-', ' ', $add_url );
-$edit_url = $_GET['edit'];
-$edit = str_replace( '-', ' ', $edit_url );
+if( isset( $_GET['add'] ) && !empty( $_GET['add'] ) ) : 
+	$add_url = $_GET['add'];
+	$add = str_replace( '-', ' ', $add_url );
+  $data_title = $add;
+endif;
 
-$data_setup = $wpdb->get_row( "SELECT master_data.id, mod_id, module, module_db, title, cat_id, tag_id, category, help_id, add_id FROM master_data INNER JOIN master_module ON master_data.mod_id=master_module.id INNER JOIN master_category ON master_data.cat_id=master_category.id WHERE title='$add' OR title='$edit'" );
+if( isset( $_GET['edit'] ) && !empty( $_GET['edit'] ) ) : 
+	$edit_url = $_GET['edit'];
+	$edit = str_replace( '-', ' ', $edit_url );
+  $data_title = $edit;
+endif;
+
+$data_setup = $wpdb->get_row( "SELECT master_data.id, mod_id, module, module_db, title, cat_id, tag_id, category, help_id, add_id FROM master_data INNER JOIN master_module ON master_data.mod_id=master_module.id INNER JOIN master_category ON master_data.cat_id=master_category.id WHERE title='$data_title'" );
 $data_id = $data_setup->id;
 $mod_id = $data_setup->mod_id;
 $module = $data_setup->module;
@@ -81,10 +88,16 @@ $date_range = '-'.$date_range_step.' '.$date_range_unit;
 
 $latest_end = $latest_measure_date->measure_date;
 $latest_start = date( 'Y-m-d', strtotime( "$latest_end $date_range" ) );
-$month_end = date_format( date_create( $_GET['end'] ), 'd-M-Y' );
-$month_start = date_format( date_create( $_GET['start'] ), 'd-M-Y' );
 
-if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $mod_query == 1 && $calendar == 231 ) : $measure_query = '=231'; else : $measure_query = ' IS NULL'; endif;
+if( isset( $_GET['end'] ) && !empty( $_GET['end'] ) ) : 
+  $month_end = date_format( date_create( $_GET['end'] ), 'd-M-Y' );
+endif;
+
+if( isset( $_GET['start'] ) && !empty( $_GET['start'] ) ) : 
+  $month_start = date_format( date_create( $_GET['start'] ), 'd-M-Y' );
+endif;
+
+if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $calendar == 231 ) : $measure_query = '=231'; else : $measure_query = ' IS NULL'; endif;
 
 if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 

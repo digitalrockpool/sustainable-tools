@@ -4,16 +4,13 @@
 
 Footer
 
-@package	      Sustainable Tools
-@author		      Digital Rockpool
-@link		        https://www.sustainable.tools/
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
-@license	      GPL-2.0+ 
+@package	Sustainable Tools
+@author		Digital Rockpool
+@link		https://www.sustainable.tools/
+@copyright	Copyright (c) 2023, Digital Rockpool LTD
+@license	GPL-2.0+ 
 
 *** */
-if( is_page_template( 'templates/fullscreen.php' ) ) : 
-	$aside_bg_dark = 'aside-bg-dark';
-endif;
 
 if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/report.php' ) || is_page_template( 'templates/setting.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/stock.php' ) || is_page_template( 'templates/tool.php' )  ): ?>
 			</article><!-- end article row -->
@@ -26,7 +23,7 @@ endif; ?>
 
 		<footer id="site-footer" class="row g-0 <?php echo $bg_transparent ?>"><!-- start footer row -->
 
-			<section class="site-info col-lg-4 ps-3 <?php echo $aside_bg_dark ?>">
+			<section class="site-info col-lg-4 ps-3 <?php if( is_page_template( 'templates/fullscreen.php' ) ) : echo 'aside_bg_dark'; endif; ?>">
 				Copyright &copy; <?php echo date('Y'); ?> Digital Rockpool LTD
 			</section>
 
