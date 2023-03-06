@@ -208,7 +208,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
       <div class="col-12 mb-1">
 
-        <select class="selectpicker form-control" name="edit-tag[]" multiple title="Select Tags" multiple data-live-search="true"> <?php
+        <select class="selectpicker form-control" name="edit-tag[]" multiple title="Select Tags" data-live-search="true"> <?php
           $tag_dropdowns = $wpdb->get_results( "SELECT parent_id, tag FROM custom_tag WHERE loc_id=$master_loc AND cat_id=22 AND tag IS NOT NULL AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag ASC" );
 
           foreach ($tag_dropdowns as $tag_dropdown ) :

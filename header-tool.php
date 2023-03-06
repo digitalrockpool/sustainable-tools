@@ -113,4 +113,4 @@ Template Part:  Site - Header - Tool
 					</div>
 				</aside><!-- end aside row -->
 				
-				<article class="row"><!-- start article row --> <?php
+				<article class="row g-3"><!-- start article row --> <?php

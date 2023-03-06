@@ -1,16 +1,19 @@
 <?php
 
-/* Template Name: Standards
+/* ***
 
+Template Name: Standards
 Template Post Type: Page
 
 @package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
+@link		https://www.sustainable.tools/
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+@license	GPL-2.0+
 
-get_header();
+*** */
+
+get_header('tool');
 
 global $wpdb;
 global $post;
@@ -41,7 +44,7 @@ $std_organisation = $standard_setup->loc_name;
 $std_name = $standard_setup->standard;
 $std_description = $standard_setup->description; ?>
 
-<article class="col-xl-8 px-3"> 
+<div class="col-xl-8"> 
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		<header class="header">
 			<h1 class="h4-style">Standard <i class="fa-solid fa-chevrons-right"></i> <?php echo $std_name ?></h1> 
@@ -101,7 +104,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 272 ) : // text input ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<input type="text" class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input ?>" value="<?php echo $latest_custom_answer ?>" <?php echo $required ?>>
@@ -114,7 +117,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 273 ) : // number input ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<input type="number" class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input ?>" value="<?php echo $latest_custom_answer ?>" <?php echo $required ?>>
@@ -127,7 +130,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 274 ) : // yes/no radio ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<div class="form-check form-check-inline">
@@ -147,7 +150,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 275 ) : // yes/no/na radion?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label> 
 							<div class="<?php echo $class_align_field ?>">
 								<div class="form-check form-check-inline">
@@ -171,7 +174,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 285 ) : // yes/no/dont know radio ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<div class="form-check form-check-inline">
@@ -195,7 +198,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 286 ) : // yes/no/na/dont know radio ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label> 
 							<div class="<?php echo $class_align_field ?>">
 								<div class="form-check form-check-inline">
@@ -223,10 +226,10 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 284 ) : // select ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
-								<select class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input_id ?>">
+								<select class="form-select" id="<?php echo $question_input ?>" name="<?php echo $question_input_id ?>">
 
 									<option value="" selected disabled>Select <?php echo $question ?></option> <?php
 
@@ -251,7 +254,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 291 ) : // checkbox ?>
 
-						<div class="form-group row">
+						<div class="row mb-3">
 							<label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>"> <?php
 
@@ -297,7 +300,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 277 ) : // small textbox ?>
 
-							<div class="form-group row"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
+							<div class="row mb-3"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<textarea class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input ?>" value="<?php echo $latest_custom_answer ?>" rows="1" <?php echo $required ?>></textarea>
 								<input type="hidden" id="latestParentID" name="latest_parent_id" value="<?php echo $latest_parent_id; ?>">
@@ -308,7 +311,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 278 ) : // medium textbox ?>
 
-						<div class="form-group row"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
+						<div class="row mb-3"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<textarea class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input ?>" value="<?php echo $latest_custom_answer ?>" rows="2" <?php echo $required ?>></textarea>
 								<input type="hidden" id="latestParentID" name="latest_parent_id" value="<?php echo $latest_parent_id; ?>">
@@ -319,7 +322,7 @@ $std_description = $standard_setup->description; ?>
 
 					if( $question_tag_id == 279 ) : // large textbox ?>
 
-						<div class="form-group row"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
+						<div class="row mb-3"><label for="<?php echo $question_input ?>" class="<?php echo $class_align_label ?> d-block"><?php echo $question.$required_astrick ?> <small><?php echo $question_description ?></small></label>
 							<div class="<?php echo $class_align_field ?>">
 								<textarea class="form-control" id="<?php echo $question_input ?>" name="<?php echo $question_input ?>" value="<?php echo $latest_custom_answer ?>" rows="3" <?php echo $required ?>></textarea>
 								<input type="hidden" id="latestParentID" name="latest_parent_id" value="<?php echo $latest_parent_id; ?>">
@@ -431,9 +434,9 @@ $std_description = $standard_setup->description; ?>
 		endif; ?>
 		
 	</section>
-</article>
+	</div>
 	
-<aside class="col-xl-4 pr-3"> <?php
+<aside class="col-xl-4"> <?php
 		
 	$standard_results = $wpdb->get_results( "SELECT loc_name, standard FROM master_standard INNER JOIN relation_standard ON master_standard.id=relation_standard.std_id INNER JOIN profile_location ON master_standard.loc_id=profile_location.parent_id WHERE profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id) AND relation_standard.user_id=$user_id ORDER BY master_standard.id ASC" ); ?>
 		

@@ -178,7 +178,7 @@ function add_entry_relation_user( $user_id, $feed, $entry, $password ) {
 				'plan_id' => $plan_id,
 				'licence' => $licence,
 				'loc_name' => $loc_name,
-				'country' => $country,
+				// 'country' => $country,
 				'active' => 1,
 				'user_id' => $user->ID
 				)

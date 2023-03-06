@@ -110,7 +110,7 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 	</div>
 
 	<aside class="col-xl-4">
-		<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+		<section class="secondary-box p-3 pb-4 mb-3 bg-white shadow-sm clearfix">
 			<h2 class="h4-style">Latest Entries</h2><?php
 
 			$args = array(
@@ -216,45 +216,47 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
 elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 
-	<section class="col-xl-12 primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
+	<div class="col-xl-12">
+		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 
-		<header class="header-flexbox">
-			<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Edit <?php echo $title;
+			<header class="header-flexbox">
+				<h1 class="h4-style">Data <i class="fa-solid fa-chevrons-right"></i> <?php echo $module; ?> <i class="fa-solid fa-chevrons-right"></i> Edit <?php echo $title;
 
-			if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?> </h1>
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?> </h1>
 
-			<form method="post" name="change-date-range" id="change-date-range">
-				<div class="input-group mb-2">
-					<span class="input-group-text">SELECT DATE RANGE</span>
-					<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
-					<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
-					<button type="submit" class="btn btn-primary" name="change-date-range"><i class="fa-regular fa-calendar-days"></i></button>
-				</div>
-				<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
-			</form> <?php
+				<form method="post" name="change-date-range" id="change-date-range">
+					<div class="input-group mb-2">
+						<span class="input-group-text">SELECT DATE RANGE</span>
+						<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
+						<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
+						<button type="submit" class="btn btn-primary" name="change-date-range"><i class="fa-regular fa-calendar-days"></i></button>
+					</div>
+					<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
+				</form> <?php
 
-			if( isset( $_POST['change-date-range'] ) ) :
-				$change_date_range_start = date( 'Y-m-d', strtotime( $_POST['edit-date-range-start'] ) );
-				$change_date_range_end = date( 'Y-m-d', strtotime( $_POST['edit-date-range-end'] ) );
+				if( isset( $_POST['change-date-range'] ) ) :
+					$change_date_range_start = date( 'Y-m-d', strtotime( $_POST['edit-date-range-start'] ) );
+					$change_date_range_end = date( 'Y-m-d', strtotime( $_POST['edit-date-range-end'] ) );
 
-				header ('Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$change_date_range_start.'&end='.$change_date_range_end);
-				ob_end_flush();
-			endif; ?>
+					header ('Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$change_date_range_start.'&end='.$change_date_range_end);
+					ob_end_flush();
+				endif; ?>
 
-		</header><?php
+			</header><?php
 
-		$args = array(
-			'cat_id' => $cat_id,
-			'tag_id' => $tag_id,
-			'module_strip' => $module_strip,
-			'title'		=> $title,
-			'latest_start' => $latest_start,
-			'latest_end' => $latest_end
-		);
+			$args = array(
+				'cat_id' => $cat_id,
+				'tag_id' => $tag_id,
+				'module_strip' => $module_strip,
+				'title'		=> $title,
+				'latest_start' => $latest_start,
+				'latest_end' => $latest_end
+			);
 
-		get_template_part('/parts/tables/table', $module_strip, $args ); ?>
+			get_template_part('/parts/tables/table', $module_strip, $args ); ?>
 
-	</section> <?php
+		</section>
+		</div> <?php
 
 else : ?>
 
@@ -382,4 +384,4 @@ $page_length = $custom_page_length->tag ?: 25; ?>
 	})();
 </script> <?php
 
-get_footer('tool'); ?>
+get_footer(); ?>

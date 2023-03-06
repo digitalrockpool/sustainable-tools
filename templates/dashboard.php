@@ -1,16 +1,19 @@
 <?php ob_start();
 
-/* Template Name: Dashboard
+/* ***
 
+Template Name: Dashboard
 Template Post Type: Page
 
 @package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
+@link		https://www.sustainable.tools/
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
-@license	GPL-2.0+ */
+@license	GPL-2.0+
 
-get_header();
+*** */
+
+get_header('tool');
 
 global $wpdb;
 global $post;
@@ -38,7 +41,7 @@ $location_setup_checks = $wpdb->get_results( "SELECT id FROM custom_location WHE
 $categories_setup_checks = $wpdb->get_results( "SELECT id FROM custom_category WHERE loc_id=$master_loc" );
 $tags_checks = $wpdb->get_results( "SELECT cat_id FROM custom_tag WHERE cat_id=22 AND tag IS NOT NULL AND loc_id=$master_loc" ); ?>
 	
-<article class="col-xl-8 px-3"> 
+<article class="col-xl-12"> 
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		
 		<header class="header-flexbox">

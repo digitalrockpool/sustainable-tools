@@ -5,7 +5,7 @@ Template Part:  Edit Table - Measures
 
 @package	      Sustainable Tools
 @author		      Digital Rockpool
-@link		        https://www.sustainable.tools/yardstick
+@link		        https://www.sustainable.tools/
 @copyright	    Copyright (c) 2022, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
@@ -90,7 +90,7 @@ else : ?>
 
                     <div class="modal-body"> <?php
 
-                      $revision_rows = $wpdb->get_results( "SELECT data_measure.id, data_measure.entry_date, tag, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name, display_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN yard_users ON data_measure.user_id=yard_users.id INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE data_measure.parent_id=$edit_parent_id AND relation_user.user_id=$user_id ORDER BY data_measure.id DESC" );
+                      $revision_rows = $wpdb->get_results( "SELECT data_measure.id, data_measure.entry_date, tag, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name, display_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN wp_users ON data_measure.user_id=wp_users.id INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE data_measure.parent_id=$edit_parent_id AND relation_user.user_id=$user_id ORDER BY data_measure.id DESC" );
 
                       foreach( $revision_rows as $revision_row ) :
 

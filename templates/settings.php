@@ -511,4 +511,4 @@ endif; ?>
 
 <?php
 
-get_footer('tool'); ?>
+get_footer(); ?>

@@ -13,6 +13,98 @@ CSS: Forms
       - ????
       - Button Colours
 
+/* # Gravity Forms */
+.container-fluid .gform_wrapper h3.gsection_title {
+	font-size: 20px;
+	font-size: 1.25rem;
+	font-weight: 400;
+	margin: 24px 0 0;
+}
+
+/* ### Coupon Codes */
+.container-fluid .gform_wrapper input.gf_coupon_code {
+	width: calc(50% - 16px / 2);
+}
+
+.container-fluid .gform_wrapper #gf_coupon_button {
+	color: #fff;
+  background-color: #263238;
+  border-color: #263238;
+	float: none;
+}
+
+.container-fluid .gform_wrapper #gf_coupon_button:active,
+.container-fluid .gform_wrapper #gf_coupon_button:focus,
+.container-fluid .gform_wrapper #gf_coupon_button:hover {
+	color: #fff;
+  background-color: #40525b;
+  border-color: #40525b;
+}
+
+/* # Pricing */
+.container-fluid .gform_wrapper.gravity-theme .ginput_product_price {
+	color: #3a3a3a;
+  font-size: 16px!important;
+  width: 75px;
+}
+
+.container-fluid .gform_wrapper.gravity-theme .ginput_total {
+	color: #3a3a3a;
+	font-size: 24px!important;
+	font-weight: 600;
+  width: 125px;
+}
+
+.container-fluid .gform_wrapper .price-box {
+	background-color: #e9ecef;
+  padding: 1.5rem 3rem;
+	margin-bottom: -16px;
+}
+
+.container-fluid .gform_wrapper .price-box-top {
+  border-radius: 0.25rem 0.25rem 0 0;
+  padding: 3rem 3rem 1.5rem 3rem;
+}
+
+.container-fluid .gform_wrapper .price-box-bottom {
+  border-radius: 0 0 0.25rem 0.25rem;
+  padding: 0 3rem 3rem 3rem;
+	margin-bottom: 0;
+}
+
+/* ### Password Strenth Indicator */
+
+.container-fluid .gform_wrapper .gfield_password_strength {
+	background-color: #e9ecef;
+	border: 1px solid #e9ecef;
+	border-radius: 3px;
+	color: #3a3a3a;
+	font-size: 14px;
+	height: 30px;
+	padding: 3px;
+	width: 100%;
+}
+
+.container-fluid .gform_wrapper .gfield_password_strength.short,
+.container-fluid .gform_wrapper .gfield_password_strength.bad {
+	background-color: #ce211b; 
+	border: 1px solid #ce211b; 
+	color: #ffc2c0;
+	}
+
+	.container-fluid .gform_wrapper .gfield_password_strength.good {
+	background-color: #ff9a21;
+	border: 1px solid #ff9a21;
+	color: #ffe4c4;
+}
+
+.container-fluid .gform_wrapper .gfield_password_strength.strong {
+	background-color: #00a74d;
+	border: 1px solid #00a74d;
+	color: #9eeac1;
+}
+
+
 
 /* # THIS NEEDS SPLITTING OUT
 ---------------------------------------------------------------------------------------------------- */
@@ -31,11 +123,11 @@ ginput_container_select {
 	border-radius: 0.25rem;
 	background-color: #fff;
 	color: #3a3a3a;
-	font-size: 14px!important;
-	font-size: 0.875rem!important;
-	font-weight: 300!important;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: 300;
 	/* height: calc(2.25rem + 2px); */
-	letter-spacing: 1px!important;
+	letter-spacing: 1px;
 	padding: .375rem .75rem;
 	text-transform: none;
 }
@@ -59,7 +151,7 @@ input[type="submit"],
 	font-weight: 400;
 	/* height: calc(2.25rem + 2px); */
 	letter-spacing: 1px;
-	padding: 0.3125rem 1rem;
+	padding: 0.5rem 1rem;
 	text-decoration: none;
 	text-transform: uppercase;
 	width: auto;
@@ -70,8 +162,14 @@ input[type="submit"],
 	-o-transition:      all 0.4s ease-in-out;
 	transition:         all 0.4s ease-in-out;
 }
-label {
+
+label,
+#change-chart label {
 	font-weight: 400;
+}
+
+label.form-check-label {
+	font-weight: 300;
 }
 
 input:focus,
@@ -420,8 +518,8 @@ a.btn-secondary:hover {
 .btn-dark,
 a.btn-dark {
 	color: #fff;
-    background-color: #263238;
-    border-color: #263238;
+  background-color: #263238;
+  border-color: #263238;
 }
 
 .btn-dark:active,
@@ -431,8 +529,8 @@ a.btn-dark:focus
 .btn-dark:hover,
 a.btn-dark:hover {
 	color: #fff;
-    background-color: #40525b;
-    border-color: #40525b;
+  background-color: #40525b;
+  border-color: #40525b;
 }
 
 .btn-light,
@@ -486,8 +584,8 @@ a.btn-success:hover,
 .btn-success:active,
 a.btn-success:active {
 	color: #fff;
-    background-color: #006927;
-    border-color: #006927;
+  background-color: #006927;
+  border-color: #006927;
 }
 
 .btn-danger,

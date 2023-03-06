@@ -2,17 +2,18 @@
 
 /* ***
 
+Template Name: Charts
 Template Post Type: Page
 
 @package	Sustainable Tools
 @author		Digital Rockpool
-@link		https://www.sustainable.tools/yardstick
+@link		https://www.sustainable.tools/
 @copyright	Copyright (c) 2022, Digital Rockpool LTD
 @license	GPL-2.0+
 
 *** */
 
-get_header();
+get_header('tool');
 
 $calendar_id = $_SESSION['calendar_id'];
 $measure_toggle = $_SESSION['measure_toggle'];
@@ -43,10 +44,10 @@ $display = $chart_setup->display;
 $chart_units = $wpdb->get_row( "SELECT system_tag.tag AS system_tag, custom_tag.tag, unit_tag.tag AS unit_tag FROM custom_tag LEFT JOIN master_tag system_tag ON custom_tag.tag_id=system_tag.id LEFT JOIN master_tag unit_tag ON custom_tag.unit_id=unit_tag.id WHERE system_tag.tag='$filter' AND custom_tag.loc_id=$master_loc AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)" );
 $chart_unit = $chart_units->unit_tag; ?>
 	
-<article class="col-12 px-3">
+<div class="col-12">
 	<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		
-		<h1 class="h4-style">Charts <i class="fa-solid fa-chevrons-right"></i> <?php echo $module ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $chart; if( !empty( $filter ) ) : ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $filter; endif; if( !empty( $chart_unit ) ) : echo ' <span style="text-transform:none;">('.$chart_unit.')</span>'; endif; ?></h1> <?php
+		<h1 class="h4-style">Charts <i class="fa-solid fa-chevrons-right"></i> <?php echo $module ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo ucfirst( $chart ); if( !empty( $filter ) ) : ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo ucfirst( $filter ); endif; if( !empty( $chart_unit ) ) : echo ' <span style="text-transform:none;">('.$chart_unit.')</span>'; endif; ?></h1> <?php
 		
 		if( $display == 'inline' ) : ?><div class="row"><div class="col-6"> <?php endif;
 
@@ -70,9 +71,9 @@ $chart_unit = $chart_units->unit_tag; ?>
 		endif; ?>
 		
 	</section>
-</article>
+</div>
 
-<article class="col-8 px-3"><?php
+<div class="col-xl-8"><?php
 				
 	if( $display == 'sm-block' ) :  ?>
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix"> <?php
@@ -89,9 +90,9 @@ $chart_unit = $chart_units->unit_tag; ?>
 
 	</section>
 
-</article>
+</div>
 
-<aside class="col-4 pr-3">
+<aside class="col-xl-4">
 	<section class="secondary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 		
 		<h1 class="h4-style">Charts</h1>
@@ -100,9 +101,9 @@ $chart_unit = $chart_units->unit_tag; ?>
 			
 			if( !empty( $filter_dropdown ) ) :  ?>
 	
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="chart-filter"><?php echo $chart_title; ?> Type<sup class="text-danger">*</sup></label>
-					<select class="form-control" name="chart-filter" id="chart-filter" required>
+					<select class="form-select" name="chart-filter" id="chart-filter" required>
 						<option value="">Select <?php echo $chart_title; ?> Type</option> <?php
 						$filter_dropdown(); ?>
 					</select>
@@ -110,9 +111,9 @@ $chart_unit = $chart_units->unit_tag; ?>
 			
 			endif; ?>
 			
-			<div class="form-group">
+			<div class="mb-3">
 				<label for="chart-frequency">Frequency<sup class="text-danger">*</sup></label>
-				<select class="form-control" name="chart-frequency" id="chart-frequency">
+				<select class="form-select" name="chart-frequency" id="chart-frequency">
 					<option value="year">Annual</option> <?php
 					if( $measure_toggle == 86 ) : ?><option value="measure" <?php if( $frequency == 'custom' ) : echo 'selected'; endif; ?>>Measure</option> <?php endif;
 					if( $measure_toggle <= 84 ) : ?><option value="month" <?php if( $frequency == 'month' ) : echo 'selected'; endif; ?>>Monthly</option> <?php endif;
@@ -121,10 +122,10 @@ $chart_unit = $chart_units->unit_tag; ?>
 					if( $measure_toggle <= 82 ) : ?><option value="day" <?php if( $frequency == 'day' ) : echo 'selected'; endif; ?>>Daily</option> <?php endif; ?>
 				</select>
 			</div>
-			<div class="form-group">
-				<label class="control-label" for="chart-start-date">Date Range<sup class="text-danger">*</sup></label>
-				<div class="input-group mb-2">
-					<div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
+			<div class="mb-3">
+				<label for="chart-start-date">Date Range<sup class="text-danger">*</sup></label>
+				<div class="input-group">
+					<div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div>
 					<input type="text" class="form-control date" name="chart-start-date" id="chart-start-date" aria-describedby="chart-start-date" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $start_date ) ) ?>" data-date-end-date="0d" required>
 					<input type="text" class="form-control date" name="chart-end-date" id="chart-end-date" aria-describedby="chart-end-date" placeholder="dd-mmm-yyyy" value="<?php echo date( 'd-M-Y', strtotime( $end_date ) ) ?>" data-date-end-date="0d" required>
 				</div>

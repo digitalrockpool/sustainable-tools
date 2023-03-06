@@ -41,6 +41,15 @@ body {
 	margin: 0;
 }
 
+body.page-template-fullscreen {
+	background-color: #ffffff;
+}
+
+.aside-bg-dark {
+	background-color: #263238;
+	color: #ffffff;
+}
+
 
 /* # Site Containers
 ---------------------------------------------------------------------------------------------------- */
@@ -62,29 +71,6 @@ body {
 
 .light-box  {
 	border-top: 2px solid #ff9a21;
-}
-
-@media only screen and (max-width: 1200px) {
-	
-	aside.col-xl-4 {
-		padding-left: 0;
-		padding-right: 0;
-	}
-	
-	.mx-5 {
-		margin-left: 1rem!important;
-		margin-right: 1rem!important;
-	}
-	
-}
-
-@media only screen and (max-width: 768px) {
-	
-	.mx-5 {
-		margin-left: 0.25rem!important;
-		margin-right: 0.25rem!important;
-	}
-	
 }
 
 .wp-block-group__inner-container {
@@ -303,15 +289,14 @@ ul#legal-menu {
 /* # Site Footer
 ---------------------------------------------------------------------------------------------------- */
 #site-footer {
-  background: #e9ecef;
+	background-color: #ffffff;
 	color: #3a3a3a;
 	font-size: 14px;
   height: 60px;
   line-height: 60px;
 }
-
-.bg-white .site-footer {
-	background: #fff;
+.bg-transparent {
+	background-color: transparent;
 }
 
 
