@@ -6,18 +6,15 @@ Template Part:  Forms - Supply Chain
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
 
 $site_url = get_site_url();
 $slug = $post->post_name;
-	
-$add_url = $_GET['add'];
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$action = $_GET['action'] ?? 'add';
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
@@ -26,15 +23,15 @@ $tag_toggle = $_SESSION['tag_toggle'];
 	
 $entry_date = date( 'Y-m-d H:i:s' ); 
 
-$edit_supply = $args['edit_supply'];
-$edit_id = $args['edit_id'];
-$edit_measure = $args['edit_measure'];
-$edit_measure_date_formatted = $args['edit_measure_date_formatted'];
-$edit_source_id = $args['edit_source_id'];
-$edit_amount = $args['edit_amount'];
-$edit_tax = $args['edit_tax'];
-$edit_note = $args['edit_note'];
-$edit_parent_id = $args['edit_parent_id'];
+$edit_supply = $args['edit_supply'] ?? '';
+$edit_id = $args['edit_id'] ?? '';
+$edit_measure = $args['edit_measure'] ?? '';
+$edit_measure_date_formatted = $args['edit_measure_date_formatted'] ?? '';
+$edit_source_id = $args['edit_source_id'] ?? '';
+$edit_amount = $args['edit_amount'] ?? '';
+$edit_tax = $args['edit_tax'] ?? '';
+$edit_note = $args['edit_note'] ?? '';
+$edit_parent_id = $args['edit_parent_id'] ?? '';
 
 if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_supply = $edit_supply; endif; ?>
 	
@@ -53,7 +50,7 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 				<label for="edit-measure-date">Date of Purchase<sup class="text-danger">*</sup></label>
 				<div class="input-group">
 					<span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
-					<input type="text" class="form-control date" id="edit-measure-date" name="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
+					<input type="text" class="form-control date" id="edit-measure-date" name="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( $action == 'add' ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
 				</div>
 				<div class="invalid-feedback">Please select a date</div>
 			</div>
@@ -73,11 +70,11 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 		<div class="entry row g-1 mb-1"><?php					
 			$source_dropdowns = $wpdb->get_results( "SELECT parent_id, location FROM custom_location WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id) ORDER BY location ASC" ); ?>
 
-			<div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-5<?php endif; ?>"><?php
-        if( empty( $add_url ) ) : ?><label for="edit-source">Supply Source<sup class="text-danger">*</sup></label><?php endif; ?>
+			<div class="<?php if( $action == 'edit' ) : ?>col-md-4<?php else : ?>col-md-5<?php endif; ?>"><?php
+        if( $action == 'edit' ) : ?><label for="edit-source">Supply Source<sup class="text-danger">*</sup></label><?php endif; ?>
 				<select class="form-select" id="edit-source" name="edit-source[]" required><?php
-          if( empty( $edit_url ) ) : ?><option value="">Select Source *</option><?php endif; ?>
-					<option value="0" <?php if( $edit_source_id == 0 && empty( $add_url ) ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
+          if( $action == 'add' ) : ?><option value="">Select Source *</option><?php endif; ?>
+					<option value="0" <?php if( $edit_source_id == 0 && $action == 'edit' ) : echo 'selected'; else : echo ''; endif; ?>>Unknown Location</option> <?php
 
 					foreach( $source_dropdowns as $source_dropdown ) :
 
@@ -94,19 +91,19 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 				<div class="invalid-feedback">Please select the source</div>
 			</div>
 
-			<div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-3<?php endif; ?>"><?php
-        if( empty( $add_url ) ) : ?><label for="edit-amount">Amount<sup class="text-danger">*</sup></label><?php endif; ?>
+			<div class="<?php if( $action == 'edit' ) : ?>col-md-4<?php else : ?>col-md-3<?php endif; ?>"><?php
+        if( $action == 'edit' ) : ?><label for="edit-amount">Amount<sup class="text-danger">*</sup></label><?php endif; ?>
 				<input type="number" class="form-control" id="edit-amount" name="edit-amount[]" min="1" step="0.01" aria-describedby="editAmount" placeholder="Amount *" value="<?php echo $edit_amount ?>" min="1" step="0.01" required>
 				<div class="invalid-feedback">Please enter a number greater than 0.01</div>
 			</div>
 
-			<div class="<?php if( empty( $add_url ) ) : ?>col-md-4<?php else : ?>col-md-3<?php endif; ?>"><?php
-        if( empty( $add_url ) ) : ?><label for="edit-tax">Tax</label><?php endif; ?>
+			<div class="<?php if( $action == 'edit' ) : ?>col-md-4<?php else : ?>col-md-3<?php endif; ?>"><?php
+        if( $action == 'edit' ) : ?><label for="edit-tax">Tax</label><?php endif; ?>
 				<input type="number" class="form-control" id="edit-tax" name="edit-tax[]" aria-describedby="editTax" placeholder="Tax" value="<?php echo $edit_tax ?>" min="1" step="0.01">
 				<div class="invalid-feedback">Please enter a number greater than 0.01</div>
 			</div> <?php 
 
-			if( empty( $edit_url ) ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></div> <?php endif; ?>
+			if( $action == 'add' ) : ?><div class="col-1"><button type="button" class="btn btn-success btn-add"><i class="fa-solid fa-plus"></i></button></div> <?php endif; ?>
 
 		</div>
 	</div><?php
@@ -149,7 +146,7 @@ if( empty( $edit_supply ) ) : $update_supply = 'edit_supply'; else : $update_sup
 															
 	<div class="row">
 		<div class="col-12 mb-3">
-			<button class="btn btn-primary" type="submit" name="<?php echo $update_supply ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button>
+			<button class="btn btn-primary" type="submit" name="<?php echo $update_supply ?>"><?php if( $action == 'edit' ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $tag_url ); ?></button>
 		</div>
 	</div>
 </form><?php
@@ -170,7 +167,7 @@ if( isset( $_POST[$update_supply] ) ) :
 		$update_tags = $_POST['edit-tag'];
 		$update_note_null = $_POST['edit-note'];
 
-		if( empty( $add_url ) ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
+		if( $action == 'edit' ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
 		if( empty( $update_measure_null ) ) : $update_measure = NULL; else : $update_measure = $update_measure_null; endif;
 		if( empty( $update_measure_date_null ) ) : $update_measure_date = NULL; else : $update_measure_date = date_format( date_create( $update_measure_date_null ), 'Y-m-d' ); endif;
 		if( empty( $update_tax_null ) ) : $update_tax = NULL; else : $update_tax = $update_tax_null; endif;
@@ -227,9 +224,16 @@ if( isset( $_POST[$update_supply] ) ) :
 	
 	endforeach;
 
-	if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
-
-	header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
-	ob_end_flush();
+	if( $action == 'edit' ) : 
+    $end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+    $start = date_format( date_create( $args['start'] ), 'Y-m-d' );
+    $query_string = 'action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end;
+    
+  else : 
+    $query_string = 'action=add&tag='.$tag_url;
+  
+  endif;
+  header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
+  ob_end_flush();
 
 endif;

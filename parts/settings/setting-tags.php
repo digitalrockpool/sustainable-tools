@@ -6,7 +6,7 @@ Template Part:  Settings - Tags
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -62,10 +62,10 @@ else : ?>
     </div>
   </form> <?php
 
-  $set_category_array = $_POST['set-category'];
-  $set_tag_name_array = $_POST['set-tag-name'];
-
   if ( isset( $_POST['add-tag-settings'] ) ) :
+
+    $set_category_array = $_POST['set-category'];
+    $set_tag_name_array = $_POST['set-tag-name'];
 
     foreach( $set_category_array as $index => $set_category_array ) :
 

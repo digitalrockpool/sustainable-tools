@@ -77,15 +77,15 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
 
   <div class="nav-section-label"><span>Data</span></div>  
 
-  <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=measures" role="button"><i class="fa-regular fa-bed"></i>Measures</a><?php
+  <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=measures" role="button"><i class="fa-regular fa-bed"></i>Measures</a><?php
 
   if( in_array( "313on", $module_toggle ) ) : /* operations */ ?>
     <a class="nav-link nav-dropdown-indicator" data-bs-toggle="collapse" href="#collapse-data-operations" role="button" aria-expanded="false" aria-controls="collapse-data-operations"><i class="fa-regular fa-car-building"></i>Operations</a>
     <ul class="nav collapse" id="collapse-data-operations">
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=fuel">Fuel</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=water">Water</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=waste">Waste</a></li>
-      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=plastic">Plastic</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=fuel">Fuel</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=water">Water</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=waste">Waste</a></li>
+      <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=plastic">Plastic</a></li>
     </ul><?php
   endif;
 
@@ -97,14 +97,14 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
           foreach( $employee_types as $employee_type ) :
             $employee_tag = $employee_type->tag;
             $employee_tag_url = strtolower( str_replace( " ", "-", $employee_tag ) ); ?>
-            <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=<?php echo $employee_tag_url ?>"><?php echo $employee_tag ?></a></li><?php
+            <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=<?php echo $employee_tag_url ?>"><?php echo $employee_tag ?></a></li><?php
           endforeach; ?>
       </ul><?php
     endif; 
   endif;
 
   if( in_array( "315on", $module_toggle ) ) : /* supply chain */ ?>
-    <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=supply-chain" role="button"><i class="fa-regular fa-cart-shopping"></i>Supply Chain</a><?php
+    <a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=supply-chain" role="button"><i class="fa-regular fa-cart-shopping"></i>Supply Chain</a><?php
   endif;
 
   if( in_array( "316on", $module_toggle ) ) : /* charity */
@@ -115,7 +115,7 @@ if( $user_role == 222 || $user_role == 223 || $user_role == 224 ) : /* super_adm
           foreach( $donation_types as $donation_type ) :
             $donation_tag = $donation_type->tag;
             $donation_tag_url = strtolower( str_replace( " ", "-", $donation_tag ) ); ?>
-            <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?add=<?php echo $donation_tag_url ?>"><?php echo $donation_tag ?></a></li><?php
+            <li class="nav-item"><a class="nav-link" href="<?php echo $site_url ?>/yardstick/data/?action=add&tag=<?php echo $donation_tag_url ?>"><?php echo $donation_tag ?></a></li><?php
           endforeach; ?>
       </ul><?php
     endif;

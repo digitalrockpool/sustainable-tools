@@ -142,10 +142,11 @@ function sustainable_tools_scripts() {
 	wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.10.21/js/jquery.dataTables.js' );
 	wp_enqueue_script( 'highcharts', '//code.highcharts.com/highcharts.js' );
 	wp_enqueue_script( 'highcharts', '//code.highcharts.com/modules/no-data-to-display.js' ); /* display message when no data visible */
-	wp_enqueue_script( 'popper', '//unpkg.com/@popperjs/core@2', array('jquery'), '1.16.0', true );
 	wp_enqueue_script( 'bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js', array('jquery'), '5.2.1', true );
 	wp_enqueue_script( 'bootstrap-datepicker', '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js', array('jquery'), '1.9.0' );
 	wp_enqueue_script( 'bootstrap-select', '//cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js', array('jquery'), '1.13.9', true );
+	// wp_enqueue_script( 'popper', '//unpkg.com/@popperjs/core@2', array('jquery'), '1.16.0', true ); /* DELETE IF NEW ONE WORKS */
+	wp_enqueue_script( 'popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js', array('jquery'), '2.9.2', true );
 	wp_enqueue_script( 'font-awesome', '//kit.fontawesome.com/c5289195f2.js' );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

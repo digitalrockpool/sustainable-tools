@@ -6,7 +6,7 @@ Template Part:  Settings - Data Settings
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -36,9 +36,9 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
     if( $switch_toggle === 'off'  ) : $switch_toggle = 'selected'; else : $switch_toggle = ''; endif; ?>
 
     <div class="row g-1">
-      <label for="staticEmail" class="col-sm-2 col-form-label"><?php echo $switch_title ?></label>
+      <label for="<?php echo $switch ?>on" class="col-sm-2 col-form-label"><?php echo $switch_title ?></label>
       <div class="col-sm-10">
-        <select class="form-control" name="set-data-setting[]" id="<?php echo $switch ?>on" >
+        <select class="form-select mb-1" name="set-data-setting[]" id="<?php echo $switch ?>on" >
           <option value="on">On</option>
           <option value="off"<?php echo $switch_toggle ?>>Off</option>
         </select>
@@ -55,8 +55,8 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
   $data_table = $custom_data_table->tag ?: 25; ?>
 
   <h5 class="border-top mt-4 pt-3">Edit Data Table Settings</h5>
-  <div class="row g-1">
-    <div class="form-group col-6">
+  <div class="row g-1 mb-3">
+    <div class="col-6">
       <label for="set-default-date-range-number">Default Date Range<span class="text-danger"> *</span></label>
       <div class="input-group">
         <input type="number" class="form-control" id="set-default-date-range-number" name="set-data-setting[]" min="1" max="365" step="1" value="<?php echo $data_date ?>" required>
@@ -67,7 +67,7 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
       </div>
       <input type="hidden" name="set-cat-id[]" value="48">
     </div>
-    <div class="form-group col-6">
+    <div class="col-6">
       <label for="set-default-table-rows">Default Table Rows<span class="text-danger"> *</span></label>
       <input type="number" class="form-control" id="set-default-table-rows" name="set-data-setting[]" min="1" step="1" value="<?php echo $data_table ?>" required>
       <input type="hidden" name="set-tag-id[]" value="312">
@@ -75,17 +75,17 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="row">
     <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="add-data-settings">Update</button></div>
   </div>
 
-</form><?php
+</form> <?php
 
-$set_data_setting_array = $_POST['set-data-setting'];
-$set_tag_id_array = $_POST['set-tag-id'];
-$set_cat_id_array = $_POST['set-cat-id'];
+if( isset( $_POST['add-data-settings'] ) ) :
 
-if ( isset( $_POST['add-data-settings'] ) ) :
+  $set_data_setting_array = $_POST['set-data-setting'];
+  $set_tag_id_array = $_POST['set-tag-id'];
+  $set_cat_id_array = $_POST['set-cat-id'];
 
   foreach( $set_data_setting_array as $index => $set_data_setting_array ) :
 

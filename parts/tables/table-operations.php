@@ -6,7 +6,7 @@ Template Part:  Edit Table - Operations
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -22,12 +22,11 @@ $tag_toggle = $_SESSION['tag_toggle'];
 $cat_id = $args['cat_id'];
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $entry_date = date( 'Y-m-d H:i:s' );
+$end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+$start = date_format( date_create( $args['start'] ), 'Y-m-d' );
 
 $edit_rows = $wpdb->get_results( "SELECT data_operations.id, measure, measure_name.tag as measure_name, measure_date, measure_start, measure_end, utility_id, disposal_id, utility_tag.tag AS utility, custom_tag.tag AS plastic, disposal_tag.tag AS disposal, custom_tag.size, unit_tag.tag AS unit, amount, cost, data_operations.note, data_operations.parent_id, data_operations.active FROM data_operations LEFT JOIN data_measure ON (data_operations.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) INNER JOIN custom_tag ON (data_operations.utility_id=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) LEFT JOIN custom_tag measure_name ON (data_measure.measure_name=measure_name.parent_id AND measure_name.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN master_tag utility_tag ON utility_tag.id=custom_tag.tag_id LEFT JOIN master_tag disposal_tag ON data_operations.disposal_id=disposal_tag.id INNER JOIN master_tag unit_tag ON unit_tag.id=custom_tag.unit_id RIGHT JOIN relation_user ON data_operations.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND custom_tag.cat_id=$cat_id AND data_operations.id IN (SELECT MAX(id) FROM data_operations GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -44,7 +43,7 @@ else : ?>
           <th scope="col" class="no-sort">View | Delete | Edit</th> <?php
           if( $measure_toggle == 86 ) : ?>
             <th scope="col">Date Range</th>
-            <th scope="col" class="filter-column">Measure Name<</th> <?php
+            <th scope="col" class="filter-column">Measure Name</th> <?php
           else : ?>
             <th scope="col">Date of Measure</th> <?php
           endif; ?>
@@ -88,7 +87,7 @@ else : ?>
 
           $data_tags = $wpdb->get_results( "SELECT data_tag.tag_id, tag FROM custom_tag INNER JOIN data_tag ON custom_tag.parent_id=data_tag.tag_id WHERE data_id=$edit_id AND mod_id=2 AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag" ); ?>
 
-          <tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
+          <tr <?php if( $edit_active === 0 ) : echo 'class="strikeout"'; endif; ?>>
             <td class="align-top strikeout-buttons">
 
               <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
@@ -219,7 +218,7 @@ else : ?>
 
                 endif;
 
-                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+                header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
                 ob_end_flush();
 
               endif;
@@ -243,6 +242,7 @@ else : ?>
                       <p class="small">Fields marked with an asterisk<span class="text-danger">*</span> are required</p><?php
 
                       $args = array(
+                        'cat_id' => $cat_id,
                         'edit_operations' => $edit_operations,
                         'edit_id' => $edit_id,
                         'edit_measure' => $edit_measure, 

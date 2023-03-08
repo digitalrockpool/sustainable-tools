@@ -44,7 +44,7 @@ if( empty( $end_url ) ) : $end = date( 'Y-m-d'); else : $end = date( 'Y-m-d', st
 
 		<form method="post" name="change_chart" id="chartTypeForm">
 
-			<div class="form-row">
+			<div class="row">
 				<div class="form-group col-md-6">
 					<label class="control-label" for="filter-card">Card</label> <?php
 

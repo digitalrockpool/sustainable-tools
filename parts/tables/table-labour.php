@@ -6,7 +6,7 @@ Template Part:  Edit Table - Labour
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -22,12 +22,11 @@ $tag_toggle = $_SESSION['tag_toggle'];
 $tag_id = $args['tag_id'];
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $entry_date = date( 'Y-m-d H:i:s' );
+$end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+$start = date_format( date_create( $args['start'] ), 'Y-m-d' );
 
 $edit_rows = $wpdb->get_results( "SELECT data_labour.id, measure, custom_tag.tag AS measure_name, measure_date, measure_start, measure_end, custom_location.location, data_labour.location AS location_id, gender_tag.tag AS gender, gender AS gender_id, ethnicity_tag.tag AS ethnicity, ethnicity AS ethnicity_id, disability_tag.tag AS disability, disability AS disability_id, level_tag.tag AS level, level AS level_id, role_tag.tag AS role, role AS role_id, part_time_tag.tag AS part_time, part_time AS part_time_id, promoted_tag.tag AS promoted, promoted AS promoted_id, under16_tag.tag AS under16, under16 AS under16_id, start_date, leave_date, days_worked, time_mentored, contract_dpw, contract_wpy, annual_leave, salary, overtime, bonuses, gratuities, benefits, cost_training, training_days, data_labour.note, data_labour.parent_id, data_labour.active FROM data_labour LEFT JOIN data_measure ON (data_labour.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) LEFT JOIN master_tag gender_tag ON data_labour.gender=gender_tag.id LEFT JOIN custom_location ON (data_labour.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) LEFT JOIN custom_tag ethnicity_tag ON (data_labour.ethnicity=ethnicity_tag.parent_id AND ethnicity_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) LEFT JOIN master_tag disability_tag ON data_labour.disability=disability_tag.id LEFT JOIN master_tag level_tag ON data_labour.level=level_tag.id LEFT JOIN custom_tag role_tag ON (data_labour.role=role_tag.parent_id AND role_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) LEFT JOIN master_tag part_time_tag ON data_labour.part_time=part_time_tag.id LEFT JOIN master_tag promoted_tag ON data_labour.promoted=promoted_tag.id LEFT JOIN master_tag under16_tag ON data_labour.under16=under16_tag.id INNER JOIN relation_user ON data_labour.loc_id=relation_user.loc_id WHERE employee_type=$tag_id AND relation_user.user_id=$user_id AND data_labour.id IN (SELECT MAX(id) FROM data_labour GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -147,7 +146,7 @@ else : ?>
 
           $data_tags = $wpdb->get_results( "SELECT data_tag.tag_id, tag FROM custom_tag INNER JOIN data_tag ON custom_tag.parent_id=data_tag.tag_id WHERE data_id=$edit_id AND mod_id=3 AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag" ); ?>
 
-          <tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
+          <tr <?php if( $edit_active == 0 ) : echo 'class="strikeout"'; endif; ?>>
             <td class="align-top strikeout-buttons">
 
               <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
@@ -368,7 +367,7 @@ else : ?>
 
                 endif;
 
-                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+                header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
                 ob_end_flush();
 
               endif;
@@ -392,11 +391,9 @@ else : ?>
                       <p class="small">Fields marked with an asterisk<span class="text-danger">*</span> are required</p> <?php
 
                       $args = array(
-                        'edit_charity' => $edit_charity,
                         'edit_labour' => $edit_labour,
                         'edit_id' => $edit_id,
-                        'employee_id' => $employee_id,
-                        'edit_measure' => $edit_measure,
+                        'edit_measure' => $edit_measure ?? '',
                         'edit_measure_date_formatted' => $edit_measure_date_formatted,
                         'edit_hometown_id' => $edit_hometown_id,
                         'edit_gender_id' => $edit_gender_id,
@@ -424,7 +421,10 @@ else : ?>
                         'edit_cost_training' => $edit_cost_training,
                         'edit_training_days' => $edit_training_days,
                         'edit_note' => $edit_note,
-                        'edit_parent_id' => $edit_parent_id
+                        'edit_parent_id' => $edit_parent_id,
+                        'tag_id' => $tag_id,
+                        'end' => $end,
+                        'start' => $start
                       );
 
                       get_template_part('/parts/forms/form', $module_strip, $args ); ?>

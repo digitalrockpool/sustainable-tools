@@ -6,7 +6,7 @@ Template Part:  Settings - Categories
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -30,7 +30,13 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
         $categories_tags_selected = $wpdb->get_row( "SELECT parent_id, active FROM custom_tag WHERE loc_id=$master_loc AND tag IS NULL AND id IN (SELECT MAX(id) FROM custom_tag WHERE cat_id=22 GROUP BY parent_id)" );
         $categories_tags_selected_active = $categories_tags_selected->active;
         $categories_tags_selected_parent_id = $categories_tags_selected->parent_id;
-       if( $categories_tags_selected_active == 1 ) : $checked_enabled = 'checked'; else : $checked_disabled = 'checked'; endif; ?> 
+        if( $categories_tags_selected_active == 1 ) : 
+          $checked_enabled = 'checked';
+          $checked_disabled = '';
+        else :
+          $checked_enabled = '';
+          $checked_disabled = 'checked';
+        endif; ?> 
     </div>
 
     <div class="col-md-4 mb-3">
@@ -52,9 +58,9 @@ $entry_date = date( 'Y-m-d H:i:s' ); ?>
 
 </form><?php
 
-$update_categories_tags = $_POST['edit-categories-tags'];
-
 if ( isset( $_POST['setting-categories-tags'] ) ) :
+
+  $update_categories_tags = $_POST['edit-categories-tags']; // this was outside of the if statement - does it break anything being inside?
 
   $wpdb->insert( 'custom_tag',
     array(
@@ -100,9 +106,9 @@ if( $categories_tags_selected_active == 1 ) : ?>
     </div>
   </form> <?php
 
-  $set_category_name_array = $_POST['set-category-name'];
-
   if ( isset( $_POST['add-category-settings'] ) ) :
+
+    $set_category_name_array = $_POST['set-category-name'];
 
     foreach( $set_category_name_array as $index => $set_category_name_array ) :
 

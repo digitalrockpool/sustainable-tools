@@ -21,12 +21,11 @@ $tag_toggle = $_SESSION['tag_toggle'];
 
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $entry_date = date( 'Y-m-d H:i:s' );
+$end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+$start = date_format( date_create( $args['start'] ), 'Y-m-d' );
 
 $edit_rows = $wpdb->get_results( "SELECT data_supply.id, measure, tag AS measure_name, measure_date, measure_start, measure_end, amount, tax, data_supply.location AS location_id, custom_location.location, data_supply.note, data_supply.parent_id, data_supply.active, loc_name FROM data_supply LEFT JOIN data_measure ON (data_supply.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN custom_location ON (data_supply.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN profile_location ON (data_supply.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) RIGHT JOIN relation_user ON data_supply.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_supply.id IN (SELECT MAX(id) FROM data_supply GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -41,7 +40,7 @@ else : ?>
     <thead>
       <tr>
         <th scope="col" class="no-sort">View | Delete | Edit</th><?php
-        if( $measure_toggle === 86 ) : ?>
+        if( $measure_toggle == 86 ) : ?>
           <th scope="col">Date Range</th>
           <th scope="col">Measure Name</th><?php 
         else : ?>
@@ -50,7 +49,7 @@ else : ?>
         <th scope="col">Supply Source</th>
         <th scope="col">Amount</th>
         <th scope="col">Tax</th><?php
-        if( $tag_toggle === 1 ) : ?> <th scope="col">Tags</th><?php endif; ?>
+        if( $tag_toggle == 1 ) : ?> <th scope="col">Tags</th><?php endif; ?>
       </tr>
     </thead>
   
@@ -79,7 +78,7 @@ else : ?>
           
         $data_tags = $wpdb->get_results( "SELECT data_tag.tag_id, tag FROM custom_tag INNER JOIN data_tag ON custom_tag.parent_id=data_tag.tag_id WHERE data_id=$edit_id AND mod_id=5 AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)" ); ?>
   
-        <tr <?php if( $edit_active === 0 ) : echo ' class="strikeout"'; endif; ?>>
+        <tr <?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
           <td class="align-top strikeout-buttons">
                     
             <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
@@ -117,9 +116,9 @@ else : ?>
                       $revision_active = $revision_row->active;
                       $revision_username = $revision_row->display_name;
                         
-                      if( $revision_id === $revision_parent_id ) : $active_action = 'Added'; elseif( $revision_active === 0 ) : $active_action = 'Deleted'; else : $active_action = 'Edited'; endif;
+                      if( $revision_id == $revision_parent_id ) : $active_action = 'Added'; elseif( $revision_active == 0 ) : $active_action = 'Deleted'; else : $active_action = 'Edited'; endif;
   
-                      if( $measure_toggle === 86 ) : echo '<b>Measure Name:</b> '.$revision_measure_name.'<br />'; endif;
+                      if( $measure_toggle == 86 ) : echo '<b>Measure Name:</b> '.$revision_measure_name.'<br />'; endif;
                       echo '<b>Date of Purchase:</b> ';
                       if( empty( $revision_measure_date ) ) : echo $revision_measure_start_formatted.' to '.$revision_measure_end_formatted; else : echo $revision_measure_date_formatted; endif;
                       echo '<br />';
@@ -127,7 +126,7 @@ else : ?>
                       echo '<b>Amount:</b> '.$revision_amount.'<br />';
                       echo '<b>Tax:</b> '.$revision_tax.'<br />';
   
-                      if( $tag_toggle === 1 ) : 
+                      if( $tag_toggle == 1 ) : 
                         echo '<b>Tags:</b> ';
   
                         $revision_tags = $wpdb->get_results( "SELECT tag FROM custom_tag INNER JOIN data_tag ON custom_tag.parent_id=data_tag.tag_id WHERE data_id=$revision_id AND mod_id=5 AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id) ORDER BY tag" );
@@ -155,7 +154,7 @@ else : ?>
               </div>
             </div><?php
   
-            if( $edit_active === 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="far fa-trash-alt"></i>'; elseif( $edit_active === 0 ) : $edit_active_update = 1;  $btn_style = 'btn-success'; $edit_value = '<i class="far fa-trash-restore-alt"></i>'; endif; ?>
+            if( $edit_active == 1 ) : $edit_active_update = 0; $btn_style = 'btn-danger'; $edit_value = '<i class="far fa-trash-alt"></i>'; elseif( $edit_active == 0 ) : $edit_active_update = 1;  $btn_style = 'btn-success'; $edit_value = '<i class="far fa-trash-restore-alt"></i>'; endif; ?>
                     
             <form method="post" name="archive" id="<?php echo $archive_supply ?>" class="d-inline-block">
               <button type="submit" class="btn <?php echo $btn_style ?> d-inline-block" name="<?php echo $archive_supply ?>"><?php echo $edit_value ?></button>
@@ -200,12 +199,12 @@ else : ?>
 
               endif;
 
-              header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+              header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
               ob_end_flush();	
 
             endif;
                     
-            if( $edit_active === 1 ) : ?> 
+            if( $edit_active == 1 ) : ?> 
               
               <button type="button" class="btn btn-light d-inline-block" data-bs-toggle="modal" data-bs-target="#modalEdit-<?php echo $edit_id ?>"><i class="fa-solid fa-pencil"></i></button><?php
 
@@ -233,7 +232,10 @@ else : ?>
                       'edit_amount' => $edit_amount,
                       'edit_tax' => $edit_tax,
                       'edit_note' => $edit_note, 
-                      'edit_parent_id' => $edit_parent_id
+                      'edit_parent_id' => $edit_parent_id,
+                      'tag_id' => $tag_id,
+                      'end' => $end,
+                      'start' => $start
                     );
 
                     get_template_part('/parts/forms/form', $module_strip, $args ); ?>
@@ -246,12 +248,12 @@ else : ?>
                     
           </td>
           <td><span class="d-none"><?php echo $edit_measure_date.$edit_measure_start ?></span><?php if( empty( $edit_measure_date ) ) : echo $edit_measure_start_formatted.' to '.$edit_measure_end_formatted; else : echo $edit_measure_date_formatted; endif; ?></td><?php
-          if( $measure_toggle === 86 ) : ?><td><?php echo $edit_measure_name ?></td><?php endif; ?>
+          if( $measure_toggle == 86 ) : ?><td><?php echo $edit_measure_name ?></td><?php endif; ?>
           <td><?php echo $edit_source ?></td>
           <td><?php echo number_format( $edit_amount, 2 ) ?></td>
           <td><?php if( !empty( $edit_tax ) ) : echo number_format( $edit_tax, 2); endif; ?></td><?php
 
-          if( $tag_toggle === 1 ) : ?>
+          if( $tag_toggle == 1 ) : ?>
           <td><?php
             foreach( $data_tags as $data_tag ) : ?>
               <div class="btn btn-info d-inline-block mr-1 float-none"><?php echo $data_tag->tag ?></div><?php

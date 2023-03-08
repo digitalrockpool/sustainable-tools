@@ -20,6 +20,9 @@ global $post;
 
 $site_url = get_site_url().'/yardstick';
 $slug = $post->post_name;
+$action = $_GET['action'] ?? 'add' ?: 'add';
+$tag_url = $_GET['tag'] ?? 'measures';
+$tag = str_replace( '-', ' ', $tag_url );
 
 $master_loc = $_SESSION['master_loc'];
 
@@ -34,19 +37,7 @@ $measure_toggle = $_SESSION['measure_toggle'];
 $calendar = $_SESSION['calendar'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
-if( isset( $_GET['add'] ) && !empty( $_GET['add'] ) ) : 
-	$add_url = $_GET['add'];
-	$add = str_replace( '-', ' ', $add_url );
-  $data_title = $add;
-endif;
-
-if( isset( $_GET['edit'] ) && !empty( $_GET['edit'] ) ) : 
-	$edit_url = $_GET['edit'];
-	$edit = str_replace( '-', ' ', $edit_url );
-  $data_title = $edit;
-endif;
-
-$data_setup = $wpdb->get_row( "SELECT master_data.id, mod_id, module, module_db, title, cat_id, tag_id, category, help_id, add_id FROM master_data INNER JOIN master_module ON master_data.mod_id=master_module.id INNER JOIN master_category ON master_data.cat_id=master_category.id WHERE title='$data_title'" );
+$data_setup = $wpdb->get_row( "SELECT master_data.id, mod_id, module, module_db, title, cat_id, tag_id, category, help_id, add_id FROM master_data INNER JOIN master_module ON master_data.mod_id=master_module.id INNER JOIN master_category ON master_data.cat_id=master_category.id WHERE title='$tag'" );
 $data_id = $data_setup->id;
 $mod_id = $data_setup->mod_id;
 $module = $data_setup->module;
@@ -86,20 +77,14 @@ $date_range_step = $custom_date_range->customtag ?: '1';
 $date_range_unit = str_replace( array( '(', ')' ), '', $custom_date_range->mastertag ) ?: 'months';
 $date_range = '-'.$date_range_step.' '.$date_range_unit;
 
-$latest_end = $latest_measure_date->measure_date;
-$latest_start = date( 'Y-m-d', strtotime( "$latest_end $date_range" ) );
-
-if( isset( $_GET['end'] ) && !empty( $_GET['end'] ) ) : 
-  $month_end = date_format( date_create( $_GET['end'] ), 'd-M-Y' );
-endif;
-
-if( isset( $_GET['start'] ) && !empty( $_GET['start'] ) ) : 
-  $month_start = date_format( date_create( $_GET['start'] ), 'd-M-Y' );
-endif;
+$latest_end = $latest_measure_date->measure_date ?? date('Y-m-d'); /* populates the button link */
+$latest_start = date( 'Y-m-d', strtotime( "$latest_end $date_range" ) ); 
+$end = date_format( date_create( $_GET['end'] ?? $latest_end ?: $latest_end ), 'd-M-Y' ); /* populates the date range filter */
+$start = date_format( date_create( $_GET['start'] ?? $latest_start ?: $latest_start ), 'd-M-Y' );
 
 if( $measure_toggle == 86 ) : $measure_query = '=86'; elseif( $calendar == 231 ) : $measure_query = '=231'; else : $measure_query = ' IS NULL'; endif;
 
-if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
+if( $action === 'add' && $user_role != 225 ) : /* subscriber */ ?>
 
 	<div class="col-xl-8">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
@@ -113,8 +98,8 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 			<small class="pb-3">Fields marked with an asterisk<sup class="text-danger">*</sup> are required</small> <?php
 
 			$args = array(
-				'cat_id' => $cat_id,
-				'tag_id' => $tag_id
+				'cat_id'  => $cat_id,
+				'tag_id'  => $tag_id
 			);
 
 			get_template_part('/parts/forms/form', $module_strip, $args ); ?>
@@ -134,7 +119,7 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 
 			get_template_part('/parts/latest-entries/latest-entry', $module_strip, $args ); ?>
 
-			<a href="<?php echo $site_url.'/'.$slug.'/?edit='.$add_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $add ?></a>
+			<a href="<?php echo $site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$latest_start.'&end='.$latest_end ?>" class="btn btn-secondary">Edit <?php echo $tag ?></a>
 		</section> <?php
 
 		$uploads = $wpdb->get_row( "SELECT upload FROM master_upload INNER JOIN master_tag ON master_upload.tag_id=master_tag.id WHERE mod_id=$mod_id AND measure$measure_query AND tag_toggle=$tag_toggle AND tag='$title'" );
@@ -144,66 +129,7 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 			<section class="dark-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
 				<h2 class="h4-style">Upload Entries</h2> <?php
 
-				echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' );
-
-					/* if( $_FILES['csv']['size'] > 0 && $_FILES['csv']['type'] == 'text/csv' ) :
-
-							$file = $_FILES['csv']['tmp_name'];
-							$fileHandle = fopen($file, "r");
-							$i=0;
-
-							$loc_name = $_POST['loc_name'];
-							$utility_type = (int)$_POST['utility_type']; // Get these from page
-							$employee_type = (int)$_POST['employee_type'];
-							$donation_type = (int)$_POST['donation_type'];
-
-							while( ( $cell = fgetcsv( $fileHandle, 0, "," ) ) !== FALSE ) :
-
-								$i++;
-								$cell0_check = $cell[0];
-								$cell1_check = $cell[1];
-
-								if( $measure_toggle == 86 && $employee_type != 69 && $employee_type != 70 && $employee_type != 71 && $employee_type != 228 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
-
-									$cell_check = 0;
-
-								elseif( $measure_toggle == 84 && $mod_query == 1 && $calendar == 231 && ( empty( $cell0_check ) || empty( $cell1_check ) ) ) :
-
-									$cell_check = 0;
-
-								elseif( $measure_toggle == 86 && $employee_type != 72 && $employee_type != 73 && empty( $cell0_check ) ) :
-
-									$cell_check = 0;
-
-								elseif( $measure_toggle != 86 && empty( $cell0_check ) ) :
-
-									$cell_check = 0;
-
-								else :
-
-									$cell_check = 1;
-
-								endif;
-
-								if( $i>1 && !empty( $cell_check ) ) :
-
-									csv_upload( $cell, $mod_query, $utility_type, $employee_type, $donation_type, $loc_name );
-
-								endif;
-
-							endwhile;
-
-							header ( "Location: $site_url/$slug/?mod=$mod_query" );
-
-						elseif( $_FILES['csv']['size'] > 0 ) :
-
-							echo 'The file you tried to upload is empty';
-
-						elseif( $_FILES['csv']['type'] == 'text/csv' ) :
-
-							echo 'The file you tried to upload is not a csv';
-
-						endif; */ ?>
+				echo do_shortcode( '[gravityform id="36" title="false" description="false" ajax="true"]' ); ?>
 
 				<div class="clearfix"></div>
 
@@ -227,7 +153,7 @@ if( !empty( $add_url ) && $user_role != 225 ) : /* subscriber */ ?>
 		endif; ?>
 	</aside><?php
 
-elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
+elseif( $action === 'edit' && $user_role != 225 ) : /* subscriber */ ?>
 
 	<div class="col-xl-12">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
@@ -240,8 +166,8 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 				<form method="post" name="change-date-range" id="change-date-range">
 					<div class="input-group mb-2">
 						<span class="input-group-text">SELECT DATE RANGE</span>
-						<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $month_start ?>" data-date-end-date="0d" required>
-						<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $month_end ?>" data-date-end-date="0d" required>
+						<input type="text" class="form-control date" name="edit-date-range-start" aria-describedby="edit_date_range_start" placeholder="dd-mmm-yyyy" value="<?php echo $start ?>" data-date-end-date="0d" required>
+						<input type="text" class="form-control date" name="edit-date-range-end" aria-describedby="edit-date-range-end" placeholder="dd-mmm-yyyy" value="<?php echo $end ?>" data-date-end-date="0d" required>
 						<button type="submit" class="btn btn-primary" name="change-date-range"><i class="fa-regular fa-calendar-days"></i></button>
 					</div>
 					<small class="form-text text-muted text-right">Large date ranges will cause the page to load slowly</small>
@@ -251,7 +177,7 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 					$change_date_range_start = date( 'Y-m-d', strtotime( $_POST['edit-date-range-start'] ) );
 					$change_date_range_end = date( 'Y-m-d', strtotime( $_POST['edit-date-range-end'] ) );
 
-					header ('Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$change_date_range_start.'&end='.$change_date_range_end);
+					header ('Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$change_date_range_start.'&end='.$change_date_range_end);
 					ob_end_flush();
 				endif; ?>
 
@@ -261,9 +187,10 @@ elseif( !empty( $edit ) && $user_role != 225 ) : /* subscriber */ ?>
 				'cat_id' => $cat_id,
 				'tag_id' => $tag_id,
 				'module_strip' => $module_strip,
-				'title'		=> $title,
+				'title' => $title,
 				'latest_start' => $latest_start,
-				'latest_end' => $latest_end
+				'end' => $end,
+        'start' => $start
 			);
 
 			get_template_part('/parts/tables/table', $module_strip, $args ); ?>

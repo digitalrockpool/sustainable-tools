@@ -6,7 +6,7 @@ Template Part:  Edit Table - Charity
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -22,12 +22,11 @@ $tag_toggle = $_SESSION['tag_toggle'];
 $tag_id = $args['tag_id'];
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $entry_date = date( 'Y-m-d H:i:s' );
+$end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+$start = date_format( date_create( $args['start'] ), 'Y-m-d' );
 
 $edit_rows = $wpdb->get_results( "SELECT data_charity.id, measure, custom_tag.tag AS measure_name, measure_date, measure_start, measure_end, master_tag.tag as value_type, value_type as value_type_id, amount, duration, data_charity.location AS location_id, custom_location.location, data_charity.note, data_charity.parent_id, data_charity.active, loc_name FROM data_charity LEFT JOIN data_measure ON (data_charity.measure=data_measure.parent_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)) LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN master_tag ON data_charity.value_type=master_tag.id INNER JOIN profile_location ON (data_charity.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN custom_location ON (data_charity.location=custom_location.parent_id AND custom_location.id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id)) INNER JOIN relation_user ON data_charity.loc_id=relation_user.loc_id WHERE donation_type=$tag_id AND relation_user.user_id=$user_id AND data_charity.id IN (SELECT MAX(id) FROM data_charity GROUP BY parent_id) AND measure_date BETWEEN '$start' AND '$end'" );
 
@@ -219,7 +218,7 @@ else : ?>
 
                 endif;
 
-                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+                header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
                 ob_end_flush();
 
               endif;
@@ -252,7 +251,10 @@ else : ?>
                         'edit_amount' => $edit_amount, 
                         'edit_duration' => $edit_duration, 
                         'edit_note' => $edit_note, 
-                        'edit_parent_id' => $edit_parent_id
+                        'edit_parent_id' => $edit_parent_id,
+                        'tag_id' => $tag_id,
+                        'end' => $end,
+                        'start' => $start
                       );
 
                       get_template_part('/parts/forms/form', $module_strip, $args ); ?>

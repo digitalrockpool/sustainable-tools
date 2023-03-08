@@ -6,13 +6,15 @@ Template Part:  Forms - Operations
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
 
 $site_url = get_site_url();
 $slug = $post->post_name;
+$action = $_GET['action'] ?? 'add';
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
@@ -21,25 +23,17 @@ $tag_toggle = $_SESSION['tag_toggle'];
 
 $entry_date = date( 'Y-m-d H:i:s' );
 
-if( isset( $_GET['add'] ) && !empty( $_GET['add'] ) ) : $add_url = $_GET['add']; endif;
-
-if( isset( $_GET['edit'] ) && !empty( $_GET['edit'] ) ) : 
-  $edit_url = $_GET['edit'];
-  $edit_operations = $args['edit_operations'];
-  $edit_id = $args['edit_id'];
-  $edit_measure = $args['edit_measure'];
-  $edit_measure_date_formatted = $args['edit_measure_date_formatted'];
-  $edit_utility_id = $args['edit_utility_id'];
-  $edit_amount = $args['edit_amount'];
-  $edit_cost = $args['edit_cost'];
-  $edit_disposal = $args['edit_disposal'];
-  $edit_disposal_id = $args['edit_disposal_id'];
-  $edit_note = $args['edit_note'];
-  $edit_parent_id = $args['edit_parent_id'];
- endif;
-
-if( isset( $_GET['start'] ) && !empty( $_GET['start'] ) ) : $start = $_GET['start']; endif;
-if( isset( $_GET['end'] ) && !empty( $_GET['end'] ) ) : $end = $_GET['end']; endif;
+$edit_operations = $args['edit_operations'] ?? '';
+$edit_id = $args['edit_id'] ?? '';
+$edit_measure = $args['edit_measure'] ?? '';
+$edit_measure_date_formatted = $args['edit_measure_date_formatted'] ?? '';
+$edit_utility_id = $args['edit_utility_id'] ?? '';
+$edit_amount = $args['edit_amount'] ?? '';
+$edit_cost = $args['edit_cost'] ?? '';
+$edit_disposal = $args['edit_disposal'] ?? '';
+$edit_disposal_id = $args['edit_disposal_id'] ?? '';
+$edit_note = $args['edit_note'] ?? '';
+$edit_parent_id = $args['edit_parent_id'] ?? '';
 
 $cat_id = $args['cat_id'];
 
@@ -62,7 +56,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
         <label for="edit-measure-date">Date<sup class="text-danger">*</sup></label>
         <div class="input-group has-validation">
           <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
-          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
+          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( $action === 'add' ) : echo date( 'd-M-Y', strtotime( '-1 day' ) ); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
           <div class="invalid-feedback">Please select a date</div>
         </div>
       </div>
@@ -79,15 +73,15 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
   </div> <?php
 
-  if( empty( $edit_url ) ) : ?>
+  if( $action === 'add' ) : ?>
 
     <div id="repeater-field">
       <div class="entry row g-1 mb-1">
         <div class="col-4">
           <select class="form-select edit-utility" id="edit-utility" name="edit-utility[]" required>
-            <option value="" selected disabled>Select <?php echo ucfirst( str_replace( '-', ' ', $add_url ) ); ?> *</option> <?php
+            <option value="" selected disabled>Select <?php echo ucfirst( str_replace( '-', ' ', $tag_url ) ); ?> *</option> <?php
 
-            if( $add_url == 'plastic' ) :
+            if( $tag_url == 'plastic' ) :
 
               $utility_dropdowns = $wpdb->get_results( "SELECT custom_tag.tag_id, system_tag.tag AS system_tag, custom_tag.tag AS custom_tag, size, unit_tag.tag AS unit_tag, parent_id FROM custom_tag INNER JOIN master_tag system_tag ON system_tag.id=custom_tag.tag_id INNER JOIN master_tag unit_tag ON unit_tag.id=custom_tag.unit_id WHERE custom_tag.cat_id=40 AND loc_id=$master_loc AND active=1 AND custom_tag.id IN (SELECT MAX(custom_tag.id) FROM custom_tag GROUP BY parent_id)" );
 
@@ -123,20 +117,20 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
             endif; ?>
 
           </select>
-          <div class="invalid-feedback">Please select <?php echo str_replace( '-', ' ', $add_url ) ?></div>
+          <div class="invalid-feedback">Please select <?php echo str_replace( '-', ' ', $tag_url ) ?></div>
         </div>
 
-        <div class="<?php if( $add_url == 'waste' ) : echo 'col-md-2'; else : echo 'col-md-3'; endif; ?> mb-1">
-        <input type="number" class="form-control" name="edit-amount[]" id="edit-amount" aria-describedby="editAmount" placeholder="<?php if( $add_url == 'plastic' ) : echo 'Number Purchase'; else : echo 'Amount'; endif; ?> *" value="" min="1" step="0.01" required>
+        <div class="<?php if( $tag_url == 'waste' ) : echo 'col-md-2'; else : echo 'col-md-3'; endif; ?> mb-1">
+        <input type="number" class="form-control" name="edit-amount[]" id="edit-amount" aria-describedby="editAmount" placeholder="<?php if( $tag_url == 'plastic' ) : echo 'Number Purchase'; else : echo 'Amount'; endif; ?> *" value="" min="1" step="0.01" required>
         <div class="invalid-feedback">Please enter a number greater than or equal to 0.01</div>
       </div>
 
-      <div class="<?php if( $add_url == 'waste' ) : echo 'col-md-2'; else : echo 'col-md-3'; endif; ?> mb-1">
-        <input type="number" class="form-control" name="edit-cost[]" id="edit-cost" aria-describedby="editCost" placeholder="<?php if( $add_url == 'plastic' ) : echo 'Total Cost'; else : echo 'Cost'; endif; ?>" value="" min="1" step="0.01">
+      <div class="<?php if( $tag_url == 'waste' ) : echo 'col-md-2'; else : echo 'col-md-3'; endif; ?> mb-1">
+        <input type="number" class="form-control" name="edit-cost[]" id="edit-cost" aria-describedby="editCost" placeholder="<?php if( $tag_url == 'plastic' ) : echo 'Total Cost'; else : echo 'Cost'; endif; ?>" value="" min="1" step="0.01">
         <div class="invalid-feedback">Please enter a number greater than or equal to 0.01</div>
       </div> <?php
 
-      if( $add_url == 'waste' ) : ?>
+      if( $tag_url == 'waste' ) : ?>
 
         <div class="col-3 mb-1">
             <select class="form-select edit-disposal" name="edit-disposal[]" id="edit-disposal" required>
@@ -162,21 +156,21 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
   else : ?>
 
-    <div class="form-row">
+    <div class="row">
 
-      <div class="<?php if( $edit_url == 'waste' ) : echo 'col-md-4'; else : echo 'col-md-6'; endif; ?> mb-3">
-        <label for="edit-amount"><?php if( $edit_url == 'plastic' ) : echo 'Number Purchase'; else : echo 'Amount'; endif; ?><sup class="text-danger">*</sup></label>
+      <div class="<?php if( $tag_url == 'waste' ) : echo 'col-md-4'; else : echo 'col-md-6'; endif; ?> mb-3">
+        <label for="edit-amount"><?php if( $tag_url == 'plastic' ) : echo 'Number Purchase'; else : echo 'Amount'; endif; ?><sup class="text-danger">*</sup></label>
         <input type="number" class="form-control" name="edit-amount" id="edit-amount" aria-describedby="editAmount" nameplaceholder="Amount" value="<?php echo $edit_amount ?>" min="1" step="0.01" required>
         <div class="invalid-feedback">Please enter a number greater than or equal to 0.01</div>
       </div>
 
-      <div class="<?php if( $edit_url == 'waste' ) : echo 'col-md-4'; else : echo 'col-md-6'; endif; ?> mb-3">
-        <label for="edit-cost"><?php if( $edit_url == 'plastic' ) : echo 'Total Cost'; else : echo 'Cost'; endif; ?></label>
+      <div class="<?php if( $tag_url == 'waste' ) : echo 'col-md-4'; else : echo 'col-md-6'; endif; ?> mb-3">
+        <label for="edit-cost"><?php if( $tag_url == 'plastic' ) : echo 'Total Cost'; else : echo 'Cost'; endif; ?></label>
         <input type="number" class="form-control" name="edit-cost" id="edit-cost" aria-describedby="editCost" placeholder="Cost" value="<?php echo $edit_cost ?>" min="1" step="0.01">
         <div class="invalid-feedback">Please enter a number greater than or equal to 0.01</div>
       </div> <?php
 
-      if( $edit_url == 'waste' ) : ?>
+      if( $tag_url == 'waste' ) : ?>
 
         <div class="col-4 mb-3">
           <label for="edit-disposal">Waste Disposal Method<sup class="text-danger">*</sup></label>
@@ -208,7 +202,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
     <h5 class="border-top pt-3 mt-3">Tags</h5>
 
-    <div class="form-row">
+    <div class="row">
 
       <div class="col-12 mb-1">
 
@@ -237,7 +231,7 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
   <h5 class="border-top pt-3 mt-3">Notes</h5>
 
-  <div class="form-row">
+  <div class="row">
 
     <div class="col-12 mb-3">
       <label for="edit-note">Please enter any notes for this entry</label>
@@ -246,14 +240,14 @@ if( empty( $edit_operations ) ) : $update_operations = 'edit_operations'; else :
 
   </div>
 
-  <div class="form-row">
+  <div class="row">
 
-    <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_operations ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
+    <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_operations ?>"><?php if( $action === 'edit' ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $tag_url ); ?></button></div>
 
   </div>
 </form> <?php
 
-if ( isset( $_POST[$update_operations] ) && empty( $edit_url ) ) :
+if( isset( $_POST[$update_operations] ) && $action === 'add' ) :
 
   $update_utility_array = $_POST['edit-utility'];
   $update_amount_array = $_POST['edit-amount'];
@@ -328,12 +322,12 @@ if ( isset( $_POST[$update_operations] ) && empty( $edit_url ) ) :
 
   endforeach;
 
-  header( 'Location:'.$site_url.'/'.$slug.'/?add='.$add_url );
+  header( 'Location:'.$site_url.'/'.$slug.'/?action=add&tag='.$tag_url );
   ob_end_flush();
 
 endif;
 
-if ( isset( $_POST[$update_operations] ) && empty( $add_url ) ) :
+if ( isset( $_POST[$update_operations] ) && $action === 'edit' ) :
 
   $update_measure_null = $_POST['edit-measure'];
   $update_measure_date_null = $_POST['edit-measure-date'];
@@ -385,7 +379,7 @@ if ( isset( $_POST[$update_operations] ) && empty( $add_url ) ) :
 
   endif;
 
-  header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+  header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
   ob_end_flush();
 
 endif; ?>

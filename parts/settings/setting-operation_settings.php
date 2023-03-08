@@ -6,7 +6,7 @@ Template Part:  Settings - Operations
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -64,10 +64,10 @@ else : ?>
     </div>
   </form> <?php
 
-  $set_operation_type_array = $_POST['set-operation-type'];
-  $set_operation_tag_array = $_POST['set-operation-tag'];
-
   if ( isset( $_POST['add-operation-settings'] ) ) :
+
+    $set_operation_type_array = $_POST['set-operation-type'];
+    $set_operation_tag_array = $_POST['set-operation-tag'];
 
     foreach( $set_operation_type_array as $index => $set_operation_type_array ) :
 

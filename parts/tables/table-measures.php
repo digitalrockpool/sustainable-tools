@@ -6,7 +6,7 @@ Template Part:  Edit Table - Measures
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -20,14 +20,13 @@ $measure_toggle = $_SESSION['measure_toggle'];
 
 $module_strip = $args['module_strip'];
 $title = $args['title'];
-
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $entry_date = date( 'Y-m-d H:i:s' );
+$end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+$start = date_format( date_create( $args['start'] ), 'Y-m-d' );
 
-$edit_rows = $wpdb->get_results( "SELECT data_measure.id, tag, custom_tag.parent_id AS measure_name_id, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id)" );
+$edit_rows = $wpdb->get_results( "SELECT data_measure.id, tag, custom_tag.parent_id AS measure_name_id, measure_start, measure_end, bednight, roomnight, client, staff, area, note, data_measure.parent_id, data_measure.active, loc_name FROM data_measure LEFT JOIN custom_tag ON (data_measure.measure_name=custom_tag.parent_id AND custom_tag.id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id)) INNER JOIN profile_location ON (data_measure.loc_id=profile_location.parent_id AND profile_location.id IN (SELECT MAX(id) FROM profile_location GROUP BY parent_id)) INNER JOIN relation_user ON data_measure.loc_id=relation_user.loc_id WHERE relation_user.user_id=$user_id AND data_measure.id IN (SELECT MAX(id) FROM data_measure GROUP BY parent_id) AND measure_start BETWEEN '$start' AND '$end'");
 
 if( empty( $edit_rows) ) :
 
@@ -74,7 +73,7 @@ else : ?>
           $edit_measure = 'edit-'.$edit_id;
           $archive_measure = 'archive-'.$edit_id; ?>
 
-          <tr<?php if( $edit_active == 0 ) : echo ' class="strikeout"'; endif; ?>>
+          <tr <?php if( $edit_active === 0 ) : echo 'class="strikeout"'; endif; ?>>
             <td class="align-top strikeout-buttons">
 
               <button type="button" class="btn btn-dark d-inline-block" data-bs-toggle="modal" data-bs-target="#modalRevisions-<?php echo $edit_id ?>"><i class="fa-regular fa-eye"></i></button>
@@ -161,7 +160,7 @@ else : ?>
                   )
                 );
 
-                header( 'Location:'.$site_url.'/'.$slug.'/?edit='.$edit_url.'&start='.$start.'&end='.$end );
+                header( 'Location:'.$site_url.'/'.$slug.'/?action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end );
                 ob_end_flush();
 
               endif;
@@ -185,6 +184,8 @@ else : ?>
                       <p class="small">Fields marked with an asterisk<span class="text-danger">*</span> are required</p><?php
 
                       $args = array(
+                        'end' => $end,
+                        'start' => $start,
                         'edit_measure' => $edit_measure,
                         'edit_measure_name' => $edit_measure_name,
                         'edit_measure_date' => $edit_measure_date,

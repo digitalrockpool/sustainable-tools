@@ -6,18 +6,15 @@ Template Part:  Forms - Labour
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
 
 $site_url = get_site_url();
 $slug = $post->post_name;
-
-$add_url = $_GET['add'];
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$action = $_GET['action'] ?? 'add';
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
@@ -27,37 +24,37 @@ $tag_toggle = $_SESSION['tag_toggle'];
 $entry_date = date( 'Y-m-d H:i:s' );
 
 $tag_id = $args['tag_id'];
-$edit_labour = $args['edit_labour'];
-$edit_id = $args['edit_id'];
-$edit_measure = $args['edit_measure'];
-$edit_measure_date_formatted = $args['edit_measure_date_formatted'];
-$edit_hometown_id = $args['edit_hometown_id'];
-$edit_gender_id = $args['edit_gender_id'];
-$edit_ethnicity_id = $args['edit_ethnicity_id'];
-$edit_disability_id = $args['edit_disability_id'];
-$edit_level_id = $args['edit_level_id'];
-$edit_role_id = $args['edit_role_id'];
-$edit_part_time_id = $args['edit_part_time_id'];
-$edit_promoted_id = $args['edit_promoted_id'];
-$edit_under16_id = $args['edit_under16_id'];
-$edit_start_date = $args['edit_start_date'];
-$edit_start_date_formatted = $args['edit_start_date_formatted'];
-$edit_leave_date = $args['edit_leave_date'];
-$edit_leave_date_formatted = $args['edit_leave_date_formatted'];
-$edit_days_worked = $args['edit_days_worked'];
-$edit_time_mentored = $args['edit_time_mentored'];
-$edit_contract_dpw = $args['edit_contract_dpw'];
-$edit_contract_wpy = $args['edit_contract_wpy'];
-$edit_annual_leave = $args['edit_annual_leave'];
-$edit_salary = $args['edit_salary'];
-$edit_overtime = $args['edit_overtime'];
-$edit_bonuses = $args['edit_bonuses'];
-$edit_gratuities = $args['edit_gratuities'];
-$edit_benefits = $args['edit_benefits'];
-$edit_cost_training = $args['edit_cost_training'];
-$edit_training_days = $args['edit_training_days'];
-$edit_note = $args['edit_note'];
-$edit_parent_id = $args['edit_parent_id'];
+$edit_labour = $args['edit_labour'] ?? '';
+$edit_id = $args['edit_id'] ?? '';
+$edit_measure = $args['edit_measure'] ?? '';
+$edit_measure_date_formatted = $args['edit_measure_date_formatted'] ?? '';
+$edit_hometown_id = $args['edit_hometown_id'] ?? '';
+$edit_gender_id = $args['edit_gender_id'] ?? '';
+$edit_ethnicity_id = $args['edit_ethnicity_id'] ?? '';
+$edit_disability_id = $args['edit_disability_id'] ?? '';
+$edit_level_id = $args['edit_level_id'] ?? '';
+$edit_role_id = $args['edit_role_id'] ?? '';
+$edit_part_time_id = $args['edit_part_time_id'] ?? '';
+$edit_promoted_id = $args['edit_promoted_id'] ?? '';
+$edit_under16_id = $args['edit_under16_id'] ?? '';
+$edit_start_date = $args['edit_start_date'] ?? '';
+$edit_start_date_formatted = $args['edit_start_date_formatted'] ?? '';
+$edit_leave_date = $args['edit_leave_date'] ?? '';
+$edit_leave_date_formatted = $args['edit_leave_date_formatted'] ?? '';
+$edit_days_worked = $args['edit_days_worked'] ?? '';
+$edit_time_mentored = $args['edit_time_mentored'] ?? '';
+$edit_contract_dpw = $args['edit_contract_dpw'] ?? '';
+$edit_contract_wpy = $args['edit_contract_wpy'] ?? '';
+$edit_annual_leave = $args['edit_annual_leave'] ?? '';
+$edit_salary = $args['edit_salary'] ?? '';
+$edit_overtime = $args['edit_overtime'] ?? '';
+$edit_bonuses = $args['edit_bonuses'] ?? '';
+$edit_gratuities = $args['edit_gratuities'] ?? '';
+$edit_benefits = $args['edit_benefits'] ?? '';
+$edit_cost_training = $args['edit_cost_training'] ?? '';
+$edit_training_days = $args['edit_training_days'] ?? '';
+$edit_note = $args['edit_note'] ?? '';
+$edit_parent_id = $args['edit_parent_id'] ?? '';
 
 $master_contract_dpw = $wpdb->get_row( "SELECT tag FROM custom_tag WHERE tag_id=281 AND loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id )" );
 $master_contract_wpy = $wpdb->get_row( "SELECT tag FROM custom_tag WHERE tag_id=282 AND loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_tag GROUP BY parent_id )" );
@@ -86,7 +83,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
         <label for="edit-measure-date">Date of <?php if( $tag_id == 73 ) : echo 'Internship'; else : echo 'Work'; endif; ?><sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
           <span class="input-group-text"><i class="fa-regular fa-calendar-days"></i></span>
-          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) ) : echo date('d-M-Y'); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
+          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureDate" placeholder="dd-mmm-yyyy" value="<?php if( $action =='add' ) : echo date('d-M-Y'); else : echo $edit_measure_date_formatted; endif; ?>" data-date-end-date="0d" required>
         </div>
         <div class="invalid-feedback">Please select a date</div>
       </div>
@@ -109,7 +106,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
     <div class="col-md-4 mb-3">
       <label for="edit-hometown">Hometown<sup class="text-danger">*</sup></label>
       <select class="form-select" name="edit-hometown" id="edit-hometown" required> <?php
-        if( empty( $edit_url ) ) : ?> <option value="">Select Hometown</option> <?php endif; ?>
+        if( $action =='add' ) : ?> <option value="">Select Hometown</option> <?php endif; ?>
         <option value="0">Unknown Location</option> <?php
 
         $hometown_dropdowns = $wpdb->get_results( "SELECT parent_id, location FROM custom_location WHERE loc_id=$master_loc AND active=1 AND id IN (SELECT MAX(id) FROM custom_location GROUP BY parent_id) ORDER BY location DESC" );
@@ -132,7 +129,7 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
     <div class="col-md-4 mb-3">
       <label for="edit-gender">Gender<sup class="text-danger">*</sup></label>
       <select class="form-select" name="edit-gender" id="edit-gender" required> <?php
-        if( empty( $edit_url ) ) : ?> <option value="">Select Gender</option> <?php endif;
+        if( $action =='add' ) : ?> <option value="">Select Gender</option> <?php endif;
 
         $gender_dropdowns = $wpdb->get_results( "SELECT id, tag FROM master_tag WHERE cat_id=7 ORDER BY tag ASC" );
 
@@ -465,65 +462,64 @@ if( empty( $edit_labour ) ) : $update_labour = 'edit_labour'; else : $update_lab
   </div>
 
   <div class="row g-1">
-    <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_labour ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button></div>
+    <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="<?php echo $update_labour ?>"><?php if( $action =='edit' ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $tag_url ); ?></button></div>
   </div>
 
 </form> <?php
 
-$update_measure_null = $_POST['edit-measure'];
-$update_measure_date_null = $_POST['edit-measure-date'];
-$update_hometown = $_POST['edit-hometown'];
-$update_gender = $_POST['edit-gender'];
-$update_ethnicity_null = $_POST['edit-ethnicity'];
-$update_disability = $_POST['edit-disability'];
-$update_level_null = $_POST['edit-level'];
-$update_role_null = $_POST['edit-role'];
-$update_part_time_null = $_POST['edit-part-time'];
-$update_promoted_null = $_POST['edit-promoted'];
-$update_under16 = $_POST['edit-under16'];
-$update_start_date_null = $_POST['edit-start-date'];
-$update_leave_date_null = $_POST['edit-leave-date'];
-$update_days_worked_null = $_POST['edit-days-worked'];
-$update_time_mentored_null = $_POST['edit-time-mentored'];
-$update_contract_dpw_null = $_POST['edit-contract-dpw'];
-$update_contract_wpy_null = $_POST['edit-contract-wpy'];
-$update_annual_leave_null = $_POST['edit-annual-leave'];
-$update_salary = $_POST['edit-salary'];
-$update_overtime_null = $_POST['edit-overtime'];
-$update_bonuses_null = $_POST['edit-bonuses'];
-$update_gratuities_null = $_POST['edit-gratuities'];
-$update_benefits_null = $_POST['edit-benefits'];
-$update_cost_training_null = $_POST['edit-cost-training'];
-$update_training_days_null = $_POST['edit-training-days'];
-$update_tags = $_POST['edit-tag'];
-$update_note_null = $_POST['edit-note'];
-
-if( empty( $add_url ) ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
-if( empty( $update_measure_null ) ) : $update_measure = NULL; else : $update_measure = $update_measure_null; endif;
-if( empty( $update_measure_date_null ) ) : $update_measure_date = NULL; else : $update_measure_date = date_format( date_create( $update_measure_date_null ), 'Y-m-d' );; endif;
-if( empty( $update_ethnicity_null ) ) : $update_ethnicity = NULL; else : $update_ethnicity = $update_ethnicity_null; endif;
-if( empty( $update_level_null ) ) : $update_level = NULL; else : $update_level = $update_level_null; endif;
-if( empty( $update_role_null ) ) : $update_role = NULL; else : $update_role = $update_role_null; endif;
-if( empty( $update_part_time_null ) ) : $update_part_time = NULL; else : $update_part_time = $update_part_time_null; endif;
-if( empty( $update_promoted_null ) ) : $update_promoted = NULL; else : $update_promoted = $update_promoted_null; endif;
-if( empty( $update_start_date_null ) ) : $update_start_date = NULL; else : $update_start_date = date_format( date_create( $update_start_date_null ), 'Y-m-d' ); endif;
-if( empty( $update_leave_date_null ) ) : $update_leave_date = NULL; else : $update_leave_date = date_format( date_create( $update_st_date_null ), 'Y-m-d' ); endif;
-if( empty( $update_days_worked_null ) ) : $update_days_worked = NULL; else : $update_days_worked = $update_days_worked_null; endif;
-if( empty( $update_time_mentored_null ) ) : $update_time_mentored = NULL; else : $update_time_mentored = $update_time_mentored_null; endif;
-if( empty( $update_contract_dpw_null ) ) : $update_contract_dpw = NULL; else : $update_contract_dpw = $update_contract_dpw_null; endif;
-if( empty( $update_contract_wpy_null ) ) : $update_contract_wpy = NULL; else : $update_contract_wpy = $update_contract_wpy_null; endif;
-if( empty( $update_annual_leave_null ) ) : $update_annual_leave = NULL; else : $update_annual_leave = $update_annual_leave_null; endif;
-if( empty( $update_overtime_null ) ) : $update_overtime = 0; else : $update_overtime = $update_overtime_null; endif;
-if( empty( $update_bonuses_null ) ) : $update_bonuses = 0; else : $update_bonuses = $update_bonuses_null; endif;
-if( empty( $update_gratuities_null ) ) : $update_gratuities = 0; else : $update_gratuities = $update_gratuities_null; endif;
-if( empty( $update_benefits_null ) ) : $update_benefits = 0; else : $update_benefits = $update_benefits_null; endif;
-if( empty( $update_cost_training_null ) ) : $update_cost_training = NULL; else : $update_cost_training = $update_cost_training_null; endif;
-if( empty( $update_training_days_null ) ) : $update_training_days = NULL; else : $update_training_days = $update_training_days_null; endif;
-if( empty( $update_note_null ) ) : $update_note = NULL; else : $update_note = $update_note_null; endif;
-if( empty( $edit_parent_id ) ) : $update_parent_id = 0; else : $update_parent_id = $edit_parent_id; endif;
-
-
 if ( isset( $_POST[$update_labour] ) ) :
+
+  $update_measure_null = $_POST['edit-measure'];
+  $update_measure_date_null = $_POST['edit-measure-date'];
+  $update_hometown = $_POST['edit-hometown'];
+  $update_gender = $_POST['edit-gender'];
+  $update_ethnicity_null = $_POST['edit-ethnicity'];
+  $update_disability = $_POST['edit-disability'];
+  $update_level_null = $_POST['edit-level'];
+  $update_role_null = $_POST['edit-role'];
+  $update_part_time_null = $_POST['edit-part-time'];
+  $update_promoted_null = $_POST['edit-promoted'];
+  $update_under16 = $_POST['edit-under16'];
+  $update_start_date_null = $_POST['edit-start-date'];
+  $update_leave_date_null = $_POST['edit-leave-date'];
+  $update_days_worked_null = $_POST['edit-days-worked'];
+  $update_time_mentored_null = $_POST['edit-time-mentored'];
+  $update_contract_dpw_null = $_POST['edit-contract-dpw'];
+  $update_contract_wpy_null = $_POST['edit-contract-wpy'];
+  $update_annual_leave_null = $_POST['edit-annual-leave'];
+  $update_salary = $_POST['edit-salary'];
+  $update_overtime_null = $_POST['edit-overtime'];
+  $update_bonuses_null = $_POST['edit-bonuses'];
+  $update_gratuities_null = $_POST['edit-gratuities'];
+  $update_benefits_null = $_POST['edit-benefits'];
+  $update_cost_training_null = $_POST['edit-cost-training'];
+  $update_training_days_null = $_POST['edit-training-days'];
+  $update_tags = $_POST['edit-tag'];
+  $update_note_null = $_POST['edit-note'];
+  
+  if( $action =='edit' ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
+  if( empty( $update_measure_null ) ) : $update_measure = NULL; else : $update_measure = $update_measure_null; endif;
+  if( empty( $update_measure_date_null ) ) : $update_measure_date = NULL; else : $update_measure_date = date_format( date_create( $update_measure_date_null ), 'Y-m-d' );; endif;
+  if( empty( $update_ethnicity_null ) ) : $update_ethnicity = NULL; else : $update_ethnicity = $update_ethnicity_null; endif;
+  if( empty( $update_level_null ) ) : $update_level = NULL; else : $update_level = $update_level_null; endif;
+  if( empty( $update_role_null ) ) : $update_role = NULL; else : $update_role = $update_role_null; endif;
+  if( empty( $update_part_time_null ) ) : $update_part_time = NULL; else : $update_part_time = $update_part_time_null; endif;
+  if( empty( $update_promoted_null ) ) : $update_promoted = NULL; else : $update_promoted = $update_promoted_null; endif;
+  if( empty( $update_start_date_null ) ) : $update_start_date = NULL; else : $update_start_date = date_format( date_create( $update_start_date_null ), 'Y-m-d' ); endif;
+  if( empty( $update_leave_date_null ) ) : $update_leave_date = NULL; else : $update_leave_date = date_format( date_create( $update_st_date_null ), 'Y-m-d' ); endif;
+  if( empty( $update_days_worked_null ) ) : $update_days_worked = NULL; else : $update_days_worked = $update_days_worked_null; endif;
+  if( empty( $update_time_mentored_null ) ) : $update_time_mentored = NULL; else : $update_time_mentored = $update_time_mentored_null; endif;
+  if( empty( $update_contract_dpw_null ) ) : $update_contract_dpw = NULL; else : $update_contract_dpw = $update_contract_dpw_null; endif;
+  if( empty( $update_contract_wpy_null ) ) : $update_contract_wpy = NULL; else : $update_contract_wpy = $update_contract_wpy_null; endif;
+  if( empty( $update_annual_leave_null ) ) : $update_annual_leave = NULL; else : $update_annual_leave = $update_annual_leave_null; endif;
+  if( empty( $update_overtime_null ) ) : $update_overtime = 0; else : $update_overtime = $update_overtime_null; endif;
+  if( empty( $update_bonuses_null ) ) : $update_bonuses = 0; else : $update_bonuses = $update_bonuses_null; endif;
+  if( empty( $update_gratuities_null ) ) : $update_gratuities = 0; else : $update_gratuities = $update_gratuities_null; endif;
+  if( empty( $update_benefits_null ) ) : $update_benefits = 0; else : $update_benefits = $update_benefits_null; endif;
+  if( empty( $update_cost_training_null ) ) : $update_cost_training = NULL; else : $update_cost_training = $update_cost_training_null; endif;
+  if( empty( $update_training_days_null ) ) : $update_training_days = NULL; else : $update_training_days = $update_training_days_null; endif;
+  if( empty( $update_note_null ) ) : $update_note = NULL; else : $update_note = $update_note_null; endif;
+  if( empty( $edit_parent_id ) ) : $update_parent_id = 0; else : $update_parent_id = $edit_parent_id; endif;  
 
   $wpdb->insert( 'data_labour',
     array(
@@ -595,8 +591,15 @@ if ( isset( $_POST[$update_labour] ) ) :
 
   endif;
 
-  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
-
+  if( $action == 'edit' ) : 
+    $end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+    $start = date_format( date_create( $args['start'] ), 'Y-m-d' );
+    $query_string = 'action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end;
+    
+  else : 
+    $query_string = 'action=add&tag='.$tag_url;
+  
+  endif;
   header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
   ob_end_flush();
 

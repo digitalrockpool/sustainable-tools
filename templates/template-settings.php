@@ -54,7 +54,7 @@ $show_help = get_field('show_help'); ?>
 			<form method="post" name="add-entry-name"> <?php
 
 				if( $record_type == 'item' ) : ?>
-					<div class="entry form-row mb-1">
+					<div class="entry row mb-1">
 						<div class="col-10"> <?php
 							$dropdowns = $wpdb->get_results( "SELECT parent_id, entry_name FROM custom_record WHERE (record_type='card' OR record_type='card_revision') AND active=1 AND loc_id=$master_loc AND id IN (SELECT MAX(id) FROM custom_record GROUP BY parent_id) ORDER BY entry_name ASC" );  ?>
 
@@ -77,7 +77,7 @@ $show_help = get_field('show_help'); ?>
 				endif; ?>
 
 				<div id="repeater-field">
-					<div class="entry form-row mb-1">
+					<div class="entry row mb-1">
 						<div class="col-10<?php if( $record_type == 'item' ) : echo ' input-group'; endif; ?>">
 							<input type="text" name="set-entry-name[]" class="form-control" placeholder="Enter <?php echo $title_singular ?> Name *" required> <?php
 
@@ -111,7 +111,7 @@ $show_help = get_field('show_help'); ?>
 					</div>
 				</div>
 
-				<div class="form-row">
+				<div class="row">
 					<div class="col-2 offset-10 mb-3"><button class="btn btn-primary" type="submit" name="add-entry-name">Add</button></div>
 				</div>
 			</form> <?php
@@ -289,7 +289,7 @@ $show_help = get_field('show_help'); ?>
 
 																$update_dropdowns = $wpdb->get_results( "SELECT parent_id, entry_name FROM custom_record WHERE (record_type='card' OR record_type='card_revision') AND active=1 AND loc_id=$master_loc AND id IN (SELECT MAX(id) FROM custom_record GROUP BY parent_id) ORDER BY entry_name ASC" );  ?>
 
-																<div class="entry form-row mb-1">
+																<div class="entry row mb-1">
 																	<div class="col-12">
 
 																		<select class="custom-select" name="update-card-name">

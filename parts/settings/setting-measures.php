@@ -6,7 +6,7 @@ Template Part:  Settings - Measures
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -55,15 +55,15 @@ $cat_id = $args['cat_id']; ?>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="row">
     <div class="col-12 mb-3"><button class="btn btn-primary" type="submit" name="edit-measures">Update</button></div>
   </div>
 
 </form><?php
 
-$update_measure_type = $_POST['edit-measure-type'];
-
 if ( isset( $_POST['edit-measures'] ) ) :
+
+  $update_measure_type = $_POST['edit-measure-type'];
 
   $wpdb->insert( 'custom_tag',
     array(
@@ -93,7 +93,7 @@ if( $measure_toggle == 86 ) : ?>
   <form method="post" name="add-measure-settings" id="add-measure-settings">
 
     <div id="repeater-field">
-      <div class="entry form-row mb-1">
+      <div class="entry row mb-1">
         <div class="col-10">
           <input type="text" class="form-control" id="set-measure-name" name="set-measure-name[]" placeholder="Measure Name *" required>
         </div>
@@ -104,14 +104,14 @@ if( $measure_toggle == 86 ) : ?>
       </div>
     </div>
 
-    <div class="form-row">
+    <div class="row">
       <div class="col-2 offset-10 mb-3"><button class="btn btn-primary float-none" type="submit" name="add-measure-settings">Add</button></div>
     </div>
   </form> <?php
 
-  $set_measure_name_array = $_POST['set-measure-name'];
-
   if ( isset( $_POST['add-measure-settings'] ) ) :
+
+    $set_measure_name_array = $_POST['set-measure-name'];
 
     foreach( $set_measure_name_array as $index => $set_measure_name_array ) :
 

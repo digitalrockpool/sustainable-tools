@@ -57,7 +57,7 @@ $show_help = get_field('show_help');
 
 		<form method="post" name="add-stock-item" id="add-stock-item">
 
-			<div class="form-row">
+			<div class="row">
     			<div class="form-group col-md-5">
 
 					<label class="control-label" for="stock-card-name">Card Name<sup class="text-danger">*</sup></label> <?php
@@ -101,7 +101,7 @@ $show_help = get_field('show_help');
 			</div>
 
 			<div id="repeater-field">
-				<div class="entry form-row mb-1">
+				<div class="entry row mb-1">
 					<div class="col-10 input-group">
 						<select class="custom-select" id="stock-item-name" name="stock-item-name[]" required>
 							<option value="" selected disabled>Select Item *</option> <!-- populated by function populate_stock_item_receive || populate_stock_item_issue -->
@@ -148,7 +148,7 @@ $show_help = get_field('show_help');
 				</div>
 			</div>
 
-			<div class="form-row">
+			<div class="row">
 				<div class="col-2 offset-10 mb-3"><button class="btn btn-primary" type="submit" name="add-stock-item"><?php echo $title ?> Items</button></div>
 			</div>
 		</form> <?php
@@ -424,7 +424,7 @@ $show_help = get_field('show_help');
 
 															<form method="post" name="<?php echo $edit_update ?>">
 
-																<div class="form-row">
+																<div class="row">
 																	<div class="form-group <?php if( $stock_type == 'receive' ) : echo 'col-6'; else : echo 'col-4'; endif; ?>">
 																		<label class="control-label" for="update-stock-date">Date<sup class="text-danger">*</sup></label>
 
@@ -458,7 +458,7 @@ $show_help = get_field('show_help');
 																		</div>
 																		</div> <!-- end of form row -->
 
-																		<div class="form-row">
+																		<div class="row">
 																			<div class="col-md-4 form-group">
 																				<label for="update-rate">Rate</label>
 																				<input type="number" class="form-control" id="update-rate" name="update-rate" step="0.01" value="<?php echo $edit_rate ?>" required>
@@ -488,7 +488,7 @@ $show_help = get_field('show_help');
 
 																	endif; ?>
 
-																<div class="form-row">
+																<div class="row">
 																	<div class="col-12"><button class="btn btn-primary" type="submit" name="<?php echo $edit_update ?>">Update <?php echo $title_pasttense ?> Item</button></div>
 																</div>
 															</form>

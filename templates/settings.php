@@ -7,14 +7,13 @@ Template Post Type: Page
 @package	Sustainable Tools
 @author		Digital Rockpool
 @link		https://www.sustainable.tools/yardstick
-@copyright	Copyright (c) 2022, Digital Rockpool LTD
+@copyright	Copyright (c) 2023, Digital Rockpool LTD
 @license	GPL-2.0+ */
 
 get_header('tool');
 
 global $wpdb;
 global $post;
-
 
 $site_url = get_site_url().'/yardstick';
 $slug = $post->post_name;
@@ -33,7 +32,7 @@ $measure_toggle = $_SESSION['measure_toggle'];
 $measure_toggle_name = $_SESSION['measure_toggle_name'];
 $tag_toggle = $_SESSION['tag_toggle'];
 
-$setting_query = $_GET['setting'];
+$setting_query = $_GET['setting'] ?? 'data_settings' ?: 'data_settings';
 $setting = str_replace( '_', ' ', $setting_query );
 $setting_query_edits = $setting_query.'-edits';
 $setting_query_revisions = $setting_query.'-revisions';
@@ -51,10 +50,10 @@ if( $user_role == 222 || $user_role == 223 ) : /* super-admin || admin */ ?>
 
 	<article class="col-xl-8 px-3">
 		<section class="primary-box p-3 pb-4 mb-4 bg-white shadow-sm clearfix">
-			<header class="header-flexbox">
+			<header class="d-flex justify-content-between align-items-start">
 				<h1 class="h4-style">Settings <?php if( !empty( $module ) ) : echo '<i class="fa-solid fa-chevrons-right"></i> '.$module; endif; ?> <i class="fa-solid fa-chevrons-right"></i> <?php echo $title; ?></h1> <?php
 
-				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h4-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
+				if( !empty( $help_id ) ) : ?> <a href="<?php echo $site_url.'/help/?p='.$help_id ?>" class="h3-style"> <i class="fa-duotone fa-circle-question" aria-hidden="true"></i></a> <?php endif; ?>
 			</header> <?php
 
 			$args = array(

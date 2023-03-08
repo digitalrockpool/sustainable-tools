@@ -6,7 +6,7 @@ Template Part:  Settings - Categories - Edits
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
@@ -150,9 +150,8 @@ else : ?>
 
               endif;
 
-              $update_category = $_POST['update_category'];
-
               if ( isset( $_POST[$edit_update] ) ) :
+                $update_category = $_POST['update_category'];
 
                 $wpdb->insert( 'custom_category',
                   array(

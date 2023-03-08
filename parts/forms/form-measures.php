@@ -6,18 +6,15 @@ Template Part:  Forms - Measures
 @package	      Sustainable Tools
 @author		      Digital Rockpool
 @link		        https://www.sustainable.tools/yardstick
-@copyright	    Copyright (c) 2022, Digital Rockpool LTD
+@copyright	    Copyright (c) 2023, Digital Rockpool LTD
 @license	      GPL-2.0+ 
 
 *** */
 
 $site_url = get_site_url();
 $slug = $post->post_name;
-
-$add_url = $_GET['add'];
-$edit_url = $_GET['edit'];
-$start = $_GET['start'];
-$end = $_GET['end'];
+$action = $_GET['action'] ?? 'add';
+$tag_url = $_GET['tag'] ?? 'measures';
 
 $user_id = get_current_user_id();
 $master_loc = $_SESSION['master_loc'];
@@ -25,16 +22,16 @@ $measure_toggle = $_SESSION['measure_toggle'];
 
 $entry_date = date( 'Y-m-d H:i:s' );
 
-$edit_measure = $args['edit_measure'];
-$edit_measure_date_formatted = $args['edit_measure_date_formatted'];
-$edit_measure_end_formatted = $args['edit_measure_end_formatted'];
-$edit_bednight = $args['edit_bednight'];
-$edit_roomnight = $args['edit_roomnight'];
-$edit_client = $args['edit_client'];
-$edit_staff = $args['edit_staff'];
-$edit_area = $args['edit_area'];
-$edit_note = $args['edit_note'];
-$edit_parent_id = $args['edit_parent_id'];
+$edit_measure = $args['edit_measure'] ?? '';
+$edit_measure_date_formatted = $args['edit_measure_date_formatted'] ?? '';
+$edit_measure_end_formatted = $args['edit_measure_end_formatted'] ?? '';
+$edit_bednight = $args['edit_bednight'] ?? '';
+$edit_roomnight = $args['edit_roomnight'] ?? '';
+$edit_client = $args['edit_client'] ?? '';
+$edit_staff = $args['edit_staff'] ?? '';
+$edit_area = $args['edit_area'] ?? '';
+$edit_note = $args['edit_note'] ?? '';
+$edit_parent_id = $args['edit_parent_id'] ?? '';
 
 if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_measure = $edit_measure; endif; ?>
 
@@ -159,7 +156,7 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
         <label class="control-label" for="edit-measure-date">Measure Date<sup class="text-danger">*</sup></label>
         <div class="input-group mb-2">
           <div class="input-group-prepend"><div class="input-group-text"><i class="fa-regular fa-calendar-days"></i></div></div>
-          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureStart" placeholder="dd-mmm-yyyy" value="<?php if( empty( $edit_url ) && $add_url != 'measures' ) : echo date('d-M-Y'); elseif( $add_url == 'measures' ) : echo ''; else : echo date_format( date_create( $edit_measure_date_formatted ), 'd-M-Y' ); endif; ?>" data-date-end-date="0d" required>
+          <input type="text" class="form-control date" name="edit-measure-date" id="edit-measure-date" aria-describedby="editMeasureStart" placeholder="dd-mmm-yyyy" value="<?php if( $action === 'add' && $tag_url != 'measures' ) : echo date('d-M-Y'); elseif( $tag_url == 'measures' ) : echo ''; else : echo date_format( date_create( $edit_measure_date_formatted ), 'd-M-Y' ); endif; ?>" data-date-end-date="0d" required>
         </div>
       </div> <?php
 
@@ -226,55 +223,55 @@ if( empty( $edit_measure ) ) : $update_measure = 'edit_measure'; else : $update_
 
   <div class="row">
     <div class="col-12 mb-3">
-      <button class="btn btn-primary" type="submit" name="<?php echo $update_measure ?>"><?php if( empty( $add_url ) ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $add_url ); ?></button>
+      <button class="btn btn-primary" type="submit" name="<?php echo $update_measure ?>"><?php if( $action === 'edit' ) : echo 'Update'; else : echo 'Add'; endif; echo ' '.str_replace( '-', ' ', $tag_url ); ?></button>
     </div>
   </div>
 
 </form> <?php
 
-$update_measure_name_null = $_POST['edit-measure-name'];
-$update_measure_date = $_POST['edit-measure-date'];
-$update_measure_week = $_POST['edit-measure-week'];
-$update_measure_month = $_POST['edit-measure-month'];
-$update_measure_year = $_POST['edit-measure-year'];
-$update_measure_end_null = $_POST['edit-measure-end'];
-$update_bednight_null = $_POST['edit-bednight'];
-$update_roomnight_null = $_POST['edit-roomnight'];
-$update_client_null = $_POST['edit-client'];
-$update_staff_null = $_POST['edit-staff'];
-$update_area_null = $_POST['edit-area'];
-$update_note_null = $_POST['edit-note'];
-
-if( empty( $add ) ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
-
-if( $measure_toggle == 83 ) : // weekly
-
-  $week_start = new DateTime();
-  $week_start->setISODate( $update_measure_year, $update_measure_week );
-  $update_measure_start = $week_start->format('Y-m-d');
-
-elseif( $measure_toggle == 84 ) : // monthly
-
-  $month_start = $update_measure_year.'-'.$update_measure_month.'-01';
-  $update_measure_start = date( 'Y-m-d', strtotime( $month_start ) );
-
-else :
-
-  $update_measure_start = date_format( date_create( $update_measure_date), 'Y-m-d' );
-
-endif;
-
-if( empty( $update_measure_name_null ) ) : $update_measure_name = NULL; else : $update_measure_name = $update_measure_name_null; endif;
-if( empty( $update_measure_end_null ) ) : $update_measure_end = NULL; else : $update_measure_end = date_format( date_create( $update_measure_end_null), 'Y-m-d' ); endif;
-if( empty( $update_bednight_null ) ) : $update_bednight = NULL; else : $update_bednight = $update_bednight_null; endif;
-if( empty( $update_roomnight_null ) ) : $update_roomnight = NULL; else : $update_roomnight = $update_roomnight_null; endif;
-if( empty( $update_client_null ) ) : $update_client = NULL; else : $update_client = $update_client_null; endif;
-if( empty( $update_staff_null ) ) : $update_staff = NULL; else : $update_staff = $update_staff_null; endif;
-if( empty( $update_area_null ) ) : $update_area = NULL; else : $update_area = $update_area_null; endif;
-if( empty( $update_note_null ) ) : $update_note = NULL; else : $update_note = $update_note_null; endif;
-if( empty( $edit_parent_id ) ) : $update_parent_id = 0; else : $update_parent_id = $edit_parent_id; endif;
-
 if ( isset( $_POST[$update_measure] ) ) :
+
+  $update_measure_name_null = $_POST['edit-measure-name'];
+  $update_measure_date = $_POST['edit-measure-date'];
+  $update_measure_week = $_POST['edit-measure-week'];
+  $update_measure_month = $_POST['edit-measure-month'];
+  $update_measure_year = $_POST['edit-measure-year'];
+  $update_measure_end_null = $_POST['edit-measure-end'];
+  $update_bednight_null = $_POST['edit-bednight'];
+  $update_roomnight_null = $_POST['edit-roomnight'];
+  $update_client_null = $_POST['edit-client'];
+  $update_staff_null = $_POST['edit-staff'];
+  $update_area_null = $_POST['edit-area'];
+  $update_note_null = $_POST['edit-note'];
+
+  if( $action === 'edit' ) : $record_type = 'entry_revision'; else : $record_type = 'entry'; endif;
+
+  if( $measure_toggle == 83 ) : // weekly
+
+    $week_start = new DateTime();
+    $week_start->setISODate( $update_measure_year, $update_measure_week );
+    $update_measure_start = $week_start->format('Y-m-d');
+
+  elseif( $measure_toggle == 84 ) : // monthly
+
+    $month_start = $update_measure_year.'-'.$update_measure_month.'-01';
+    $update_measure_start = date( 'Y-m-d', strtotime( $month_start ) );
+
+  else :
+
+    $update_measure_start = date_format( date_create( $update_measure_date), 'Y-m-d' );
+
+  endif;
+
+  if( empty( $update_measure_name_null ) ) : $update_measure_name = NULL; else : $update_measure_name = $update_measure_name_null; endif;
+  if( empty( $update_measure_end_null ) ) : $update_measure_end = NULL; else : $update_measure_end = date_format( date_create( $update_measure_end_null), 'Y-m-d' ); endif;
+  if( empty( $update_bednight_null ) ) : $update_bednight = NULL; else : $update_bednight = $update_bednight_null; endif;
+  if( empty( $update_roomnight_null ) ) : $update_roomnight = NULL; else : $update_roomnight = $update_roomnight_null; endif;
+  if( empty( $update_client_null ) ) : $update_client = NULL; else : $update_client = $update_client_null; endif;
+  if( empty( $update_staff_null ) ) : $update_staff = NULL; else : $update_staff = $update_staff_null; endif;
+  if( empty( $update_area_null ) ) : $update_area = NULL; else : $update_area = $update_area_null; endif;
+  if( empty( $update_note_null ) ) : $update_note = NULL; else : $update_note = $update_note_null; endif;
+  if( empty( $edit_parent_id ) ) : $update_parent_id = 0; else : $update_parent_id = $edit_parent_id; endif;
 
   $wpdb->insert( 'data_measure',
     array(
@@ -312,7 +309,15 @@ if ( isset( $_POST[$update_measure] ) ) :
 
   endif;
 
-  if( empty( $add_url ) ) : $query_string = 'edit='.$edit_url.'&start='.$start.'&end='.$end; else : $query_string = 'add='.$add_url; endif;
+  if( $action === 'edit' ) : 
+    $end = date_format( date_create( $args['end'] ), 'Y-m-d' );
+    $start = date_format( date_create( $args['start'] ), 'Y-m-d' );
+    $query_string = 'action=edit&tag='.$tag_url.'&start='.$start.'&end='.$end;
+    
+  else : 
+    $query_string = 'action=add&tag='.$tag_url;
+  
+  endif;
 
   header( 'Location:'.$site_url.'/'.$slug.'/?'.$query_string );
   ob_end_flush();

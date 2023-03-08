@@ -12,11 +12,14 @@ Footer
 
 *** */
 
-if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/report.php' ) || is_page_template( 'templates/setting.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/stock.php' ) || is_page_template( 'templates/tool.php' )  ): ?>
+if( is_page_template( 'templates/charts.php' ) || is_page_template( 'templates/dashboard.php' ) || is_page_template( 'templates/data.php' ) || is_page_template( 'templates/report.php' ) || is_page_template( 'templates/settings.php' ) || is_page_template( 'templates/standard.php' ) || is_page_template( 'templates/stock.php' ) || is_page_template( 'templates/tool.php' )  ): ?>
 			</article><!-- end article row -->
 		</div><!-- end div col --><?php
 
 		$bg_transparent = 'bg-transparent';
+
+else : 
+	$bg_transparent = '';
 endif; ?>
 
 		</main><!-- end main row -->
